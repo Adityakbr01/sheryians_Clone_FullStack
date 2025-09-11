@@ -1,6 +1,7 @@
 "use client"
 import Section_1 from "./Section/Home/Section_1"
 import Section_2 from "./Section/Home/Section_2"
+import Section_3 from "./Section/Home/Section_3"
 
 function HomePage() {
     return (
@@ -12,9 +13,10 @@ function HomePage() {
             }}
         >
             {/* Content wrapper */}
-            <div className="w-full max-w-7xl h-full flex flex-col mx-auto text-center">
+            <div className="w-full max-w-8xl md:px-8 h-full flex flex-col mx-auto text-center">
                <Section_1/>
                <Section_2/>
+               <Section_3/>
             </div>
         </div>
     )
