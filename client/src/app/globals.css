@@ -139,6 +139,7 @@ body {
   --custom-primary: #1bd1a6;
   --custom-textColor: #E9E9E9;
   --custom-inputColor: #1e1e1e;
+  
   /*  */
   --radius: 0.625rem;
   --background: oklch(1 0 0);

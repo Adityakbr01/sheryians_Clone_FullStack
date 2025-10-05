@@ -42,11 +42,11 @@ function Navbar() {
 
   return (
     <nav
-      className={`flex w-full text-white px-8  fixed z-[1000] left-1/2 -translate-x-1/2 top-0 py-2 md:py-2 mx-auto justify-between items-center transition-transform duration-300 ${visible ? "translate-y-0 " : "md:-translate-y-[20vh]"
+      className={`flex w-full text-white px-8  fixed z-[1000] left-1/2 -translate-x-1/2 top-0 py-2 md:py-4 mx-auto justify-between items-center transition-transform duration-300 ${visible ? "translate-y-0 " : "md:-translate-y-[20vh]"
         } ${scrolled ? "backdrop-blur-[4px]" : ""}`}
     >
       {/* Logo Left */}
-      <div className="flex items-center justify-center gap-3 left">
+      <Link href="/" className="flex items-center justify-center gap-3 left">
         <div className="flex items-center w-9 h-9 md:w-10 md:h-10">
           <Image
             src="/images/sherry_light-logo.webp"
@@ -58,7 +58,7 @@ function Navbar() {
         <h3 className="flex flex-wrap items-center font-NeuMachina leading-5">
           Sheryians <br /> coding school
         </h3>
-      </div>
+      </Link>
 
       {/* Desktop Menu */}
       <div className="hidden right md:flex items-center">
