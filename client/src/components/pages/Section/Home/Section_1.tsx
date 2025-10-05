@@ -5,7 +5,7 @@ import CountUp from 'react-countup'
 
 function Section_1() {
     return (
-        <section className="section1 flex flex-col items-center justify-center gap-6 text-white min-h-screen px-4">
+        <section className="section_1 flex flex-col items-center justify-center gap-6 text-white min-h-screen px-4">
             <div className="top pt-16 md:pt-9"></div>
             <div className="relative flex flex-col items-center gap-6 md:justify-center middle">
                 <h1 className="text-4xl sm:text-5xl md:text-[5.1rem] relative md:leading-[4.5rem] font-extralight font-NeuMachina text-center">
@@ -13,9 +13,9 @@ function Section_1() {
                     what we are really <br />
                     really <span className="font-juana">good </span>
                     at.
-                    <div className="mt-6 md:mt-0 hidden md:absolute md:-right-40 md:-bottom-[3.9rem] md:flex justify-center gap-6">
+                    <div className="mt-6 lg:mt-0 hidden lg:absolute lg:-right-40 lg:-bottom-[3.9rem] lg:flex justify-center gap-6">
                         <div className="w-full max-w-[14rem] p-4">
-                            <p className="text-sm md:text-[0.9rem] text-start font-extralight font-HelveticaNow leading-4">
+                            <p className="text-sm lg:text-[0.9rem] text-start font-extralight font-HelveticaNow leading-4">
                                 Get ready to
                                 <span className="text-[var(--custom-primary)]"> accelerate your career </span>
                                 with customized courses and leave your mark in the tech industry

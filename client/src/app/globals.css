@@ -122,6 +122,8 @@ html,body{
 
 :root {
     --custom-primary: #1bd1a6;
+    --custom-textColor : #E9E9E9;
+    --custom-inputColor : #1e1e1e;
   /*  */
   --radius: 0.625rem;
   --background: oklch(1 0 0);
@@ -205,8 +207,8 @@ html,body{
 
 /* styles/global.css or wherever you include your global CSS */
 .scrollbar-hide {
-  scrollbar-width: none; /* Firefox */
-  -ms-overflow-style: none;  /* Internet Explorer 10+ */
+  scrollbar-width: none; 
+  -ms-overflow-style: none; 
 }
 
 .scrollbar-hide::-webkit-scrollbar {
@@ -216,20 +218,7 @@ html,body{
 
 /* Custom scrollbar for better UX */
 ::-webkit-scrollbar {
-  width: 8px;
-}
-
-::-webkit-scrollbar-track {
-  background: hsl(var(--muted));
-}
-
-::-webkit-scrollbar-thumb {
-  background: hsl(var(--muted-foreground) / 0.3);
-  border-radius: 4px;
-}
-
-::-webkit-scrollbar-thumb:hover {
-  background: hsl(var(--muted-foreground) / 0.5);
+  width: 0px;
 }
 
 

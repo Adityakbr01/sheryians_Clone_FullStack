@@ -1,0 +1,9 @@
+{
+    "editor.fontFamily": "Operator Mono Light,Consolas, 'Courier New', monospace",
+    "editor.formatOnSave": true,
+    "editor.wordWrap": "on",
+    "files.autoSave": "afterDelay",
+    "cSpell.words": [
+        "Sheryians"
+    ]
+}

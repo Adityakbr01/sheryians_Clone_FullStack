@@ -1,6 +1,6 @@
 
-import CourseWrapperDesk from '@/components/HomePage/CourseWrapperDesk';
-import CourseWrapperMobile from '@/components/HomePage/CourseWrapperMobile';
+import CourseWrapperDesk from '@/components/HomePageComponents/CourseWrapperDesk';
+import CourseWrapperMobile from '@/components/HomePageComponents/CourseWrapperMobile';
 import 'swiper/css';
 import 'swiper/css/pagination';
 import { Swiper, SwiperSlide } from 'swiper/react';
@@ -120,7 +120,7 @@ function Section_3() {
                     </Swiper>
                 </div>
                 {/* Grid for larger devices (640px and above) */}
-                <div className="hidden  courses sm:grid grid-cols-2 md:grid-cols-3 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 ">
+                <div className="hidden  courses sm:grid grid-cols-2 md:grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 ">
                     {courses.map((course, idx) => (
                       <CourseWrapperDesk course={course} idx={idx}/>
                     ))}

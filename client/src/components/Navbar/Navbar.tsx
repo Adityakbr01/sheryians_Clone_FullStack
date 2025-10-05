@@ -3,6 +3,7 @@
 import React, { useEffect, useState } from "react";
 import { Squeeze as Hamburger } from "hamburger-react";
 import Image from "next/image";
+import Link from "next/link";
 
 type NavLink = {
   href: string;
@@ -41,9 +42,8 @@ function Navbar() {
 
   return (
     <nav
-      className={`flex w-full text-white max-w-8xl px-8  fixed z-[1000] left-1/2 -translate-x-1/2 top-0 py-2 md:py-4 mx-auto justify-between items-center transition-transform duration-300 ${
-        visible ? "translate-y-0 " : "md:-translate-y-[20vh]"
-      } ${scrolled ? "backdrop-blur-sm" : ""}`}
+      className={`flex w-full text-white px-8  fixed z-[1000] left-1/2 -translate-x-1/2 top-0 py-2 md:py-4 mx-auto justify-between items-center transition-transform duration-300 ${visible ? "translate-y-0 " : "md:-translate-y-[20vh]"
+        } ${scrolled ? "backdrop-blur-sm" : ""}`}
     >
       {/* Logo Left */}
       <div className="flex items-center justify-center gap-3 left">
@@ -62,20 +62,20 @@ function Navbar() {
 
       {/* Desktop Menu */}
       <div className="hidden right md:flex items-center">
-        <ul className="flex items-center gap-10 text-sm font-light font-NeuMachina">
+        <ul className="flex items-center md:gap-6 lg:gap-10 text-sm font-light font-NeuMachina">
           {Links.map((link, idx) => (
-            <li
+            <Link
+              href={link.href}
               key={idx}
-              className={`cursor-pointer ${
-                link.bgColor ? "px-5 py-1 font-medium text-base rounded-sm shine font-HelveticaNow" : ""
-              } ${link.textColor && "font-bold"} ${link.className || ""}`}
+              className={`cursor-pointer ${link.bgColor ? "px-5 py-1 font-medium text-base rounded-sm shine font-HelveticaNow" : ""
+                } ${link.textColor && "font-bold"} ${link.className || ""}`}
               style={{
                 background: link.bgColor,
                 color: link.textColor || "inherit",
               }}
             >
               {link.value}
-            </li>
+            </Link>
           ))}
         </ul>
       </div>
@@ -90,9 +90,8 @@ function Navbar() {
 
       {/* Mobile Menu */}
       <div
-        className={`absolute md:hidden ${
-          isOpen ? "right-0" : "right-[-100%]"
-        } w-full h-screen bg-[#0C0C0C] text-white top-0 transition-all duration-300 ease-in-out`}
+        className={`absolute md:hidden ${isOpen ? "right-0" : "right-[-100%]"
+          } w-full h-screen bg-[#0C0C0C] text-white top-0 transition-all duration-300 ease-in-out`}
       >
         <div className="w-full p-6 border-b border-white flex justify-between items-center">
           <h1 className="text-2xl font-NeuMachina">Menu</h1>
@@ -102,7 +101,7 @@ function Navbar() {
             <li
               key={idx}
               className={`cursor-pointer ${link.className || ""}`}
-              style={{ color: link.textColor || "white" }}
+              style={{ color: Links.length - 1 === idx ? "white" : link.textColor || "white" }}
             >
               {link.value}
             </li>

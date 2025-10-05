@@ -13,7 +13,7 @@ function HomePage() {
             }}
         >
             {/* Content wrapper */}
-            <div className="w-full max-w-8xl md:px-8 h-full flex flex-col mx-auto text-center">
+            <div className="w-full h-full flex flex-col text-center">
                <Section_1/>
                <Section_2/>
                <Section_3/>

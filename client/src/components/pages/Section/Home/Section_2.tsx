@@ -19,7 +19,7 @@ function Section_2() {
 
       {/* Middle Video Placeholder */}
       <div className="middle w-full flex justify-center">
-        <div className="video-container w-full md:w-[80%] rounded-2xl overflow-hidden aspect-video relative">
+        <div className="video-container w-full md:w-[100%] lg:w-[74%] rounded-2xl overflow-hidden aspect-video relative">
           <iframe
             className="absolute top-0 left-0 w-full h-full"
             src="https://www.youtube-nocookie.com/embed/60SRAWmMXyc"
