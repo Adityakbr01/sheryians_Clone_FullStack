@@ -6,7 +6,7 @@ import CountUp from 'react-countup'
 function Section_1() {
     return (
         <section className="section_1 flex flex-col items-center justify-center gap-6 text-white min-h-screen px-4">
-            <div className="top pt-16 md:pt-9"></div>
+            <div className="top pt-16 md:pt-9 hidden lg:block"></div>
             <div className="relative flex flex-col items-center gap-6 md:justify-center middle">
                 <h1 className="text-4xl sm:text-5xl md:text-[5.1rem] relative md:leading-[4.5rem] font-extralight font-NeuMachina text-center">
                     We only <span className="text-[var(--custom-primary)]">teach</span> <br />

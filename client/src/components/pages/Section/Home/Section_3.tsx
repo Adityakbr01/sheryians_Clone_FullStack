@@ -5,7 +5,23 @@ import 'swiper/css';
 import 'swiper/css/pagination';
 import { Swiper, SwiperSlide } from 'swiper/react';
 
-const courses = [
+
+export interface Icourse {
+    title: string;
+    link: string;
+    subTag: string;
+    image: string;
+    language: string;
+    type: string;
+    offer?: string;
+    price: string;
+    gst?: string;
+    originalPrice: string;
+    discount: string;
+    description?: string;
+}
+
+const courses: Icourse[] = [
     {
         title: "2.0 Job Ready AI Powered Cohort: Web + DSA + Aptitude",
         link: "/courses/courses-details/2.0 Job Ready AI Powered Cohort: Web + DSA + Aptitude",
@@ -97,14 +113,15 @@ const courses = [
 
 function Section_3() {
     return (
-        <div className="flex flex-col h-full w-full text-white py-12 px-4">
+        <div className="flex flex-col w-full text-white py-12 px-4">
             <div className="top mb-8">
                 <h1 className="font-NeuMachina text-start text-3xl sm:text-4xl md:text-5xl">
                     <span>Courses Offered.</span>
                 </h1>
             </div>
+
             <div className="bottom">
-                {/* Mobile Slider (below 640px) */}
+                {/* Mobile Slider */}
                 <div className="block sm:hidden">
                     <Swiper
                         className="courses w-full"
@@ -114,15 +131,16 @@ function Section_3() {
                     >
                         {courses.map((course, idx) => (
                             <SwiperSlide key={idx}>
-                              <CourseWrapperMobile course={course} idx={idx}/>
+                                <CourseWrapperMobile course={course} idx={idx} />
                             </SwiperSlide>
                         ))}
                     </Swiper>
                 </div>
-                {/* Grid for larger devices (640px and above) */}
-                <div className="hidden  courses sm:grid grid-cols-2 md:grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 ">
+
+                {/* Grid for larger devices */}
+                <div className="hidden sm:grid grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
                     {courses.map((course, idx) => (
-                      <CourseWrapperDesk course={course} idx={idx}/>
+                        <CourseWrapperDesk key={idx} course={course} idx={idx} />
                     ))}
                 </div>
             </div>

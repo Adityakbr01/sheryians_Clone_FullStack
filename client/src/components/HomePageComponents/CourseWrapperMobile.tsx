@@ -5,11 +5,12 @@ import Image from 'next/image';
 import Link from 'next/link';
 import 'swiper/css';
 import 'swiper/css/pagination';
+import { Icourse } from '../pages/Section/Home/Section_3';
 
 
-function CourseWrapperMobile({ course, idx }: { course: any, idx: any }) {
+function CourseWrapperMobile({ course, idx }: { course: Icourse, idx: number }) {
     return (
-        <div className="course-wrapper px-2">
+        <div className="course-wrapper px-2" key={idx}>
             <Card className="flex flex-col py-0 bg-[#1a1a1a] border-none text-white min-h-[400px] max-h-[500px] w-full max-w-[400px] mx-auto">
                 <div className="relative w-full h-48">
                     <Image

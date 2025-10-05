@@ -1,8 +1,6 @@
 "use client"
-import React from "react"
-import Link from "next/link"
-import { FcGoogle } from "react-icons/fc"
 import { UserPlus } from "lucide-react"
+import Link from "next/link"
 import GoogleStrategie from "../GoogleStrategie"
 
 function AuthStrategies({ isSignupPage }: { isSignupPage: boolean }) {

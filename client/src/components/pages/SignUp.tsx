@@ -1,10 +1,9 @@
 "use client"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import Link from "next/link";
 import AuthStrategies from "../AuthPageComponents/AuthStrategies/AuthStrategies";
 import EmailSignInForm from "../AuthPageComponents/signIn/EmailSignInForm";
 import PhoneSignUpForm from "../AuthPageComponents/signup/PhoneSignUpForm";
-import Link from "next/link";
-import { useState } from "react";
 
 const tabs = [
     {
@@ -24,7 +23,7 @@ const tabs = [
 ];
 
 function SignUp() {
-    const [currentStep, setCurrentStep] = useState(1);
+    // const [currentStep, setCurrentStep] = useState(1);
 
     return (
         <div className="form-container flex flex-col items-center md:justify-between justify-center w-full gap-8 py-8 p-6">

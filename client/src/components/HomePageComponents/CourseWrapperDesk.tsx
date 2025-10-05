@@ -5,9 +5,10 @@ import Image from 'next/image';
 import Link from 'next/link';
 import 'swiper/css';
 import 'swiper/css/pagination';
+import { Icourse } from '../pages/Section/Home/Section_3';
 
 
-function CourseWrapperDesk({ course, idx }: { course: any, idx: any }) {
+function CourseWrapperDesk({ course, idx }: { course: Icourse, idx: number }) {
     return (
         <div key={idx} className="course-wrapper px-3 mb-5">
             <Link href={course.link}>
