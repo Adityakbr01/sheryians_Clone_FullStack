@@ -42,8 +42,8 @@ function Navbar() {
 
   return (
     <nav
-      className={`flex w-full text-white px-8  fixed z-[1000] left-1/2 -translate-x-1/2 top-0 py-2 md:py-4 mx-auto justify-between items-center transition-transform duration-300 ${visible ? "translate-y-0 " : "md:-translate-y-[20vh]"
-        } ${scrolled ? "backdrop-blur-sm" : ""}`}
+      className={`flex w-full text-white px-8  fixed z-[1000] left-1/2 -translate-x-1/2 top-0 py-2 md:py-2 mx-auto justify-between items-center transition-transform duration-300 ${visible ? "translate-y-0 " : "md:-translate-y-[20vh]"
+        } ${scrolled ? "backdrop-blur-[4px]" : ""}`}
     >
       {/* Logo Left */}
       <div className="flex items-center justify-center gap-3 left">
@@ -98,13 +98,15 @@ function Navbar() {
         </div>
         <ul className="flex flex-col items-start gap-6 p-8 text-2xl font-light text-white opacity-70 font-NeuMachina">
           {Links.map((link, idx) => (
-            <li
+            <Link
+              href={link.href}
               key={idx}
+              onClick={() => setOpen(false)}
               className={`cursor-pointer ${link.className || ""}`}
               style={{ color: Links.length - 1 === idx ? "white" : link.textColor || "white" }}
             >
               {link.value}
-            </li>
+            </Link>
           ))}
         </ul>
       </div>

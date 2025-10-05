@@ -14,7 +14,6 @@ function PhoneSignInForm() {
 
   useEffect(() => {
     if (phone.length === 10) {
-      // Validate using zod
       const validation = phoneSchema.safeParse(phone)
       if (!validation.success) {
         setError(validation.error.issues[0].message)
@@ -25,7 +24,7 @@ function PhoneSignInForm() {
       // Debounce API call
       const handler = setTimeout(() => {
         handleApiCall(phone)
-      }, 500) // 500ms debounce
+      }, 500)
 
       return () => clearTimeout(handler)
     }
@@ -34,7 +33,6 @@ function PhoneSignInForm() {
   const handleApiCall = async (phone: string) => {
     try {
       console.log("📞 API call with phone:", phone)
-      // Example API call (replace with real API)
       const res = await fetch("/api/auth/phone", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -48,7 +46,7 @@ function PhoneSignInForm() {
   }
 
   return (
-    <div className="mt-4 space-y-1">
+    <div className="mt-4 space-y-1 w-full flex flex-col">
       <Label
         htmlFor="phone"
         className="text-[#a6a6a6] text-[12px] font-HelveticaNow font-medium"
@@ -61,13 +59,10 @@ function PhoneSignInForm() {
         type="text"
         value={phone}
         onChange={(e) => setPhone(e.target.value)}
-        className={`border-b py-[0.30rem] w-full outline-none rounded-sm px-4 bg-[#1e1e1e] font-light placeholder:text-[12px] ${
-          error ? "border-red-500" : "border-[#3c3c3c]"
-        }`}
+        className={`border-b py-[0.30rem] w-full outline-none rounded-sm px-4 sm:px-2 bg-[#1e1e1e] font-light placeholder:text-[12px] ${error ? "border-red-500" : "border-[#3c3c3c]"
+          }`}
       />
-      {error && (
-        <p className="text-red-500 text-xs mt-1">{error}</p>
-      )}
+      {error && <p className="text-red-500 text-xs mt-1">{error}</p>}
     </div>
   )
 }

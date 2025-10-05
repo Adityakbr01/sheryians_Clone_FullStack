@@ -1,9 +1,9 @@
 "use client"
 import React, { useState } from "react"
 import { Label } from "@/components/ui/label"
-import { Button } from "../ui/button"
 import { Eye, EyeOff, Loader2 } from "lucide-react"
 import { z } from "zod"
+import { Button } from "@/components/ui/button"
 
 // Zod schema
 const emailSchema = z.object({
@@ -105,7 +105,7 @@ function EmailSignInForm() {
           onClick={handleSubmit}
           className="text-[12px] px-3 py-1 h-fit w-fit rounded-full border border-[#3c3c3c] bg-[var(--custom-primary)] hover:bg-[var(--custom-primary)] cursor-pointer text-black"
         >
-          {loading ? <Loader2  className="animate-spin h-4 w-4"/> : "Continue"}
+          {loading ? <Loader2 className="animate-spin h-4 w-4" /> : "Continue"}
         </Button>
       </div>
     </div>

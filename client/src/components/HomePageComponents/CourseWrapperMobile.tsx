@@ -10,7 +10,7 @@ import 'swiper/css/pagination';
 function CourseWrapperMobile({ course, idx }: { course: any, idx: any }) {
     return (
         <div className="course-wrapper px-2">
-            <Card className="flex flex-col py-0 bg-[#1a1a1a] border-none text-white min-h-[500px] max-h-[500px] w-full max-w-[400px] mx-auto">
+            <Card className="flex flex-col py-0 bg-[#1a1a1a] border-none text-white min-h-[400px] max-h-[500px] w-full max-w-[400px] mx-auto">
                 <div className="relative w-full h-48">
                     <Image
                         src={course.image}

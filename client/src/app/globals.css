@@ -7,24 +7,28 @@
   font-weight: 700;
   font-display: swap;
 }
+
 @font-face {
   font-family: "NeuMachina";
   src: url("/fonts/NeueMachina-Medium.ttf") format("truetype");
   font-weight: 500;
   font-display: swap;
 }
+
 @font-face {
   font-family: "NeuMachina";
   src: url("/fonts/NeueMachina-Regular.ttf") format("truetype");
   font-weight: 400;
   font-display: swap;
 }
+
 @font-face {
   font-family: "NeuMachina";
   src: url("/fonts/NeueMachina-Light.ttf") format("truetype");
   font-weight: 300;
   font-display: swap;
 }
+
 /* juana font */
 @font-face {
   font-family: "juana";
@@ -40,18 +44,21 @@
   font-weight: 700;
   font-display: swap;
 }
+
 @font-face {
   font-family: "HelveticaNow";
   src: url("/fonts/HelveticaNowDisplay-Medium.woff2") format("woff2");
   font-weight: 500;
   font-display: swap;
 }
+
 @font-face {
   font-family: "HelveticaNow";
   src: url("/fonts/HelveticaNowDisplay-Regular.woff2") format("woff2");
   font-weight: 400;
   font-display: swap;
 }
+
 @font-face {
   font-family: "HelveticaNow";
   src: url("/fonts/HelveticaNowDisplay-Light.woff2") format("woff2");
@@ -73,11 +80,19 @@
 @custom-variant dark (&:is(.dark *));
 
 
-html,body{
+html,
+body {
   background: #0C0C0C;
-  overflow-x: hidden;
-  height: 100%;
-  width: 100%;
+  height: auto;
+  overflow: auto;
+  scroll-behavior: smooth;
+
+}
+
+
+body {
+  overflow-x: hidden !important;
+  overflow-y: auto !important;
 }
 
 @theme inline {
@@ -121,9 +136,9 @@ html,body{
 }
 
 :root {
-    --custom-primary: #1bd1a6;
-    --custom-textColor : #E9E9E9;
-    --custom-inputColor : #1e1e1e;
+  --custom-primary: #1bd1a6;
+  --custom-textColor: #E9E9E9;
+  --custom-inputColor: #1e1e1e;
   /*  */
   --radius: 0.625rem;
   --background: oklch(1 0 0);
@@ -197,6 +212,7 @@ html,body{
   * {
     @apply border-border outline-ring/50;
   }
+
   body {
     @apply bg-background text-foreground;
   }
@@ -207,12 +223,13 @@ html,body{
 
 /* styles/global.css or wherever you include your global CSS */
 .scrollbar-hide {
-  scrollbar-width: none; 
-  -ms-overflow-style: none; 
+  scrollbar-width: none;
+  -ms-overflow-style: none;
 }
 
 .scrollbar-hide::-webkit-scrollbar {
-  display: none; /* Chrome, Safari, Opera */
+  display: none;
+  /* Chrome, Safari, Opera */
 }
 
 
@@ -222,36 +239,74 @@ html,body{
 }
 
 
+.animate-shake-with-pause {
+  animation: shakeWithPause 3s ease-in-out infinite;
+}
+
+@keyframes shakeWithPause {
+  0% {
+    transform: translateX(0);
+  }
+
+  8.33% {
+    transform: translateX(-5px);
+  }
+
+  /* 0.25s / 3s = 8.33% */
+  16.67% {
+    transform: translateX(5px);
+  }
+
+  /* 0.5s / 3s = 16.67% */
+  24.99% {
+    transform: translateX(-5px);
+  }
+
+  33.33% {
+    transform: translateX(0);
+  }
+
+  100% {
+    transform: translateX(0);
+  }
+
+  /* Pause for remaining 2.5s */
+}
+
+@media (max-width: 640px) {
   .animate-shake-with-pause {
     animation: shakeWithPause 3s ease-in-out infinite;
   }
 
   @keyframes shakeWithPause {
-    0% { transform: translateX(0); }
-    8.33% { transform: translateX(-5px); } /* 0.25s / 3s = 8.33% */
-    16.67% { transform: translateX(5px); } /* 0.5s / 3s = 16.67% */
-    24.99% { transform: translateX(-5px); }
-    33.33% { transform: translateX(0); }
-    100% { transform: translateX(0); } /* Pause for remaining 2.5s */
-  }
-
-  @media (max-width: 640px) {
-    .animate-shake-with-pause {
-      animation: shakeWithPause 3s ease-in-out infinite;
+    0% {
+      transform: translateX(0);
     }
 
-    @keyframes shakeWithPause {
-      0% { transform: translateX(0); }
-      8.33% { transform: translateX(-3px); }
-      16.67% { transform: translateX(3px); }
-      24.99% { transform: translateX(-3px); }
-      33.33% { transform: translateX(0); }
-      100% { transform: translateX(0); }
+    8.33% {
+      transform: translateX(-3px);
     }
-  }
 
-  @media (prefers-reduced-motion: reduce) {
-    .animate-shake-with-pause {
-      animation: none;
+    16.67% {
+      transform: translateX(3px);
+    }
+
+    24.99% {
+      transform: translateX(-3px);
+    }
+
+    33.33% {
+      transform: translateX(0);
+    }
+
+    100% {
+      transform: translateX(0);
     }
   }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-shake-with-pause {
+    animation: none;
+  }
+}
