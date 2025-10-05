@@ -125,12 +125,12 @@ function Section_3() {
                 <div className="block sm:hidden">
                     <Swiper
                         className="courses w-full"
-                        slidesPerView={1}
+                        slidesPerView={1.05}
                         spaceBetween={1}
                         pagination={{ clickable: true }}
                     >
                         {courses.map((course, idx) => (
-                            <SwiperSlide key={idx}>
+                            <SwiperSlide key={idx} >
                                 <CourseWrapperMobile course={course} idx={idx} />
                             </SwiperSlide>
                         ))}
