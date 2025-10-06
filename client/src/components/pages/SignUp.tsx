@@ -2,9 +2,8 @@
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import Link from "next/link";
 import AuthStrategies from "../AuthPageComponents/AuthStrategies/AuthStrategies";
-import EmailSignInForm from "../AuthPageComponents/signIn/EmailSignInForm";
-import PhoneSignUpForm from "../AuthPageComponents/signup/PhoneSignUpForm";
 import EmailSignUpForm from "../AuthPageComponents/signup/EmailSignUpForm";
+import PhoneSignUpForm from "../AuthPageComponents/signup/PhoneSignUpForm";
 
 const tabs = [
     {

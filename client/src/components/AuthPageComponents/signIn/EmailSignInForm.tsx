@@ -4,6 +4,8 @@ import { Label } from "@/components/ui/label"
 import { Eye, EyeOff, Loader2 } from "lucide-react"
 import { z } from "zod"
 import { Button } from "@/components/ui/button"
+import { useLogin } from "@/hooks/TanStack/mutations/useLogin"
+import { useRouter } from "next/navigation"
 
 // Zod schema
 const emailSchema = z.object({
@@ -18,36 +20,33 @@ function EmailSignInForm() {
   const [errors, setErrors] = useState<{ email?: string; password?: string }>({})
   const [loading, setLoading] = useState(false)
 
+  const loginMutation = useLogin();
+  const router = useRouter();
+
   const handleSubmit = async () => {
-    // ✅ Validate with Zod
-    const result = emailSchema.safeParse({ email, password })
+    const result = emailSchema.safeParse({ email, password });
     if (!result.success) {
-      const fieldErrors: { email?: string; password?: string } = {}
+      const fieldErrors: { email?: string; password?: string } = {};
       result.error.issues.forEach((err) => {
-        if (err.path[0] === "email") fieldErrors.email = err.message
-        if (err.path[0] === "password") fieldErrors.password = err.message
-      })
-      setErrors(fieldErrors)
-      return
+        if (err.path[0] === "email") fieldErrors.email = err.message;
+        if (err.path[0] === "password") fieldErrors.password = err.message;
+      });
+      setErrors(fieldErrors);
+      return;
     }
-    setErrors({})
+
+    setErrors({});
+    setLoading(true);
 
     try {
-      setLoading(true)
-      // ✅ API call
-      const res = await fetch("/api/auth/email", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email, password }),
-      })
-      const data = await res.json()
-      console.log("✅ API Response:", data)
+      await loginMutation.mutateAsync({ email, password });
+      router.push("/"); // Or your post-login page
     } catch (error) {
-      console.error("❌ API Error:", error)
+      // Error is handled in mutation's onError
     } finally {
-      setLoading(false)
+      setLoading(false);
     }
-  }
+  };
 
   return (
     <div className="space-y-3">

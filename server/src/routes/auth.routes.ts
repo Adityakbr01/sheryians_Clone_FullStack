@@ -36,16 +36,18 @@ router.post('/register/personal', validateRequest(personalInfoSchema), authContr
 // @desc    Login user and set tokens
 router.post('/login', validateRequest(loginSchema), authController.login);
 
+
+// @route   POST /refresh-token
+// @desc    Refresh access token using refresh token
+router.post('/refresh-token', authController.refreshToken);
+
+
 // 🔐 Protected Routes
 router.use(protect);
 
 // @route   POST /logout
 // @desc    Logout user and clear cookies
 router.post('/logout', authController.logout);
-
-// @route   POST /refresh-token
-// @desc    Refresh access token using refresh token
-router.post('/refresh-token', authController.refreshToken);
 
 // @route   GET /profile
 // @desc    Get user profile

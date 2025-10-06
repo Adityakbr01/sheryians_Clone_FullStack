@@ -6,6 +6,13 @@ import { z } from "zod";
 import OtpStep from "./OtpStep";
 import PersonalStep from "./PersonalStep";
 import EmailStep from "./EmailStep";
+import { useRegister } from "@/hooks/TanStack/mutations/useRegister";
+import { useVerifyOtp } from "@/hooks/TanStack/mutations/useVerifyOtp";
+import { useResendOtp } from "@/hooks/TanStack/mutations/useResendOtp";
+import { usePersonalInfo } from "@/hooks/TanStack/mutations/usePersonalInfo";
+import toast from "react-hot-toast";
+import { redirect } from "next/dist/server/api-utils";
+import { useRouter } from "next/navigation";
 
 // Zod schemas
 const emailSchema = z.object({
@@ -28,13 +35,20 @@ export type PersonalFormData = z.infer<typeof personalSchema>;
 
 
 function EmailSignUpForm() {
+    const router = useRouter(); // Add this line
     const [showPassword, setShowPassword] = useState(false);
     const [email, setEmail] = useState("");
-    const [step, setStep] = useState(3); // 1 = email/password, 2 = OTP, 3 = personal info
+    const [step, setStep] = useState(1); // 1 = email/password, 2 = OTP, 3 = personal info
     const [loading, setLoading] = useState(false);
     const [resendLoading, setResendLoading] = useState(false);
     const [resendMessage, setResendMessage] = useState("");
     const otpInputRef = useRef<HTMLInputElement>(null);
+
+    const registerMutation = useRegister();
+    const verifyOtpMutation = useVerifyOtp();
+    const resendOtpMutation = useResendOtp();
+    const personalInfoMutation = usePersonalInfo();
+
 
     // Persist step
     useEffect(() => {
@@ -68,28 +82,18 @@ function EmailSignUpForm() {
 
     const onEmailSubmit = async (data: EmailFormData) => {
         setEmail(data.email);
+        registerMutation.mutate(data, {
+            onSuccess: () => {
+                setStep(2); // Go to OTP step
+            },
+            onError: (error: any) => {
+                emailForm.setError("root", {
+                    message: error?.response?.data?.message || "Something went wrong",
+                });
+            },
+            onSettled: () => setLoading(false),
+        });
         setLoading(true);
-
-        try {
-            const res = await fetch("/api/auth/email", {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify(data),
-            });
-            const apiData = await res.json();
-            console.log("✅ API Response:", apiData);
-
-            if (res.ok) {
-                setStep(2);
-            } else {
-                emailForm.setError("root", { message: apiData.message || "Authentication failed" });
-            }
-        } catch (error) {
-            console.error("❌ API Error:", error);
-            emailForm.setError("root", { message: "An error occurred. Please try again." });
-        } finally {
-            setLoading(false);
-        }
     };
 
     // Step 2: OTP Form
@@ -100,55 +104,41 @@ function EmailSignUpForm() {
 
     const onOtpSubmit = async (data: OtpFormData) => {
         setLoading(true);
-
-        try {
-            const res = await fetch("/api/auth/verify-otp", {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ email, otp: data.otp }),
-            });
-            const apiData = await res.json();
-            console.log("✅ OTP Response:", apiData);
-
-            if (res.ok) {
-                setStep(3);
-            } else {
-                otpForm.setError("otp", { message: apiData.message || "Invalid OTP" });
+        verifyOtpMutation.mutate(
+            { email, otp: data.otp },
+            {
+                onSuccess: () => {
+                    setStep(3); // Go to personal info
+                },
+                onError: (error: any) => {
+                    otpForm.setError("otp", {
+                        message: error?.response?.data?.message || "Invalid OTP",
+                    });
+                },
+                onSettled: () => setLoading(false),
             }
-        } catch (error) {
-            console.error("❌ OTP Error:", error);
-            otpForm.setError("otp", { message: "Verification failed. Please try again." });
-        } finally {
-            setLoading(false);
-        }
+        );
     };
+
 
     const handleResendOtp = async () => {
         setResendLoading(true);
         setResendMessage("");
 
-        try {
-            const res = await fetch("/api/auth/resend-otp", {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ email }),
-            });
-            const apiData = await res.json();
-            console.log("✅ Resend Response:", apiData);
-
-            if (res.ok) {
-                setResendMessage(`OTP resent to ${email}`);
-                otpForm.reset();
-            } else {
-                otpForm.setError("otp", { message: apiData.message || "Failed to resend OTP" });
+        resendOtpMutation.mutate(
+            { email },
+            {
+                onSuccess: (data) => {
+                    setResendMessage(data.message || "OTP sent successfully");
+                },
+                onError: (err: any) => {
+                    setResendMessage(err?.response?.data?.message || "Failed to resend OTP");
+                },
+                onSettled: () => setResendLoading(false),
             }
-        } catch (error) {
-            console.error("❌ Resend Error:", error);
-            otpForm.setError("otp", { message: "Failed to resend OTP. Please try again." });
-        } finally {
-            setResendLoading(false);
-        }
+        );
     };
+
 
     // Step 3: Personal Info Form
     const personalForm = useForm<PersonalFormData>({
@@ -158,36 +148,30 @@ function EmailSignUpForm() {
 
     const onPersonalSubmit = async (data: PersonalFormData) => {
         setLoading(true);
-
-        try {
-            const res = await fetch("/api/auth/personal", {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ email, ...data }),
-            });
-            const apiData = await res.json();
-            console.log("✅ Personal Info Response:", apiData);
-
-            if (res.ok) {
-                console.log("Sign up completed successfully!");
-                // Reset forms and clear storage
-                emailForm.reset();
-                otpForm.reset();
-                personalForm.reset();
-                setEmail("");
-                setStep(1);
-                localStorage.removeItem("authStep");
-                localStorage.removeItem("authEmail");
-            } else {
-                personalForm.setError("root", { message: apiData.message || "Failed to save personal info" });
+        personalInfoMutation.mutate(
+            { email, ...data },
+            {
+                onSuccess: () => {
+                    // Cleanup
+                    emailForm.reset();
+                    otpForm.reset();
+                    personalForm.reset();
+                    setEmail("");
+                    setStep(1);
+                    localStorage.removeItem("authStep");
+                    localStorage.removeItem("authEmail");
+                    router.push("/signin");
+                },
+                onError: (err: any) => {
+                    personalForm.setError("root", {
+                        message: err?.response?.data?.message || "Failed to save personal info",
+                    });
+                },
+                onSettled: () => setLoading(false),
             }
-        } catch (error) {
-            console.error("❌ Personal Info Error:", error);
-            personalForm.setError("root", { message: "An error occurred. Please try again." });
-        } finally {
-            setLoading(false);
-        }
+        );
     };
+
 
     const handleBack = () => {
         if (step === 2) {

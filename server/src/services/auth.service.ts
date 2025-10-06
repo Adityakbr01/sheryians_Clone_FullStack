@@ -17,7 +17,6 @@ const authService = {
         }
 
         const otp = generateOtp();
-        logger.info(otp)
         const otpHash = await bcrypt.hash(otp, 10);
 
         await User.create({
@@ -85,12 +84,25 @@ const authService = {
             throw new ApiError(404, "User not found");
         }
 
-        const existingUser = await User.findOne({ $or: [{ username: name }, { phone }] });
-        if (existingUser) {
-            throw new ApiError(400, "Username or phone already exists");
+        // Check if username is taken by another user
+        const usernameTaken = await User.findOne({ username: name, _id: { $ne: user._id } });
+        if (usernameTaken) {
+            throw new ApiError(400, "Username already taken");
         }
+
+        // Check if phone is taken by another user (if you're saving phone on user)
+        const phoneTaken = await User.findOne({ phone, _id: { $ne: user._id } });
+        if (phoneTaken) {
+            throw new ApiError(400, "Phone number already in use");
+        }
+
+        name = name.trim();
+        phone = phone.trim();
+
+        // Update fields
         user.username = name;
         user.phone = phone;
+
         await user.save();
 
         return {
@@ -100,7 +112,7 @@ const authService = {
                 name: user.username,
                 phone: user.phone,
             },
-        }
+        };
     },
     login: async (email: string, password: string) => {
         const user = await User.findOne({ email }).select("+password");

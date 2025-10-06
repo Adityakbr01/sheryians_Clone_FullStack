@@ -15,8 +15,11 @@ import {
 } from "@/components/ui/select";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
+import { useLogout } from "@/hooks/TanStack/mutations/useLogout";
 
 export default function AccountCenterSection() {
+    const logoutMutation = useLogout();
+
     const [activeTab, setActiveTab] = useState("personal");
     const [user, setUser] = useState({
         name: "ADITYA KBR",
@@ -168,7 +171,8 @@ export default function AccountCenterSection() {
 
                         {/* Logout */}
                         <div className="pt-4 flex justify-center sm:justify-end">
-                            <Button asChild variant="destructive" className="w-full sm:w-auto">
+                            <Button onClick={() => logoutMutation.mutate()}
+                                disabled={logoutMutation.isPending} asChild variant="destructive" className="w-full sm:w-auto">
                                 <Link href="/signin/bye" className="flex items-center gap-2">
                                     <span>Logout</span> <LogOut size={16} />
                                 </Link>

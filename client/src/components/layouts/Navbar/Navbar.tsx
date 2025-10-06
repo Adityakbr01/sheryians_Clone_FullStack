@@ -4,6 +4,7 @@ import React, { useEffect, useState } from "react";
 import { Squeeze as Hamburger } from "hamburger-react";
 import Image from "next/image";
 import Link from "next/link";
+import { useAuthStore } from "@/store/auth";
 
 type NavLink = {
   href: string;
@@ -22,6 +23,9 @@ const Links: NavLink[] = [
 ];
 
 function Navbar() {
+  const user = useAuthStore((state) => state.user);
+  console.log(user)
+
   const [isOpen, setOpen] = useState<boolean>(false);
   const [prevScrollPos, setPrevScrollPos] = useState<number>(0);
   const [visible, setVisible] = useState<boolean>(true);
