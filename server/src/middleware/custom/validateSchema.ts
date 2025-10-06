@@ -1,33 +1,39 @@
-// middlewares/validate.ts
-import { Request, Response, NextFunction } from "express";
-import { z } from "zod";
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import type { NextFunction, Request, RequestHandler, Response } from "express";
+import { ZodError, ZodType } from "zod";
 
-export const validate =
-  (schemas: {
-    body?: z.ZodObject<any>;
-    query?: z.ZodObject<any>;
-    params?: z.ZodObject<any>;
-  }) =>
-  async (req: Request, res: Response, next: NextFunction) => {
+import { ApiError } from "@/utils/ApiError";
+
+export const validateRequest = (
+  schema: ZodType<any, any, any>
+): RequestHandler => {
+  return (req: Request, _res: Response, next: NextFunction): void => {
     try {
-      if (schemas.body) {
-        res.locals.validatedBody = await schemas.body.parseAsync(req.body);
+      const requestData = {
+        ...req.body,
+        ...((req as any).files || {}),
+        ...req.query
+      };
+
+      if (!requestData || Object.keys(requestData).length === 0) {
+        // Throw error to be handled by global handler
+        throw new ApiError(400, "Request body is missing");
       }
-      if (schemas.query) {
-        // Don't overwrite req.query, use res.locals instead
-        res.locals.validatedQuery = await schemas.query.parseAsync(req.query);
+
+      const parsedData = schema.parse(requestData);
+
+      // Attach parsed data to req for controller
+      req.body = parsedData;
+
+      next();
+    } catch (err: unknown) {
+      if (err instanceof ZodError) {
+        next(err);
+      } else if (err instanceof ApiError) {
+        next(err); // Already an ApiError, forward as is
+      } else {
+        next(new ApiError(400, "Unexpected error during validation"));
       }
-      if (schemas.params) {
-        // Don't overwrite req.params, use res.locals instead
-        res.locals.validatedParams = await schemas.params.parseAsync(
-          req.params
-        );
-      }
-      return next();
-    } catch (error) {
-      return next(error);
     }
   };
-
-
-  // todo check this middleware work as well or not
+};

@@ -2,6 +2,7 @@ import mongoose, { Schema } from "mongoose";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 import { IUser } from "../../types/models/Users/user";
+import _config from "@/config";
 
 // ----------------------
 // Schema Definition
@@ -11,7 +12,7 @@ const userSchema = new Schema<IUser>(
   {
     username: {
       type: String,
-      required: [true, "Username is required"],
+      required: false,
       unique: true,
       lowercase: true,
       trim: true,
@@ -76,6 +77,18 @@ const userSchema = new Schema<IUser>(
     isEmailVerified: {
       type: Boolean,
       default: false,
+    },
+
+    isVerified: {
+      type: Boolean,
+      default: false,
+    },
+
+    phone: {
+      type: String,
+      required: false,
+      unique: true,
+      trim: true,
     },
 
     otp: {
@@ -155,7 +168,7 @@ userSchema.methods.comparePassword = async function (
 userSchema.methods.generateAccessToken = function (): string {
   return jwt.sign(
     { id: this._id, role: this.role },
-    "aaaa",
+    _config.ENV.JWT_SECRET as string,
     { expiresIn: "15m" }
   );
 };
@@ -163,7 +176,7 @@ userSchema.methods.generateAccessToken = function (): string {
 userSchema.methods.generateRefreshToken = function (): string {
   return jwt.sign(
     { id: this._id },
-    "aaaa" as string,
+    _config.ENV.JWT_SECRET as string,
     { expiresIn: "7d" }
   );
 };

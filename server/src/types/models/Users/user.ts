@@ -20,7 +20,7 @@ export type OccupationType =
   | "freelancer";
 
 export interface IUser extends Document {
-  username: string;
+  username?: string;
   email: string;
   providers: UserProvider[];
   password?: string; // optional for non-local providers
@@ -34,6 +34,8 @@ export interface IUser extends Document {
   refreshToken?: string;
   enrolledCourses: IEnrolledCourse[];
   isBanned: boolean;
+  isVerified: boolean;
+  phone?: string;
   lastLogin?: Date;
   bio?: string;
   socialLinks: ISocialLinks;

@@ -1,14 +1,45 @@
-import dotenv from "dotenv"
-dotenv.config()
+import dotenv from "dotenv";
+import { z } from "zod";
 
-const _config = {
-    ENV: {
-        PORT: process.env.PORT,
-        MONGO_URI: process.env.MONGO_URI,
-        CLIENT_URL: process.env.CLIENT_URL,
-        JWT_SECRET: process.env.JWT_SECRET,
-        NODE_ENV: process.env.NODE_ENV
-    }
+dotenv.config();
+
+// 1️⃣ Define the Zod schema for your env variables
+const envSchema = z.object({
+    PORT: z
+        .string()
+        .transform((val) => parseInt(val, 10))
+        .refine((val) => !isNaN(val), { message: "PORT must be a number" }),
+    MONGO_URI: z.string().min(1, "MONGO_URI is required"),
+    CLIENT_URL: z.string().url("CLIENT_URL must be a valid URL"),
+    JWT_ACCESS_SECRET: z.string().min(10, "JWT_SECRET must be at least 10 characters"),
+    NODE_ENV: z.enum(["development", "production", "test"]),
+});
+
+// 2️⃣ Parse and validate process.env
+const parsedEnv = envSchema.safeParse(process.env);
+
+if (!parsedEnv.success) {
+    console.error("❌ Invalid environment variables:", parsedEnv.error.format());
+    throw new Error("Invalid environment variables. Check your .env file!");
 }
 
-export default _config
+// 3️⃣ Determine host based on NODE_ENV
+const HOST =
+    parsedEnv.data.NODE_ENV === "development"
+        ? "http://localhost:" + parsedEnv.data.PORT
+        : parsedEnv.data.CLIENT_URL;
+
+// 4️⃣ Export the validated config
+const _config = {
+    ENV: {
+        PORT: parsedEnv.data.PORT,
+        MONGO_URI: parsedEnv.data.MONGO_URI,
+        CLIENT_URL: parsedEnv.data.CLIENT_URL,
+        JWT_SECRET: parsedEnv.data.JWT_ACCESS_SECRET,
+        NODE_ENV: parsedEnv.data.NODE_ENV,
+        HOST,
+        nodeEnv: parsedEnv.data.NODE_ENV,
+    },
+};
+
+export default _config;
