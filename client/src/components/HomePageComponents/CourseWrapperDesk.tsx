@@ -19,12 +19,12 @@ function CourseWrapperDesk({ course, idx }: { course: Icourse, idx: number }) {
                             alt={`${course.title} thumbnail`}
                             fill
                             className="object-cover rounded-t-md"
-                            sizes="(max-width: 768px) 50vw, 33vw"
-                            priority
-                            loading='lazy'
-                            quality={75} // compress without losing much quality
-                            placeholder="blur" // optional: if using local image
+                            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                            quality={75}
+                            loading="lazy" // best for course grid/list images
                         />
+
+
                         <Badge className="absolute top-2 right-2 bg-[#fff] text-black text-xs font-HelveticaNow font-medium px-2 py-1 rounded">
                             {course.subTag}
                         </Badge>

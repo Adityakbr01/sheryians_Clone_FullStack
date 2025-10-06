@@ -4,6 +4,7 @@ import Link from "next/link";
 import AuthStrategies from "../AuthPageComponents/AuthStrategies/AuthStrategies";
 import EmailSignInForm from "../AuthPageComponents/signIn/EmailSignInForm";
 import PhoneSignUpForm from "../AuthPageComponents/signup/PhoneSignUpForm";
+import EmailSignUpForm from "../AuthPageComponents/signup/EmailSignUpForm";
 
 const tabs = [
     {
@@ -17,13 +18,12 @@ const tabs = [
         id: 2,
         value: "password",
         label: "Email",
-        content: <EmailSignInForm />,
+        content: <EmailSignUpForm />,
         isAvailable: true,
     },
 ];
 
 function SignUp() {
-    // const [currentStep, setCurrentStep] = useState(1);
 
     return (
         <div className="form-container flex flex-col items-center md:justify-between justify-center w-full gap-8 py-8 p-6">

@@ -18,12 +18,11 @@ function CourseWrapperMobile({ course, idx }: { course: Icourse, idx: number }) 
                         alt={`${course.title} thumbnail`}
                         fill
                         className="object-cover rounded-t-md"
-                        sizes="100vw"
-                        priority
-                        loading='lazy'
-                        quality={75} // compress without losing much quality
-                        placeholder="blur" // optional: if using local image
+                        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                        quality={75}
+                        loading="lazy" // best for course grid/list images
                     />
+
                     <span className="absolute top-2 right-2 bg-[#fff] text-black text-xs font-HelveticaNow font-medium px-2 py-1 rounded">
                         {course.subTag}
                     </span>
@@ -71,7 +70,7 @@ function CourseWrapperMobile({ course, idx }: { course: Icourse, idx: number }) 
             </Card>
             <Link
                 href={course.link}
-                className="mt-4 block w-full bg-[#24cfa6] text-black text-center font-HelveticaNow font-medium py-2 rounded-md hover:bg-[#1bd1a6] transition-colors"
+                className="mt-4 block  w-full bg-[#24cfa6] text-black text-center font-HelveticaNow font-medium py-2 rounded-md hover:bg-[#1bd1a6] transition-colors"
             >
                 View Details
             </Link>
