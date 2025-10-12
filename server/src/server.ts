@@ -6,6 +6,7 @@ import logger from "@/utils/logger";
 
 import { connectDB, disconnectDB } from "@/db/db";
 import { connectRedis, disconnectRedis } from "@/lib/redis";
+import "@/bull";
 
 
 async function startServer(): Promise<void> {

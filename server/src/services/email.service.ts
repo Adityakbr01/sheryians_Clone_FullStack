@@ -11,9 +11,7 @@ export const sendEmail = async (to: string, subject: string, text: string): Prom
             subject,
             text,
         };
-
         await transporter.sendMail(mailOptions);
-        logger.info(`Email sent to ${to}`);
     } catch (error) {
         logger.error('Error sending email', error);
         throw error;

@@ -1,3 +1,4 @@
+import { registerEmailQueue, registerEmailQueueName } from "@/bull";
 import _config from "@/config";
 import User from "@/models/Users/user.model";
 import { sendEmail } from "@/services/email.service";
@@ -14,10 +15,17 @@ const authService = {
             throw new ApiError(400, "User already exists");
         }
 
+        const username = email.split("@")[0];
+        const existingUsername = await User.findOne({ username });
+        if (existingUsername) {
+            throw new ApiError(400, "Username already exists");
+        }
+
         const otp = generateOtp();
         const otpHash = await bcrypt.hash(otp, 10);
 
         await User.create({
+            username: email.split("@")[0],
             email,
             password,
             isVerified: false,
@@ -30,7 +38,7 @@ const authService = {
         });
 
         await storeRegisterOtp(email, otpHash);
-        await sendEmail(email, "Verify your email", `Your OTP is: ${otp}`);
+        await registerEmailQueue.add(registerEmailQueueName, { email, otp })
 
         return { message: "Registration successful. Please verify your email." };
     },
@@ -72,7 +80,8 @@ const authService = {
         await user.save();
 
         await storeRegisterOtp(email, otpHash);
-        await sendEmail(email, "Resend OTP", `Your new OTP is: ${otp}`);
+        await registerEmailQueue.add(registerEmailQueueName, { email, otp })
+
 
         return { message: "OTP resent successfully. Please check your email." };
     },

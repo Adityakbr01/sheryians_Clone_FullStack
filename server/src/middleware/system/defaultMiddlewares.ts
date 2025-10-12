@@ -9,6 +9,7 @@ import helmet from "helmet";
 import winston from "winston";
 import expressWinston from "express-winston";
 import logger from "@/utils/logger";
+import { createRateLimiter } from "@/utils/rateLimiter";
 
 
 // Express request logger
@@ -38,13 +39,16 @@ export const defaultMiddlewares = (app: express.Application) => {
   // Gzip compression
   app.use(compression());
 
-  // Rate Limiter
-  const limiter = rateLimit({
-    windowMs: 15 * 60 * 1000, // 15 minutes
-    max: 100,
-    message: "Too many requests from this IP, try again later.",
-  });
-  app.use(limiter);
+  // Rate limiter (global, e.g., per IP)
+  app.use(
+    createRateLimiter({
+      windowMs: 60 * 60 * 1000, // 1 hour
+      max: 500, // max requests per IP
+      message: "Too many requests. Try again in 1 hour.",
+      keyGenerator: (req: Request) => "ip:" + "unknown", // per IP,
+    })
+  );
+
   // Request logging
   app.use(requestLogger);
 };

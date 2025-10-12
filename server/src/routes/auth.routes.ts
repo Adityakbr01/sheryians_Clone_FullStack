@@ -11,14 +11,17 @@ import {
     loginSchema,
     resendOtpSchema,
 } from '@/validators/auth';
+import { createRateLimiter, otpRateLimiter } from '@/utils/rateLimiter';
 
 const router = Router();
+
+
 
 // 🔓 Public Routes
 
 // @route   POST /register
 // @desc    Register new user
-router.post('/register', validateRequest(registerSchema), authController.register);
+router.post('/register', otpRateLimiter, validateRequest(registerSchema), authController.register);
 
 // @route   POST /register/verify-otp
 // @desc    Verify user OTP
@@ -26,7 +29,7 @@ router.post('/register/verify-otp', validateRequest(otpSchema), authController.v
 
 // @route   POST /register/resend-otp
 // @desc    Resend OTP
-router.post('/register/resend-otp', validateRequest(resendOtpSchema), authController.resendOtp);
+router.post('/register/resend-otp', otpRateLimiter, validateRequest(resendOtpSchema), authController.resendOtp);
 
 // @route   POST /register/personal
 // @desc    Complete personal info after OTP

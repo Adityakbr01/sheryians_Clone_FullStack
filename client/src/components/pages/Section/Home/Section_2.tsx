@@ -8,8 +8,8 @@ function Section_2() {
     <section className="flex flex-col bg-transparent text-white items-center justify-center flex-1 px-4 md:px-16 py-16 gap-10 md:gap-16 text-center">
 
       {/* Top Heading */}
-      <div className="top">
-        <h1 className="text-3xl sm:text-4xl md:text-5xl font-NeuMachina leading-snug md:leading-12">
+      <div className="top lg:w-4xl">
+        <h1 className="text-xl sm:text-xl md:text-5xl font-NeuMachina leading-snug md:leading-12">
           We do whatever it takes to help you{" "}
           <span className="text-[var(--custom-primary)]">
             understand the concepts

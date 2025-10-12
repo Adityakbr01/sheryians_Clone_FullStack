@@ -29,6 +29,13 @@ const envSchema = z.object({
     SMTP_USER: z.string().min(1, "SMTP_USER is required"),
     SMTP_PASS: z.string().min(1, "SMTP_PASS is required"),
     NODE_ENV: z.enum(["development", "production", "test"]),
+
+    //Bullmq
+    BULLMQ_WORKER_CONCURRENCY: z.string().transform((val) => {
+        const num = Number(val);
+        if (isNaN(num)) throw new Error("BULLMQ_WORKER_CONCURRENCY must be a number");
+        return num;
+    })
 });
 
 // 2️⃣ Parse and validate process.env
@@ -64,6 +71,10 @@ const _config = {
         // Gemail
         SMTP_USER: parsedEnv.data.SMTP_USER,
         SMTP_PASS: parsedEnv.data.SMTP_PASS,
+
+
+        //Bullmq
+        BULLMQ_WORKER_CONCURRENCY: parsedEnv.data.BULLMQ_WORKER_CONCURRENCY
     },
 };
 
