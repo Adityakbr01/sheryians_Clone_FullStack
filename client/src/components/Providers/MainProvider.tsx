@@ -2,7 +2,7 @@
 import React from "react";
 import { TanStackProvider } from "./tanstack-provider";
 import ReactToast from "./ReactToast";
-import { useInitUser } from "@/hooks/TanStack/queries/useInitUser";
+import { useInitUser } from "@/hooks/TanStack/queries/User/useInitUser";
 
 function MainProvider({ children }: { children: React.ReactNode }) {
   useInitUser();

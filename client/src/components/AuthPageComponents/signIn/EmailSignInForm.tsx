@@ -4,7 +4,7 @@ import { Label } from "@/components/ui/label"
 import { Eye, EyeOff, Loader2 } from "lucide-react"
 import { z } from "zod"
 import { Button } from "@/components/ui/button"
-import { useLogin } from "@/hooks/TanStack/mutations/useLogin"
+import { useLogin } from "@/hooks/TanStack/mutations/User/useLogin"
 import { useRouter } from "next/navigation"
 
 // Zod schema

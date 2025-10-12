@@ -10,7 +10,7 @@ import {
     SelectTrigger,
     SelectValue,
 } from "@/components/ui/select";
-import { useLogout } from "@/hooks/TanStack/mutations/useLogout";
+import { useLogout } from "@/hooks/TanStack/mutations/User/useLogout";
 import { Occupation, User } from "@/store/auth";
 import { LogOut, Pencil } from "lucide-react";
 import Image from "next/image";
@@ -122,7 +122,7 @@ function PersonalTab({ user, setUser, logoutMutation }: PersonalTabProps) {
             <div className="pt-4 flex justify-center sm:justify-end">
                 <Button onClick={() => logoutMutation.mutate()}
                     disabled={logoutMutation.isPending} asChild variant="destructive" className="w-full sm:w-auto">
-                    <Link href="/signin/bye" className="flex items-center gap-2">
+                    <Link href="/signin" className="flex items-center gap-2">
                         <span>Logout</span> <LogOut size={16} />
                     </Link>
                 </Button>

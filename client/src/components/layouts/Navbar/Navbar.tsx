@@ -138,7 +138,10 @@ export default function Navbar() {
                   setOpen(false);
                 }}
                 className={`cursor-pointer flex items-center gap-2 ${link.className || ""}`}
-                style={{ color: link.textColor || "white" }}
+                style={{
+                  // ✅ Override SIGNIN_LINK text color to white on mobile
+                  color: link === SIGNIN_LINK ? "#fff" : link.textColor || "white",
+                }}
               >
                 {link.isProfile ? (
                   <Image

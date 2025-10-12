@@ -1,8 +1,8 @@
 "use client";
-import { usePersonalInfo } from "@/hooks/TanStack/mutations/usePersonalInfo";
-import { useRegister } from "@/hooks/TanStack/mutations/useRegister";
-import { useResendOtp } from "@/hooks/TanStack/mutations/useResendOtp";
-import { useVerifyOtp } from "@/hooks/TanStack/mutations/useVerifyOtp";
+import { usePersonalInfo } from "@/hooks/TanStack/mutations/User/usePersonalInfo";
+import { useRegister } from "@/hooks/TanStack/mutations/User/useRegister";
+import { useResendOtp } from "@/hooks/TanStack/mutations/User/useResendOtp";
+import { useVerifyOtp } from "@/hooks/TanStack/mutations/User/useVerifyOtp";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useRouter } from "next/navigation";
 import { useEffect, useRef, useState } from "react";

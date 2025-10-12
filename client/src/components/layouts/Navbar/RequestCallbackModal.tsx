@@ -1,9 +1,6 @@
 "use client";
 
 import { Label } from "@/components/ui/label";
-import clsx from "clsx";
-import { CalendarClock, CircleX } from "lucide-react";
-import React, { useEffect, useState, useRef } from "react";
 import {
     Select,
     SelectContent,
@@ -11,28 +8,13 @@ import {
     SelectTrigger,
     SelectValue,
 } from "@/components/ui/select";
+import useCreateEnquiry from "@/hooks/TanStack/mutations/Inquiry/useCreateEnquiry";
+import clsx from "clsx";
+import { CalendarClock, CircleX, Loader } from "lucide-react";
+import React, { useEffect, useRef, useState } from "react";
+import toast from "react-hot-toast";
+import { courses, enquiryOptions, Props } from "./typesAndData";
 
-interface Props {
-    isOpen: boolean;
-    onClose: () => void;
-}
-
-const courses = [
-    { value: "kodr", label: "KODR" },
-    { value: "web-development", label: "Web Development" },
-    { value: "dsa", label: "DSA" },
-    { value: "data-science", label: "Python & Data Science" },
-    { value: "java", label: "Java" },
-    { value: "c-programming", label: "C Programming" },
-    { value: "android", label: "Android" },
-    { value: "others", label: "Others" },
-];
-
-
-const enquiryOptions = [
-    { value: "online", label: "Online Courses (Website)" },
-    { value: "offline", label: "Offline Batches (Bhopal)" },
-];
 
 
 export default function RequestCallbackModal({ isOpen, onClose }: Props) {
@@ -50,6 +32,10 @@ export default function RequestCallbackModal({ isOpen, onClose }: Props) {
 
     const modalRef = useRef<HTMLDivElement>(null);
 
+    // 🪄 TanStack Mutation
+    const { mutate: createEnquiry, isPending } = useCreateEnquiry();
+
+
     // 🕒 Auto set current date + 4 hours
     useEffect(() => {
         const now = new Date();
@@ -65,9 +51,25 @@ export default function RequestCallbackModal({ isOpen, onClose }: Props) {
 
     // Close modal when clicking outside
     const handleOverlayClick = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
-        if (modalRef.current && !modalRef.current.contains(e.target as Node)) {
+        // Only close if the click is directly on the overlay, not on modal or dropdown
+        if (e.target === e.currentTarget) {
             onClose();
         }
+    };
+
+    const resetForm = () => {
+        setName("");
+        setPhone("");
+        setCourseName("");
+        setEnquiryFor("online");
+        setErrors({ name: "", phone: "", datetime: "" });
+        const now = new Date();
+        now.setHours(now.getHours() + 4);
+        setDatetime(
+            new Date(now.getTime() - now.getTimezoneOffset() * 60000)
+                .toISOString()
+                .slice(0, 16)
+        );
     };
 
     const handleSubmit = (e: React.FormEvent) => {
@@ -92,18 +94,22 @@ export default function RequestCallbackModal({ isOpen, onClose }: Props) {
         setErrors(newErrors);
 
         if (valid) {
-            console.log("⏳ Sending fake API request...");
-            setTimeout(() => {
-                console.log({
+            createEnquiry(
+                {
                     name,
                     phone,
                     datetime,
-                    enquiryFor,
-                    courseName: enquiryFor === "online" ? courseName : "N/A",
-                });
-                console.log("✅ Fake API call completed");
-                onClose();
-            }, 2000);
+                    enquiryFor: enquiryFor as "online" | "offline",
+                    ...(enquiryFor === "online" ? { courseName } : {}),
+                },
+                {
+                    onSuccess: () => {
+                        toast.success("Enquiry submitted successfully!");
+                        resetForm();
+                        onClose();
+                    },
+                }
+            );
         }
     };
 
@@ -243,10 +249,12 @@ export default function RequestCallbackModal({ isOpen, onClose }: Props) {
                         {/* Submit */}
                         <button
                             type="submit"
-                            className="mt-2 cursor-pointer w-full bg-emerald-400 hover:bg-emerald-500 text-black font-medium py-2 rounded-sm transition-colors duration-200 text-sm"
+                            disabled={isPending}
+                            className="mt-2 flex items-center justify-center cursor-pointer w-full bg-emerald-400 hover:bg-emerald-500 text-black font-medium py-2 rounded-sm transition-colors duration-200 text-sm disabled:opacity-60"
                         >
-                            Submit
+                            {isPending ? <Loader size={14} className="animate-spin" /> : "Submit"}
                         </button>
+
                     </form>
                 </main>
             </div>

@@ -24,8 +24,6 @@ export const createRateLimiter = ({
 };
 
 
-
-
 //register
 export const otpRateLimiter = createRateLimiter({
     windowMs: 60 * 60 * 1000, // 1 hour
@@ -33,3 +31,11 @@ export const otpRateLimiter = createRateLimiter({
     message: "Too many OTP requests. Try again in 1 hour.",
     keyGenerator: (req) => req.body.email, // per email
 });
+
+//Inquiry 
+export const inquiryRateLimiter = createRateLimiter({
+    windowMs: 60 * 60 * 1000, // 1 hour
+    max: 1,                    // max 5 enquiry submit
+    message: "Too many OTP requests. Try again in 1 hour.",
+    keyGenerator: (req) => req.ip, // per email
+})

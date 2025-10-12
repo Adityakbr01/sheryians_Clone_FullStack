@@ -37,3 +37,27 @@ export const PROFILE_LINK: NavLink = {
     value: "Profile",
     isProfile: true,
 };
+
+
+
+
+export interface Props {
+    isOpen: boolean;
+    onClose: () => void;
+}
+
+export const courses = [
+    { value: "kodr", label: "KODR" },
+    { value: "web-development", label: "Web Development" },
+    { value: "dsa", label: "DSA" },
+    { value: "data-science", label: "Python & Data Science" },
+    { value: "java", label: "Java" },
+    { value: "c-programming", label: "C Programming" },
+    { value: "android", label: "Android" },
+    { value: "others", label: "Others" },
+];
+
+export const enquiryOptions = [
+    { value: "online", label: "Online Courses (Website)" },
+    { value: "offline", label: "Offline Batches (Bhopal)" },
+];
