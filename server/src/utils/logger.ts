@@ -16,7 +16,6 @@ const logDir = path.join(__dirname, "../logs");
 try {
   if (!fs.existsSync(logDir)) {
     fs.mkdirSync(logDir, { recursive: true });
-    console.log(`📂 Created log directory: ${logDir}`);
   }
 } catch (error) {
   if (error instanceof Error) {

@@ -14,9 +14,6 @@ export default function AccountCenterSection() {
     const user = useAuthStore((state) => state.user)
     const setUser = useAuthStore((state) => state.setUser);
 
-    console.log(user);
-
-
     const courses = [
         {
             id: "6867e4147574bb008a1b3040",

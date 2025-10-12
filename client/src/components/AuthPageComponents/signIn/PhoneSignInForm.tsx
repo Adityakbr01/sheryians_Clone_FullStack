@@ -32,14 +32,12 @@ function PhoneSignInForm() {
 
   const handleApiCall = async (phone: string) => {
     try {
-      console.log("📞 API call with phone:", phone)
       const res = await fetch("/api/auth/phone", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ phone }),
       })
       const data = await res.json()
-      console.log("✅ API Response:", data)
     } catch (err) {
       console.error("❌ API Error:", err)
     }

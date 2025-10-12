@@ -25,7 +25,6 @@ function PhoneSignUpForm() {
 
     const handleSubmit = async () => {
         if (!error && phone.length === 10) {
-            console.log("📞 Signup with phone:", phone);
             // Call your API here
         }
     };

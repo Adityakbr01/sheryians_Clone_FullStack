@@ -28,21 +28,28 @@ export default function Navbar() {
     return links;
   }, [user]);
 
-  // 🧭 Scroll behavior
+  // 🧭 Optimized Scroll behavior
   useEffect(() => {
+    let ticking = false;
+
     const handleScroll = () => {
       const currentScrollPos = window.pageYOffset;
-      setVisible(prevScrollPos > currentScrollPos || currentScrollPos < 10);
-      setPrevScrollPos(currentScrollPos);
-      setScrolled(currentScrollPos > window.innerHeight * 0.1);
+
+      if (!ticking) {
+        window.requestAnimationFrame(() => {
+          setVisible(prevScrollPos > currentScrollPos || currentScrollPos < 10);
+          setPrevScrollPos(currentScrollPos);
+          setScrolled(currentScrollPos > window.innerHeight * 0.1);
+          ticking = false;
+        });
+
+        ticking = true;
+      }
     };
 
-    window.addEventListener("scroll", handleScroll);
+    window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
   }, [prevScrollPos]);
-
-
-
 
   return (
     <nav
