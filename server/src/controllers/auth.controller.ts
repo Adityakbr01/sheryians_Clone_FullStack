@@ -1,9 +1,10 @@
 // controllers/auth.controller.ts
 import { accessTokenCookieOptions, refreshTokenCookieOptions } from '@/config/cookies';
+import { AuthenticatedRequest } from '@/middleware/custom/user/protect';
 import authService from '@/services/auth.service';
 import { ApiResponder } from '@/utils/response';
 import { wrapAsync } from '@/utils/wrapAsync';
-import { LoginInput, OtpInput, PersonalInfoInput, RegisterInput, ResendOtpInput } from '@/validators/zod/auth';
+import { LoginInput, OtpInput, PersonalInfoInput, RegisterInput, ResendOtpInput } from '@/validators/auth';
 import { Request, Response } from 'express';
 
 
@@ -39,7 +40,7 @@ const authController = {
             message: result.message
         });
     }),
-    logout: wrapAsync(async (req: Request, res: Response) => {
+    logout: wrapAsync(async (req: AuthenticatedRequest, res: Response) => {
         const userId = req?.user?.id; // from auth middleware
         if (!userId) throw new Error("User not found");
         const result = await authService.logout(userId);
@@ -57,7 +58,7 @@ const authController = {
             accessToken: result.accessToken,
         });
     }),
-    getProfile: wrapAsync(async (req: Request, res: Response) => {
+    getProfile: wrapAsync(async (req: AuthenticatedRequest, res: Response) => {
         const userId = req?.user?.id; // from auth middleware
         if (!userId) throw new Error("User not found");
         const result = await authService.getProfile(userId);

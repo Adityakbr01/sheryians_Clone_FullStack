@@ -4,10 +4,6 @@ import jwt from "jsonwebtoken";
 import { IUser } from "../../types/models/Users/user";
 import _config from "@/config";
 
-// ----------------------
-// Schema Definition
-// ----------------------
-
 const userSchema = new Schema<IUser>(
   {
     username: {
@@ -142,10 +138,6 @@ const userSchema = new Schema<IUser>(
   { timestamps: true }
 );
 
-// ----------------------
-// Password Hashing Hook
-// ----------------------
-
 userSchema.pre<IUser>("save", async function (next) {
   if (!this.isModified("password")) return next();
   const salt = await bcrypt.genSalt(10);
@@ -153,9 +145,6 @@ userSchema.pre<IUser>("save", async function (next) {
   next();
 });
 
-// ----------------------
-// Instance Methods
-// ----------------------
 
 userSchema.methods.comparePassword = async function (
   candidatePassword: string
@@ -167,7 +156,7 @@ userSchema.methods.comparePassword = async function (
 userSchema.methods.generateAccessToken = function (): string {
   return jwt.sign(
     { id: this._id, role: this.role },
-    _config.ENV.JWT_SECRET as string,
+    _config.ENV.JWT_ACCESS_TOKEN_SECRET as string,
     { expiresIn: "15m" }
   );
 };
@@ -175,14 +164,10 @@ userSchema.methods.generateAccessToken = function (): string {
 userSchema.methods.generateRefreshToken = function (): string {
   return jwt.sign(
     { id: this._id },
-    _config.ENV.JWT_SECRET as string,
+    _config.ENV.JWT_REFRESH_TOKEN_SECRET as string,
     { expiresIn: "7d" }
   );
 };
-
-// ----------------------
-// Export
-// ----------------------
 
 const User = mongoose.model<IUser>("User", userSchema);
 export default User;

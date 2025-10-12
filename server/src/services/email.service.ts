@@ -1,14 +1,7 @@
-// services/emailService.ts
-import nodemailer from 'nodemailer';
+import transporter from '@/config/nodemailer';
 import logger from '@/utils/logger';
 
-const transporter = nodemailer.createTransport({
-    service: 'gmail', // or your email provider
-    auth: {
-        user: process.env.SMTP_USER,
-        pass: process.env.SMTP_PASS,
-    },
-});
+
 // Send email
 export const sendEmail = async (to: string, subject: string, text: string): Promise<void> => {
     try {

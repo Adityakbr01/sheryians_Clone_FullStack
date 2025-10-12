@@ -11,7 +11,15 @@ const envSchema = z.object({
         .refine((val) => !isNaN(val), { message: "PORT must be a number" }),
     MONGO_URI: z.string().min(1, "MONGO_URI is required"),
     CLIENT_URL: z.string().url("CLIENT_URL must be a valid URL"),
-    JWT_ACCESS_SECRET: z.string().min(10, "JWT_SECRET must be at least 10 characters"),
+    // JWT 
+    JWT_ACCESS_TOKEN_SECRET: z.string().min(10, "JWT_SECRET must be at least 10 characters"),
+    JWT_REFRESH_TOKEN_SECRET: z.string().min(10, "JWT_SECRET must be at least 10 characters"),
+    ACCESS_Token_Expiry: z.string().min(1, "ACCESS_Token_Expiry is required"),
+    REFRESH_Token_Expiry: z.string().min(1, "REFRESH_Token_Expiry is required"),
+
+    // Gemail
+    SMTP_USER: z.string().min(1, "SMTP_USER is required"),
+    SMTP_PASS: z.string().min(1, "SMTP_PASS is required"),
     NODE_ENV: z.enum(["development", "production", "test"]),
 });
 
@@ -35,10 +43,19 @@ const _config = {
         PORT: parsedEnv.data.PORT,
         MONGO_URI: parsedEnv.data.MONGO_URI,
         CLIENT_URL: parsedEnv.data.CLIENT_URL,
-        JWT_SECRET: parsedEnv.data.JWT_ACCESS_SECRET,
+        // JWT 
+        JWT_REFRESH_TOKEN_SECRET: parsedEnv.data.JWT_REFRESH_TOKEN_SECRET,
+        JWT_ACCESS_TOKEN_SECRET: parsedEnv.data.JWT_ACCESS_TOKEN_SECRET,
+        ACCESS_Token_Expiry: parsedEnv.data.ACCESS_Token_Expiry,
+        REFRESH_Token_Expiry: parsedEnv.data.REFRESH_Token_Expiry,
+        // NODE_ENV
         NODE_ENV: parsedEnv.data.NODE_ENV,
         HOST,
         nodeEnv: parsedEnv.data.NODE_ENV,
+
+        // Gemail
+        SMTP_USER: parsedEnv.data.SMTP_USER,
+        SMTP_PASS: parsedEnv.data.SMTP_PASS,
     },
 };
 

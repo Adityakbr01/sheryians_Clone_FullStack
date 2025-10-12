@@ -10,7 +10,7 @@ import {
     personalInfoSchema,
     loginSchema,
     resendOtpSchema,
-} from '@/validators/zod/auth';
+} from '@/validators/auth';
 
 const router = Router();
 

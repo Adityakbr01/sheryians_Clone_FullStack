@@ -1,13 +1,11 @@
+import _config from "@/config";
 import User from "@/models/Users/user.model";
-import { ApiError } from "@/utils/ApiError";
-import { generateOtp } from "./otpService";
 import { sendEmail } from "@/services/email.service";
-import { storeRegisterOtp, getRegisterOtp } from "@/utils/otp/otp";
+import { ApiError } from "@/utils/ApiError";
+import { generateOtp, getRegisterOtp, storeRegisterOtp } from "@/utils/otp/otp";
+import { deleteRefreshToken, getRefreshToken, storeRefreshToken } from "@/utils/redis/tokens";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
-import { deleteRefreshToken, getRefreshToken, storeRefreshToken } from "@/utils/redis/tokens";
-import logger from "@/utils/logger";
-import _config from "@/config";
 
 const authService = {
     register: async (email: string, password: string) => {
@@ -157,7 +155,7 @@ const authService = {
 
         let payload: any;
         try {
-            payload = jwt.verify(refreshToken, _config.ENV.JWT_SECRET as string);
+            payload = jwt.verify(refreshToken, _config.ENV.JWT_REFRESH_TOKEN_SECRET as string);
         } catch {
             throw new ApiError(401, "Invalid refresh token");
         }

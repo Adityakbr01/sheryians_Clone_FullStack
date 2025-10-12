@@ -1,11 +1,8 @@
 import mongoose from "mongoose";
-
 import _config from "@/config/index";
 import logger from "@/utils/logger";
 
-/**
- * Establish a connection to MongoDB using Mongoose.
- */
+
 export async function connectDB(): Promise<void> {
   const mongoUri = _config.ENV.MONGO_URI;
 
@@ -23,9 +20,6 @@ export async function connectDB(): Promise<void> {
   }
 }
 
-/**
- * Gracefully disconnect from MongoDB
- */
 export async function disconnectDB(): Promise<void> {
   try {
     await mongoose.disconnect();

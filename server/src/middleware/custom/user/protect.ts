@@ -39,7 +39,7 @@ export const protect = (
 
     try {
         // 4. Verify token
-        const decoded = jwt.verify(token,_config.ENV.JWT_SECRET) as {
+        const decoded = jwt.verify(token, _config.ENV.JWT_ACCESS_TOKEN_SECRET) as {
             id: string;
             role: string;
         };

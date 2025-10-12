@@ -1,8 +1,5 @@
 import { redisClient } from "@/lib/redis";
 
-
-import crypto from 'crypto';
-
 export const OTP_EXPIRY = 5 * 60; // 5 minutes in seconds
 
 export const storeRegisterOtp = async (email: string, otpHash: string): Promise<void> => {
@@ -20,8 +17,7 @@ export const getRegisterOtp = async (email: string): Promise<string | null> => {
 
     return await redisClient.get(`otp:${email}`);
 };
-
-
-function generateOTP(): string {
-    return crypto.randomInt(100000, 1000000).toString();
-}
+// Generate 6-digit OTP
+export const generateOtp = (): string => {
+    return Math.floor(100000 + Math.random() * 900000).toString();
+};
