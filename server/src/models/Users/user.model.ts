@@ -59,7 +59,7 @@ const userSchema = new Schema<IUser>(
       trim: true,
     },
 
-    profilePicture: {
+    avatar: {
       type: String,
       default: "",
       validate: {

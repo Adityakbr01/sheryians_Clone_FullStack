@@ -14,8 +14,16 @@ const envSchema = z.object({
     // JWT 
     JWT_ACCESS_TOKEN_SECRET: z.string().min(10, "JWT_SECRET must be at least 10 characters"),
     JWT_REFRESH_TOKEN_SECRET: z.string().min(10, "JWT_SECRET must be at least 10 characters"),
-    ACCESS_Token_Expiry: z.string().min(1, "ACCESS_Token_Expiry is required"),
-    REFRESH_Token_Expiry: z.string().min(1, "REFRESH_Token_Expiry is required"),
+    ACCESS_Token_Expiry: z.string().transform((val) => {
+        const num = Number(val);
+        if (isNaN(num)) throw new Error("ACCESS_Token_Expiry must be a number in seconds");
+        return num;
+    }),
+    REFRESH_Token_Expiry: z.string().transform((val) => {
+        const num = Number(val);
+        if (isNaN(num)) throw new Error("REFRESH_Token_Expiry must be a number in seconds");
+        return num;
+    }),
 
     // Gemail
     SMTP_USER: z.string().min(1, "SMTP_USER is required"),

@@ -27,7 +27,7 @@ export interface IUser extends Document {
   role: UserRole;
   occupation: OccupationType;
   city?: string;
-  profilePicture?: string;
+  avatar?: string;
   isEmailVerified: boolean;
   otp?: string;
   otpExpiry?: Date;

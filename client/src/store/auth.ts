@@ -6,9 +6,11 @@ interface User {
   email: string;
   name: string;
   role: string;
+  city: string
   avatar: string;
   createdAt: string;
   updatedAt: string;
+  enrolledCourses: string[];
 }
 
 interface AuthState {

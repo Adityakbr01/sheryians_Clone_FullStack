@@ -152,7 +152,6 @@ const authService = {
     },
     refreshAccessToken: async (refreshToken: string) => {
         if (!refreshToken) throw new ApiError(401, "Refresh token missing");
-
         let payload: any;
         try {
             payload = jwt.verify(refreshToken, _config.ENV.JWT_REFRESH_TOKEN_SECRET as string);
@@ -162,7 +161,6 @@ const authService = {
 
         const userId = payload.id;
         const storedToken = await getRefreshToken(userId);
-
         if (storedToken !== refreshToken) {
             throw new ApiError(401, "Refresh token not recognized");
         }
@@ -172,20 +170,14 @@ const authService = {
 
         // Rotate tokens (optional security best practice)
         const newAccessToken = user.generateAccessToken();
-        const newRefreshToken = user.generateRefreshToken();
-
-        await storeRefreshToken(userId, newRefreshToken);
-
         return {
             message: "Token refreshed successfully",
             accessToken: newAccessToken,
-            refreshToken: newRefreshToken,
         };
     },
     getProfile: async (userId: string) => {
         const user = await User.findById(userId).select("-password -otp -otpExpiry -refreshToken");
         if (!user) throw new ApiError(404, "User not found");
-
         return {
             message: "Profile fetched successfully",
             user,

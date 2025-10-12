@@ -1,37 +1,34 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import { Squeeze as Hamburger } from "hamburger-react";
 import Image from "next/image";
 import Link from "next/link";
 import { useAuthStore } from "@/store/auth";
+import { BASE_LINKS, CLASSROOM_LINK, PROFILE_LINK, SIGNIN_LINK } from "./typesAndData";
 
-type NavLink = {
-  href: string;
-  value: string;
-  bgColor?: string;
-  textColor?: string;
-  className?: string;
-};
 
-const Links: NavLink[] = [
-  { href: "/", value: "Home" },
-  { href: "/courses", value: "Courses" },
-  { href: "/Cohort2.0", value: "Cohort 2.0", textColor: "#BE524B", className: "animate-shake-with-pause" },
-  { href: "/request-callback", value: "Request Callback" },
-  { href: "/signin", value: "Sign in", bgColor: "#24cfa6", textColor: "#000" },
-];
 
-function Navbar() {
+export default function Navbar() {
   const user = useAuthStore((state) => state.user);
-  console.log(user)
+  const [isOpen, setOpen] = useState(false);
+  const [prevScrollPos, setPrevScrollPos] = useState(0);
+  const [visible, setVisible] = useState(true);
+  const [scrolled, setScrolled] = useState(false);
 
-  const [isOpen, setOpen] = useState<boolean>(false);
-  const [prevScrollPos, setPrevScrollPos] = useState<number>(0);
-  const [visible, setVisible] = useState<boolean>(true);
-  const [scrolled, setScrolled] = useState<boolean>(false);
+  // 🧭 Links Memo — no mutation
+  const navLinks = useMemo(() => {
+    const links = [...BASE_LINKS];
+    if (user) {
+      if (user.enrolledCourses) links.push(CLASSROOM_LINK);
+      links.push(PROFILE_LINK);
+    } else {
+      links.push(SIGNIN_LINK);
+    }
+    return links;
+  }, [user]);
 
-  // Scroll hide/show
+  // 🧭 Scroll behavior
   useEffect(() => {
     const handleScroll = () => {
       const currentScrollPos = window.pageYOffset;
@@ -44,13 +41,17 @@ function Navbar() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, [prevScrollPos]);
 
+
+
+
   return (
     <nav
-      className={`flex w-full text-white px-8  fixed z-[1000] left-1/2 -translate-x-1/2 top-0 py-2 md:py-4 mx-auto justify-between items-center transition-transform duration-300 ${visible ? "translate-y-0 " : "md:-translate-y-[20vh]"
-        } ${scrolled ? "backdrop-blur-[4px]" : ""}`}
+      className={`flex w-full text-white px-4 md:px-8 fixed z-[1000] left-1/2 -translate-x-1/2 top-0 py-2 md:py-4 mx-auto justify-between items-center transition-transform duration-300 
+        ${visible ? "translate-y-0" : "md:-translate-y-[20vh]"} 
+        ${scrolled ? "backdrop-blur-[4px]" : ""}`}
     >
-      {/* Logo Left */}
-      <Link href="/" className="flex items-center justify-center gap-3 left">
+      {/* Logo */}
+      <Link href="/" className="flex items-center gap-3 transition-none">
         <div className="flex items-center w-9 h-9 md:w-10 md:h-10">
           <Image
             src="/images/sherry_light-logo.webp"
@@ -59,32 +60,42 @@ function Navbar() {
             height={35}
           />
         </div>
-        <h3 className="flex flex-wrap items-center font-NeuMachina leading-5">
+        <h3 className="font-NeuMachina leading-5">
           Sheryians <br /> coding school
         </h3>
       </Link>
 
-      {/* Desktop Menu */}
-      <div className="hidden right md:flex items-center">
+      {/* Desktop Nav */}
+      <div className="hidden md:flex items-center">
         <ul className="flex items-center md:gap-6 lg:gap-10 text-sm font-light font-NeuMachina">
-          {Links.map((link, idx) => (
+          {navLinks.map((link, idx) => (
             <Link
               href={link.href}
               key={idx}
-              className={`cursor-pointer ${link.bgColor ? "px-5 py-1 font-medium text-base rounded-sm shine font-HelveticaNow" : ""
-                } ${link.textColor && "font-bold"} ${link.className || ""}`}
+              className={`cursor-pointer flex items-center gap-2 ${link.bgColor ? "px-5 py-1 font-medium text-base rounded-sm shine font-HelveticaNow" : ""
+                } ${link.textColor ? "font-bold" : ""} ${link.className || ""}`}
               style={{
                 background: link.bgColor,
                 color: link.textColor || "inherit",
               }}
             >
-              {link.value}
+              {link.isProfile ? (
+                <Image
+                  src={"https://cdn-icons-png.flaticon.com/128/1326/1326390.png"}
+                  alt="Profile"
+                  width={35}
+                  height={35}
+                  className="rounded-full object-cover"
+                />
+              ) : (
+                link.value
+              )}
             </Link>
           ))}
         </ul>
       </div>
 
-      {/* Mobile Hamburger */}
+      {/* Mobile Toggle */}
       <div
         className="relative z-50 block md:hidden text-white"
         onClick={() => setOpen(!isOpen)}
@@ -101,15 +112,25 @@ function Navbar() {
           <h1 className="text-2xl font-NeuMachina">Menu</h1>
         </div>
         <ul className="flex flex-col items-start gap-6 p-8 text-2xl font-light text-white opacity-70 font-NeuMachina">
-          {Links.map((link, idx) => (
+          {navLinks.map((link, idx) => (
             <Link
               href={link.href}
               key={idx}
               onClick={() => setOpen(false)}
-              className={`cursor-pointer ${link.className || ""}`}
-              style={{ color: Links.length - 1 === idx ? "white" : link.textColor || "white" }}
+              className={`cursor-pointer flex items-center gap-2 ${link.className || ""}`}
+              style={{ color: link.textColor || "white" }}
             >
-              {link.value}
+              {link.isProfile ? (
+                <Image
+                  src={"https://cdn-icons-png.flaticon.com/128/1326/1326390.png"}
+                  alt="Profile"
+                  width={45}
+                  height={45}
+                  className="rounded-full object-cover"
+                />
+              ) : (
+                link.value
+              )}
             </Link>
           ))}
         </ul>
@@ -117,5 +138,3 @@ function Navbar() {
     </nav>
   );
 }
-
-export default Navbar;
