@@ -18,8 +18,5 @@ export const useLogout = () => {
             toast.success("Logged out successfully");
             router.push("/login"); // 👈 Optional: redirect
         },
-        onError: (error: any) => {
-            toast.error(error?.response?.data?.message || "Logout failed");
-        },
     });
 };

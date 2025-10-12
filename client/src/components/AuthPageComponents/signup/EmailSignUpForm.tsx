@@ -1,18 +1,17 @@
 "use client";
+import { usePersonalInfo } from "@/hooks/TanStack/mutations/usePersonalInfo";
+import { useRegister } from "@/hooks/TanStack/mutations/useRegister";
+import { useResendOtp } from "@/hooks/TanStack/mutations/useResendOtp";
+import { useVerifyOtp } from "@/hooks/TanStack/mutations/useVerifyOtp";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useRouter } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
+import EmailStep from "./EmailStep";
 import OtpStep from "./OtpStep";
 import PersonalStep from "./PersonalStep";
-import EmailStep from "./EmailStep";
-import { useRegister } from "@/hooks/TanStack/mutations/useRegister";
-import { useVerifyOtp } from "@/hooks/TanStack/mutations/useVerifyOtp";
-import { useResendOtp } from "@/hooks/TanStack/mutations/useResendOtp";
-import { usePersonalInfo } from "@/hooks/TanStack/mutations/usePersonalInfo";
-import toast from "react-hot-toast";
-import { redirect } from "next/dist/server/api-utils";
-import { useRouter } from "next/navigation";
+import { AxiosError } from "axios";
 
 // Zod schemas
 const emailSchema = z.object({
@@ -86,10 +85,12 @@ function EmailSignUpForm() {
             onSuccess: () => {
                 setStep(2); // Go to OTP step
             },
-            onError: (error: any) => {
-                emailForm.setError("root", {
-                    message: error?.response?.data?.message || "Something went wrong",
-                });
+            onError: (error: unknown) => {
+                if (error instanceof AxiosError) {
+                    emailForm.setError("root", {
+                        message: error?.response?.data?.message || "Something went wrong",
+                    });
+                }
             },
             onSettled: () => setLoading(false),
         });
@@ -110,10 +111,12 @@ function EmailSignUpForm() {
                 onSuccess: () => {
                     setStep(3); // Go to personal info
                 },
-                onError: (error: any) => {
-                    otpForm.setError("otp", {
-                        message: error?.response?.data?.message || "Invalid OTP",
-                    });
+                onError: (error: unknown) => {
+                    if (error instanceof AxiosError) {
+                        otpForm.setError("otp", {
+                            message: error?.response?.data?.message || "Invalid OTP",
+                        });
+                    }
                 },
                 onSettled: () => setLoading(false),
             }
@@ -131,8 +134,10 @@ function EmailSignUpForm() {
                 onSuccess: (data) => {
                     setResendMessage(data.message || "OTP sent successfully");
                 },
-                onError: (err: any) => {
-                    setResendMessage(err?.response?.data?.message || "Failed to resend OTP");
+                onError: (err: unknown) => {
+                    if (err instanceof AxiosError) {
+                        setResendMessage(err?.response?.data?.message || "Failed to resend OTP");
+                    }
                 },
                 onSettled: () => setResendLoading(false),
             }
@@ -162,10 +167,12 @@ function EmailSignUpForm() {
                     localStorage.removeItem("authEmail");
                     router.push("/signin");
                 },
-                onError: (err: any) => {
-                    personalForm.setError("root", {
-                        message: err?.response?.data?.message || "Failed to save personal info",
-                    });
+                onError: (err: unknown) => {
+                    if (err instanceof AxiosError) {
+                        personalForm.setError("root", {
+                            message: err?.response?.data?.message || "Failed to save personal info",
+                        });
+                    }
                 },
                 onSettled: () => setLoading(false),
             }

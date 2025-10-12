@@ -42,6 +42,7 @@ function EmailSignInForm() {
       await loginMutation.mutateAsync({ email, password });
       router.push("/"); // Or your post-login page
     } catch (error) {
+      console.error("Login error:", error);
       // Error is handled in mutation's onError
     } finally {
       setLoading(false);

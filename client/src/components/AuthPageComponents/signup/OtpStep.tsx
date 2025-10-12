@@ -22,7 +22,6 @@ export interface OtpStepProps {
 
 function OtpStep({
     form,
-    email,
     loading,
     resendLoading,
     resendMessage,

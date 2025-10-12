@@ -1,15 +1,9 @@
 
 "use client";
-import React, { useState, useEffect, useRef, useCallback } from "react";
-import { useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { Label } from "@/components/ui/label";
-import { Eye, EyeOff, Loader2, ArrowLeft } from "lucide-react";
-import { z } from "zod";
 import { Button } from "@/components/ui/button";
-import { UseFormReturn, FieldErrors } from "react-hook-form";
-import PersonalStep from "./PersonalStep";
-import OtpStep from "./OtpStep"
+import { Label } from "@/components/ui/label";
+import { Eye, EyeOff, Loader2 } from "lucide-react";
+import { FieldErrors, UseFormReturn } from "react-hook-form";
 import { EmailFormData } from "./EmailSignUpForm";
 
 

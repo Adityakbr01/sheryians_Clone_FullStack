@@ -8,11 +8,16 @@ const api = axios.create({
     withCredentials: true, // ensures cookies (refresh token) are sent
 });
 
+
+interface FailedRequestQueueItem {
+    resolve: (token: string | null) => void;
+    reject: (error: unknown) => void; // use unknown instead of any
+}
 // === Refresh Token Handling ===
 let isRefreshing = false;
-let failedQueue: any[] = [];
+let failedQueue: FailedRequestQueueItem[] = [];
 
-const processQueue = (error: any, token: string | null = null) => {
+const processQueue = (error: unknown, token: string | null = null) => {
     failedQueue.forEach((prom) => {
         if (error) prom.reject(error);
         else prom.resolve(token);

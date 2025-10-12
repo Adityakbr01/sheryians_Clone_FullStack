@@ -1,19 +1,30 @@
 // store/auth.ts
 import { create } from "zustand";
 
-interface User {
+export type Occupation =
+  | "student"
+  | "workingProfessional"
+  | "intern"
+  | "freelancer";
+
+
+export interface User {
   id: string;
+  _id?: string;
   email: string;
-  name: string;
+  phone: string;
+  username: string;
   role: string;
-  city: string
+  city: string;
   avatar: string;
   createdAt: string;
   updatedAt: string;
   enrolledCourses: string[];
+  occupation: Occupation | ""; // "" for unselected state (optional)
 }
 
-interface AuthState {
+
+export interface AuthState {
   accessToken: string | null;
   user: User | null;
   setAccessToken: (token: string | null) => void;

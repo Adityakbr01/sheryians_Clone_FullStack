@@ -1,15 +1,17 @@
 "use client";
 
+import { Icourse } from "@/components/pages/Section/Home/Section_3";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import Image from "next/image";
 import Link from "next/link";
-function CoursesTab({ courses }: { courses: any[] }) {
+
+function CoursesTab({ courses }: { courses: Icourse[] }) {
     return (
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 place-items-center">
-            {courses.map((course) => (
+            {courses.map((course, idx) => (
                 <Card
-                    key={course.id}
+                    key={idx}
                     className="flex flex-col items-center sm:items-start bg-[#2C2C2C] p-4 rounded-lg gap-4 border-none w-full max-w-xs sm:max-w-sm text-white"
                 >
                     <div className="flex items-center gap-4">
@@ -25,7 +27,7 @@ function CoursesTab({ courses }: { courses: any[] }) {
                             <h3 className="text-sm font-semibold line-clamp-2">
                                 {course.title}
                             </h3>
-                            <small className="text-gray-400">{course.date}</small>
+                            {/* <small className="text-gray-400">{course.date}</small> */}
                         </div>
                     </div>
                     <div className="flex flex-wrap gap-3 mt-3 w-full justify-center sm:justify-start">
@@ -34,7 +36,7 @@ function CoursesTab({ courses }: { courses: any[] }) {
                             className="bg-[var(--custom-primary)] hover:bg-[var(--custom-primary)] text-black text-sm"
                         >
                             <Link
-                                href={`/classroom/gotoclassroom/${course.id}`}
+                                href={`/classroom/gotoclassroom/${course.title}`}
                                 className="flex items-center gap-2"
                             >
                                 Go to Course

@@ -1,6 +1,6 @@
 import { useMutation } from "@tanstack/react-query";
 import api from "@/api/axios";
-import { useAuthStore } from "@/store/auth";
+import { useAuthStore, User } from "@/store/auth";
 
 type LoginInput = {
     email: string;
@@ -11,12 +11,7 @@ type LoginResponse = {
     message: string;
     accessToken: string;
     refreshToken?: string; // only if you want to use it manually
-    user: {
-        id: string;
-        email: string;
-        name: string;
-        role: string;
-    };
+    user: User
 };
 
 export const useLogin = () => {
@@ -30,9 +25,6 @@ export const useLogin = () => {
         onSuccess: (data) => {
             setAccessToken(data.accessToken);
             setUser(data.user);
-        },
-        onError: (error: any) => {
-            console.error("Login error:", error);
         },
     });
 };

@@ -18,9 +18,5 @@ export const useRegister = () => {
         onSuccess: (data) => {
             toast.success(data.message || "Registration successful");
         },
-        onError: (error: any) => {
-            console.error("Register Error:", error);
-            // Axios error handling is already in api.ts, so this is optional.
-        },
     });
 };

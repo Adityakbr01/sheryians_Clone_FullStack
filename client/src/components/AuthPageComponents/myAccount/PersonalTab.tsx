@@ -10,12 +10,20 @@ import {
     SelectTrigger,
     SelectValue,
 } from "@/components/ui/select";
+import { useLogout } from "@/hooks/TanStack/mutations/useLogout";
+import { Occupation, User } from "@/store/auth";
 import { LogOut, Pencil } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 
-function PersonalTab({ user, setUser, logoutMutation }: { user: any, setUser: any, logoutMutation: any }) {
-    console.log(user);
+
+interface PersonalTabProps {
+    user: User;
+    setUser: (user: User) => void;
+    logoutMutation: ReturnType<typeof useLogout>;// adjust generic types if needed
+}
+
+function PersonalTab({ user, setUser, logoutMutation }: PersonalTabProps) {
 
     return (
         <div className="space-y-8">
@@ -82,7 +90,7 @@ function PersonalTab({ user, setUser, logoutMutation }: { user: any, setUser: an
                     <Select
                         value={user.occupation}
                         onValueChange={(value) =>
-                            setUser({ ...user, occupation: value })
+                            setUser({ ...user, occupation: value as Occupation })
                         }
                     >
                         <SelectTrigger className="mt-1">
