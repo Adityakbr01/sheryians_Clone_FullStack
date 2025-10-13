@@ -1,7 +1,5 @@
-import { Course } from '@/types/course';
 import api from '@/api/axios';
-import { useMutation, useQueryClient } from '@tanstack/react-query';
-import toast from 'react-hot-toast';
+import { useMutation } from '@tanstack/react-query';
 
 /**
  * API response type for course update
@@ -10,7 +8,29 @@ interface UpdateCourseResponse {
     success: boolean;
     message: string;
     data: {
-        course: Course;
+        id: string;
+        title: string;
+        slug: string;
+        description: string;
+        instructor: string;
+        price: number;
+        originalPrice: number;
+        category: string;
+        tags: string[];
+        type: 'Live Batch' | 'Self-Paced';
+        thumbnail: string;
+        providesCertificate: boolean;
+        gst: boolean;
+        language: string;
+        schedule: string;
+        batchStartDate: string;
+        totalContentHours: string;
+        totalLectures: string;
+        totalQuestions: string;
+        studentsEnrolled: number;
+        createdAt: string;
+        updatedAt: string;
+        discountPercentage: number;
     };
 }
 
@@ -18,34 +38,15 @@ interface UpdateCourseResponse {
  * Hook for updating an existing course
  */
 export function useUpdateCourse() {
-    const queryClient = useQueryClient();
-
-    return useMutation<UpdateCourseResponse, Error, Course>({
+    return useMutation<UpdateCourseResponse, Error, FormData>({
         mutationFn: async (courseData) => {
-            const courseId = courseData._id;
+            const courseId = courseData.get('_id');
+            console.log("Updating course with ID:", courseData);
             if (!courseId) {
                 throw new Error('Course ID is required for updating a course');
             }
-
             const { data } = await api.put<UpdateCourseResponse>(`/courses/${courseId}`, courseData);
             return data;
-        },
-        onSuccess: (data) => {
-            // Invalidate courses list query to trigger a refetch
-            queryClient.invalidateQueries({
-                queryKey: ['courses'],
-            });
-
-            // Also invalidate the individual course query
-            queryClient.invalidateQueries({
-                queryKey: ['course', data.data.course._id],
-            });
-
-            // Show success message
-            toast.success(`Course "${data.data.course.title}" updated successfully!`);
-        },
-        onError: (error) => {
-            console.error('Failed to update course:', error);
         },
     });
 }

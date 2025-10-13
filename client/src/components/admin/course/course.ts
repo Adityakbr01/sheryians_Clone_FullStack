@@ -45,7 +45,9 @@ export const createCourseSchema = z.object({
                 .map(word => word.charAt(0).toUpperCase() + word.slice(1)) // first letter capital
                 .join(" ")                         // wapas join
         ),
-    thumbnail: z.string().url().optional().nullable(), // file
+    thumbnail: z.custom<File | null>((val) => val === null || val instanceof File, {
+        message: 'Thumbnail must be a valid file'
+    }).optional(),
 
     CourseLanguage: CourseLanguageEnum.default(CourseLanguage.HINGLISH),
     type: CourseTypeEnum.default(CourseType.LIVE),

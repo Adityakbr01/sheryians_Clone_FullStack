@@ -4,7 +4,7 @@ import { useMutation, useQueryClient } from '@tanstack/react-query';
 /**
  * API response type for course creation
  */
-interface CreateCourseResponse {
+export interface CreateCourseResponse {
     success: boolean;
     message: string;
     data: {

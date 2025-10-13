@@ -30,7 +30,7 @@ const courseController = {
         }
         const parsed = createCourseSchema.parse(req.body);
         const course = await courseService.updateCourse(id, parsed);
-        ApiResponder.success(res, 200, "Course updated successfully", { data: course });
+        ApiResponder.success(res, 200, "Course updated successfully", course);
     }),
     deleteCourse: wrapAsync(async (req, res) => {
         const id = req.params.id;

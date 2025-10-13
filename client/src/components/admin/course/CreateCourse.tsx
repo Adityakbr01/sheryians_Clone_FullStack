@@ -1,93 +1,150 @@
-"use client"
+"use client";
 
-import { Button } from '@/components/ui/button'
-import { Label } from '@/components/ui/label'
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
-import { Switch } from '@/components/ui/switch'
-import { useCreateCourse } from '@/hooks/TanStack/courseHooks'
-import { zodResolver } from '@hookform/resolvers/zod'
-import clsx from 'clsx'
-import { CircleX, Loader } from 'lucide-react'
-import Image from 'next/image'
-import { useState } from 'react'
-import { Controller, useForm } from 'react-hook-form'
-import toast from 'react-hot-toast'
-import { categoryEnum, CourseLanguage, CourseType, createCourseSchema } from './course'
-import { CreateCourseFormValues } from './types'
+import { Button } from '@/components/ui/button';
+import { Label } from '@/components/ui/label';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import { Switch } from '@/components/ui/switch';
+import { useCreateCourse, useUpdateCourse } from '@/hooks/TanStack/courseHooks';
+import { Course } from '@/types/course';
+import { zodResolver } from '@hookform/resolvers/zod';
+import clsx from 'clsx';
+import { CircleX, Loader } from 'lucide-react';
+import Image from 'next/image';
+import { useEffect, useState } from 'react';
+import { Controller, useForm, useWatch } from 'react-hook-form'; // 👈 Added useWatch
+import toast from 'react-hot-toast';
+import { categoryEnum, CourseLanguage, CourseType, createCourseSchema } from './course';
+import { CreateCourseFormValues } from './types';
 
+interface CreateCourseProps {
+    isOpen: boolean;
+    onOpenChange: (open: boolean) => void;
+    editData?: Course | null; // 👈 used for editing
+}
 
+function CreateCourse({ isOpen, onOpenChange, editData }: CreateCourseProps) {
+    const [preview, setPreview] = useState<string | null>(null);
+    const [thumbnailFile, setThumbnailFile] = useState<File | null>(null); // 👈 Proper destructuring
+    const isEditMode = !!editData;
 
-function CreateCourse({ isOpen, onOpenChange }: { isOpen: boolean, onOpenChange: (open: boolean) => void }) {
-    const [preview, setPreview] = useState<string | null>(null)
-    const thumbnailFile = useState<File | null>(null) // Temp for file, but use preview for submit
-
-    //Tanstack form
+    //Tanstack
     const createCourseMutation = useCreateCourse();
+    const updateCourseMutation = useUpdateCourse();
 
-    const { control, register, handleSubmit, formState: { errors }, reset } = useForm({
+    const { control, register, handleSubmit, formState: { errors }, reset, setValue } = useForm({
         resolver: zodResolver(createCourseSchema),
         defaultValues: {
             CourseLanguage: CourseLanguage.HINGLISH,
             type: CourseType.LIVE,
             gst: true,
             providesCertificate: true,
-            discountPercentage: "",
+            discountPercentage: 0, // 👈 Fixed: Use number, not string
+            category: ""
         }
-    })
+    });
+
+    // 👈 Watch tags for display in edit mode
+    const tagsWatch = useWatch({ control, name: 'tags' });
+
+    // 🔥 Prefill form when editing
+    useEffect(() => {
+        if (editData && isOpen) { // 👈 Added isOpen to ensure modal is visible
+            console.log("Editing course:", editData); // Keep for debug
+
+            // Normalize category (as before, for mismatches)
+            const rawCategory = editData.category?.trim() || "";
+            const normalizedCategory = categoryEnum.find(
+                (cat) => cat.toLowerCase() === rawCategory.toLowerCase()
+            ) || rawCategory;
+
+            reset({
+                title: editData.title,
+                description: editData.description,
+                originalPrice: editData.originalPrice,
+                discountPercentage: editData.discountPercentage || 0,
+                gst: editData.gst,
+                category: normalizedCategory,
+                tags: editData.tags || [],
+                subTag: editData.subTag,
+                offer: editData.offer,
+                CourseLanguage: editData.CourseLanguage as CourseLanguage || CourseLanguage.HINGLISH,
+                type: editData.type as CourseType || CourseType.LIVE,
+                providesCertificate: editData.providesCertificate
+            });
+            setPreview(editData.thumbnail || null);
+
+            // 👈 Optional nudge: Explicit setValue after reset for Select sync
+            setTimeout(() => {
+                setValue('category', normalizedCategory);
+                setValue('type', editData.type as CourseType || CourseType.LIVE);
+            }, 0);
+        }
+    }, [editData, reset, setValue, isOpen]); // 👈 Added setValue and isOpen to deps
 
     const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        const file = e.target.files?.[0]
+        const file = e.target.files?.[0];
         if (file) {
-            const reader = new FileReader()
-            reader.onloadend = () => {
-                setPreview(reader.result as string)
+            // 👈 Optional: Validate here
+            if (!file.type.startsWith('image/')) {
+                toast.error('Only image files are allowed');
+                return;
             }
-            reader.readAsDataURL(file)
-            thumbnailFile[1](file) // Store file if needed, but use preview
+            if (file.size > 5 * 1024 * 1024) { // 5MB
+                toast.error('File too large (max 5MB)');
+                return;
+            }
+
+            const reader = new FileReader();
+            reader.onloadend = () => setPreview(reader.result as string);
+            reader.readAsDataURL(file);
+            setThumbnailFile(file);
         } else {
-            setPreview(null)
-            thumbnailFile[1](null)
+            setPreview(null);
+            setThumbnailFile(null);
         }
-    }
+    };
 
     const onSubmit = async (data: CreateCourseFormValues) => {
-        // Prepare FormData
         const formData = new FormData();
+
+        // Basic fields
         formData.append('title', data.title);
         formData.append('description', data.description);
         formData.append('originalPrice', data.originalPrice.toString());
         formData.append('category', data.category);
         formData.append('subTag', data.subTag || '');
         formData.append('offer', data.offer || '');
-
         formData.append('gst', data.gst ? 'true' : 'false');
         formData.append('providesCertificate', data.providesCertificate ? 'true' : 'false');
         formData.append('discountPercentage', data.discountPercentage.toString());
         formData.append('CourseLanguage', data.CourseLanguage);
         formData.append('type', data.type);
 
-        if (data.tags && data.tags.length > 0) {
-            data.tags.forEach((tag: string) => formData.append('tags[]', tag));
+        // 🔥 Always send tags as JSON string
+        formData.append('tags', JSON.stringify(data.tags || []));
+
+        // Thumbnail
+        if (thumbnailFile) {
+            formData.append('thumbnail', thumbnailFile);
         }
 
-        if (thumbnailFile[0]) {
-            formData.append('thumbnail', thumbnailFile[0]);
+        if (isEditMode && editData?._id) {
+            // Edit mode
+            formData.append('_id', editData._id);
+            const result = await updateCourseMutation.mutateAsync(formData);
+            toast.success(`"${result.data.title}" updated successfully!`);
+        } else {
+            // Create mode
+            const result = await createCourseMutation.mutateAsync(formData);
+            toast.success(`"${result.data.title}" created successfully!`);
         }
 
-        // Use mutateAsync to handle success/error in same place
-        const result = await createCourseMutation.mutateAsync(formData);
-
-
-        // Success: show toast and reset form
-        toast.success(`Course Title "${result.data.title}" created successfully!`);
+        // Reset form and preview
         onOpenChange(false);
         reset();
         setPreview(null);
-        thumbnailFile[1](null);
-
+        setThumbnailFile(null);
     };
-
-
 
     return (
         <div
@@ -96,9 +153,7 @@ function CreateCourse({ isOpen, onOpenChange }: { isOpen: boolean, onOpenChange:
                 isOpen ? "opacity-100 visible z-[9999]" : "opacity-0 invisible"
             )}
         >
-            <div
-                className="bg-[#2C2C2C] text-white overflow-y-auto max-h-[80vh] md:w-[510px] w-[310px] p-4 rounded-sm relative"
-            >
+            <div className="bg-[#2C2C2C] text-white overflow-y-auto max-h-[80vh] md:w-[510px] w-[310px] p-4 rounded-sm relative">
                 <div
                     className="absolute top-3 right-2 cursor-pointer"
                     onClick={() => onOpenChange(false)}
@@ -107,14 +162,17 @@ function CreateCourse({ isOpen, onOpenChange }: { isOpen: boolean, onOpenChange:
                 </div>
 
                 <main className="w-full h-full font-HelveticaNow">
-                    {/* Header */}
                     <div className="text-center flex flex-col gap-2 mb-4">
-                        <h2 className="text-xl font-medium">Create Course</h2>
+                        <h2 className="text-xl font-medium">
+                            {isEditMode ? "Edit Course" : "Create Course"}
+                        </h2>
                         <p className="text-sm leading-5 font-medium">
-                            Fill the form below to create a new course.
+                            {isEditMode
+                                ? "Update the details of the course below."
+                                : "Fill the form below to create a new course."}
                         </p>
                     </div>
-                    {/* Form */}
+
                     <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-4">
                         <div className="space-y-1">
                             <Label
@@ -227,14 +285,18 @@ function CreateCourse({ isOpen, onOpenChange }: { isOpen: boolean, onOpenChange:
                                 name="category"
                                 control={control}
                                 render={({ field }) => (
-                                    <Select onValueChange={field.onChange} value={field.value}>
+                                    <Select
+                                        {...field} // 👈 Spread for full RHF sync
+                                        value={field.value || ""}
+                                        onValueChange={field.onChange}
+                                    >
                                         <SelectTrigger className="border-b py-[0.30rem] w-full rounded-sm border-none outline-none bg-[#1e1e1e] px-4 font-light text-[12px]">
                                             <SelectValue placeholder="Select a category" />
                                         </SelectTrigger>
 
                                         <SelectContent position="popper" className="z-[10000]">
                                             {categoryEnum.map((category, index) => (
-                                                <SelectItem key={index} value={category}>
+                                                <SelectItem key={index} value={category}> {/* 👈 Always use category as value */}
                                                     {category}
                                                 </SelectItem>
                                             ))}
@@ -242,6 +304,7 @@ function CreateCourse({ isOpen, onOpenChange }: { isOpen: boolean, onOpenChange:
                                     </Select>
                                 )}
                             />
+
                             {errors.category && <p className="text-xs text-red-500">{errors.category.message}</p>}
                         </div>
                         <div className="space-y-1">
@@ -255,16 +318,18 @@ function CreateCourse({ isOpen, onOpenChange }: { isOpen: boolean, onOpenChange:
                                 id="tags"
                                 placeholder="Enter tags (separated by commas)"
                                 type="text"
+                                value={tagsWatch ? (Array.isArray(tagsWatch) ? tagsWatch.join(', ') : tagsWatch) : ''} // 👈 Display joined in edit
                                 {...register("tags", {
-                                    setValueAs: (val: string) =>
-                                        val
-                                            .split(",")           // comma se split
-                                            .map((t) => t.trim()) // spaces remove
-                                            .filter(Boolean)      // empty strings remove
+                                    setValueAs: (val) =>
+                                        typeof val === "string"
+                                            ? val
+                                                .split(",")
+                                                .map((t) => t.trim())
+                                                .filter(Boolean)
+                                            : [],
                                 })}
                                 className="border-b py-[0.30rem] w-full rounded-sm border-[#3c3c3c] outline-none bg-[#1e1e1e] px-4 font-light placeholder:text-[12px]"
                             />
-
                             {errors.tags && <p className="text-xs text-red-500">{errors.tags.message}</p>}
                         </div>
                         <div className="space-y-1">
@@ -307,20 +372,25 @@ function CreateCourse({ isOpen, onOpenChange }: { isOpen: boolean, onOpenChange:
                                 Add Course Thumbnail
                             </Label>
 
-                            <input
-                                id="thumbnail"
-                                type="file"
-                                accept="image/*"
-                                onChange={handleFileChange}
-                                className="w-full text-sm text-white file:bg-blue-600 file:text-white file:px-4 file:py-2 file:rounded-sm file:border-none cursor-pointer"
+                            {/* 👈 Wrapped in Controller for consistency (optional validation) */}
+                            <Controller
+                                name="thumbnail"
+                                control={control}
+                                render={({ field: { onChange } }) => (
+                                    <input
+                                        id="thumbnail"
+                                        type="file"
+                                        accept="image/*"
+                                        onChange={handleFileChange} // No RHF sync needed
+                                        className="w-full text-sm text-white file:bg-blue-600 file:text-white file:px-4 file:py-2 file:rounded-sm file:border-none cursor-pointer"
+                                    />
+                                )}
                             />
-
-
 
                             {preview && (
                                 <div className="mt-2 relative w-full h-40">
                                     <Image
-                                        src={preview} // still works
+                                        src={preview}
                                         alt="Thumbnail Preview"
                                         fill
                                         style={{ objectFit: 'contain' }}
@@ -342,7 +412,11 @@ function CreateCourse({ isOpen, onOpenChange }: { isOpen: boolean, onOpenChange:
                                 name="CourseLanguage"
                                 control={control}
                                 render={({ field }) => (
-                                    <Select onValueChange={field.onChange} value={field.value}>
+                                    <Select
+                                        {...field} // 👈 Spread for sync
+                                        value={field.value}
+                                        onValueChange={field.onChange}
+                                    >
                                         <SelectTrigger className="border-b py-[0.30rem] w-full rounded-sm border-none outline-none bg-[#1e1e1e] px-4 font-light text-[12px]">
                                             <SelectValue placeholder="Select a Course Language" />
                                         </SelectTrigger>
@@ -371,15 +445,19 @@ function CreateCourse({ isOpen, onOpenChange }: { isOpen: boolean, onOpenChange:
                                 name="type"
                                 control={control}
                                 render={({ field }) => (
-                                    <Select onValueChange={field.onChange} value={field.value}>
+                                    <Select
+                                        {...field} // 👈 Spread for sync
+                                        value={field.value}
+                                        onValueChange={field.onChange}
+                                    >
                                         <SelectTrigger className="border-b py-[0.30rem] w-full rounded-sm border-none outline-none bg-[#1e1e1e] px-4 font-light text-[12px]">
                                             <SelectValue placeholder="Select a Course Type" />
                                         </SelectTrigger>
 
                                         <SelectContent position="popper" className="z-[10000]">
-                                            {Object.values(CourseType).map((lang, index) => (
-                                                <SelectItem key={index} value={lang}>
-                                                    {lang}
+                                            {Object.values(CourseType).map((type, index) => (
+                                                <SelectItem key={index} value={type}> {/* 👈 Fixed: Always use type as value, no override */}
+                                                    {type}
                                                 </SelectItem>
                                             ))}
                                         </SelectContent>
@@ -409,8 +487,13 @@ function CreateCourse({ isOpen, onOpenChange }: { isOpen: boolean, onOpenChange:
                             />
                             {errors.providesCertificate && <p className="text-xs text-red-500">{errors.providesCertificate.message}</p>}
                         </div>
-                        <Button type="submit" className="bg-blue-600 flex items-center justify-center hover:bg-blue-700 text-white py-2 px-4 rounded-sm mt-2">
-                            {createCourseMutation.isPending ? <Loader className='animate-spin h-4 w-4' /> : 'Create Course'}
+                        <Button
+                            type="submit"
+                            className="bg-blue-600 flex items-center justify-center hover:bg-blue-700 text-white py-2 px-4 rounded-sm mt-2"
+                        >
+                            {(createCourseMutation.isPending || updateCourseMutation.isPending) ? (
+                                <Loader className='animate-spin h-4 w-4' />
+                            ) : isEditMode ? 'Update Course' : 'Create Course'}
                         </Button>
                     </form>
                 </main>
@@ -419,4 +502,4 @@ function CreateCourse({ isOpen, onOpenChange }: { isOpen: boolean, onOpenChange:
     )
 }
 
-export default CreateCourse
+export default CreateCourse;

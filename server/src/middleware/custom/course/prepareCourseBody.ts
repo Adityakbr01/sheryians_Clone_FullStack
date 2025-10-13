@@ -5,6 +5,7 @@ import fs from "fs";
 export const prepareCourseBody = async (req: Request, res: Response, next: NextFunction) => {
     try {
         const body = req.body;
+        console.log(body)
         const userId = req?.user?.id;
 
         // ✅ Boolean conversion
