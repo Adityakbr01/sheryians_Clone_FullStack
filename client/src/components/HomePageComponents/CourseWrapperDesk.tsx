@@ -50,17 +50,20 @@ function CourseWrapperDesk({ course, idx }: { course: Course, idx: number }) {
                             </div>
                             <div className="flex items-center gap-2">
                                 <span className="text-lg md:text-xl font-font-medium ">
-                                   {Math.floor(course.price)} {course.gst ? "(+GST)" : ""}
+                                    {Math.floor(course.price)} {course.gst ? "(+GST)" : ""}
 
                                 </span>
-                                <span className="text-lg md:text-xl font-medium  text-[#7C7C7C] line-through">
+                                <span className="text-md  font-medium  text-[#7C7C7C] line-through">
                                     {Math.round(course.originalPrice)}
                                 </span>
-                                <span className="text-sm text-[#24cfa6] font-medium">
-                                    <Badge className="bg-white text-black ">
-                                        {course.discountPercentage}% off
-                                    </Badge>
-                                </span>
+                                {Number(course.discountPercentage) > 0 && (
+                                    <span className="text-xs sm:text-sm text-[#24cfa6] font-medium">
+                                        <Badge className="bg-white text-black">
+                                            {Number(course.discountPercentage)}% off
+                                        </Badge>
+                                    </span>
+                                )}
+
                             </div>
 
                         </div>

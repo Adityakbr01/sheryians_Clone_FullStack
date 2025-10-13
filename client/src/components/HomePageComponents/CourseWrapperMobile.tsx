@@ -59,11 +59,14 @@ function CourseWrapperMobile({ course, idx }: { course: Course, idx: number }) {
                             <span className="text-xs sm:text-sm text-gray-400 line-through">
                                 {course.originalPrice}
                             </span>
-                            <span className="text-xs sm:text-sm text-[#24cfa6] font-medium">
-                                <Badge className="bg-white text-black">
-                                    {course.discountPercentage}% off
-                                </Badge>
-                            </span>
+                            {Number(course.discountPercentage) > 0 && (
+                                <span className="text-xs sm:text-sm text-[#24cfa6] font-medium">
+                                    <Badge className="bg-white text-black">
+                                        {Number(course.discountPercentage)}% off
+                                    </Badge>
+                                </span>
+                            )}
+
                         </div>
                     </div>
                 </div>
