@@ -11,6 +11,10 @@ const envSchema = z.object({
         .refine((val) => !isNaN(val), { message: "PORT must be a number" }),
     MONGO_URI: z.string().min(1, "MONGO_URI is required"),
     CLIENT_URL: z.string().url("CLIENT_URL must be a valid URL"),
+    // Cloudinary
+    CLOUDINARY_CLOUD_NAME: z.string().min(1, "CLOUDINARY_CLOUD_NAME is required"),
+    CLOUDINARY_API_KEY: z.string().min(1, "CLOUDINARY_API_KEY is required"),
+    CLOUDINARY_API_SECRET: z.string().min(1, "CLOUDINARY_API_SECRET is required"),
     // JWT 
     JWT_ACCESS_TOKEN_SECRET: z.string().min(10, "JWT_SECRET must be at least 10 characters"),
     JWT_REFRESH_TOKEN_SECRET: z.string().min(10, "JWT_SECRET must be at least 10 characters"),
@@ -72,9 +76,13 @@ const _config = {
         SMTP_USER: parsedEnv.data.SMTP_USER,
         SMTP_PASS: parsedEnv.data.SMTP_PASS,
 
-
         //Bullmq
         BULLMQ_WORKER_CONCURRENCY: parsedEnv.data.BULLMQ_WORKER_CONCURRENCY
+    },
+    cloudinary: {
+        cloudName: parsedEnv.data.CLOUDINARY_CLOUD_NAME,
+        apiKey: parsedEnv.data.CLOUDINARY_API_KEY,
+        apiSecret: parsedEnv.data.CLOUDINARY_API_SECRET,
     },
 };
 

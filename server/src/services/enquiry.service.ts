@@ -1,4 +1,4 @@
-import Enquiry from "@/models/Courses/inquery.model";
+import Enquiry from "@/models/inquery.model";
 import { FilterParams, IEnquiry } from "@/types/models/courses/enquiry";
 import { ApiError } from "@/utils/ApiError";
 

@@ -21,14 +21,16 @@ export interface ICourse extends Document {
     slug: string;
     description: string;
     instructor: mongoose.Types.ObjectId; // Ref to User
-    gst?:boolean
+    gst?: boolean
     price: number;
     originalPrice?: number; // Changed to number for consistency
+    discountPercentage: number
     thumbnail: string;
     category: string;
     tags?: string[];
     subTag?: string;
-    language?: CourseLanguage;
+    offer: string,
+    CourseLanguage?: CourseLanguage;
     type?: CourseType;
     // --- Fields from your previous schema that are good to have in the interface ---
     providesCertificate?: boolean;

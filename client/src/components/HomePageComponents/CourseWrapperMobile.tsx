@@ -1,20 +1,19 @@
 
 import { Badge } from '@/components/ui/badge';
 import { Card } from '@/components/ui/card';
+import { Course } from '@/types/course';
 import Image from 'next/image';
 import Link from 'next/link';
 import 'swiper/css';
 import 'swiper/css/pagination';
-import { Icourse } from '../pages/Section/Home/Section_3';
 
-
-function CourseWrapperMobile({ course, idx }: { course: Icourse, idx: number }) {
+function CourseWrapperMobile({ course, idx }: { course: Course, idx: number }) {
     return (
         <div className="course-wrapper px-2" key={idx}>
             <Card className="flex flex-col py-0 bg-[#1a1a1a] border-none text-white min-h-[400px] max-h-[500px] w-full max-w-[400px] mx-auto">
                 <div className="relative w-full h-48">
                     <Image
-                        src={course.image}
+                        src={course.thumbnail}
                         alt={`${course.title} thumbnail`}
                         fill
                         className="object-cover rounded-t-md"
@@ -40,9 +39,9 @@ function CourseWrapperMobile({ course, idx }: { course: Icourse, idx: number }) 
                                 {course.type}
                             </span>
                         )}
-                        {course.language && (
+                        {course.CourseLanguage && (
                             <span className="bg-[#2C2C2C] px-2 py-0.5 sm:py-1 rounded text-xs sm:text-sm">
-                                {course.language}
+                                {course.CourseLanguage}
                             </span>
                         )}
                     </div>
@@ -61,7 +60,9 @@ function CourseWrapperMobile({ course, idx }: { course: Icourse, idx: number }) 
                                 {course.originalPrice}
                             </span>
                             <span className="text-xs sm:text-sm text-[#24cfa6] font-medium">
-                                <Badge className="bg-white text-black">{course.discount}</Badge>
+                                <Badge className="bg-white text-black">
+                                    {course.discountPercentage}%
+                                    </Badge>
                             </span>
                         </div>
                     </div>
@@ -69,7 +70,7 @@ function CourseWrapperMobile({ course, idx }: { course: Icourse, idx: number }) 
 
             </Card>
             <Link
-                href={course.link}
+                href={course._id}
                 className="mt-4 block  w-full bg-[#24cfa6] text-black text-center font-HelveticaNow font-medium py-2 rounded-md hover:bg-[#1bd1a6] transition-colors"
             >
                 View Details

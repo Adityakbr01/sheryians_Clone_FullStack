@@ -1,12 +1,13 @@
-import { Router } from "express";
-import authRouter from "@/routes/auth.routes";
-import enquiryRouter from "@/routes/enquiry.route"
+import express from "express";
+import authRoutes from "./auth.routes";
+import enquiryRoutes from "./enquiry.route";
+import courseRoutes from "./course.routes";
 
-const router = Router();
+const router = express.Router();
 
-router.use("/auth", authRouter);
-router.use("/enquiry", enquiryRouter);
-
+router.use("/auth", authRoutes);
+router.use("/enquiry", enquiryRoutes);
+router.use("/courses", courseRoutes); // Add course routes
 
 router.get("/health", (req, res) => {
     throw new Error("Files")

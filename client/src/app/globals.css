@@ -73,12 +73,10 @@
   --font-juana: "juana", sans-serif;
 }
 
-
 @import "tailwindcss";
 @import "tw-animate-css";
 
 @custom-variant dark (&:is(.dark *));
-
 
 html,
 body {
@@ -88,7 +86,6 @@ body {
   scroll-behavior: smooth;
 
 }
-
 
 body {
   overflow-x: hidden !important;
@@ -139,7 +136,7 @@ body {
   --custom-primary: #1bd1a6;
   --custom-textColor: #E9E9E9;
   --custom-inputColor: #1e1e1e;
-  
+
   /*  */
   --radius: 0.625rem;
   --background: oklch(1 0 0);
@@ -219,9 +216,6 @@ body {
   }
 }
 
-
-
-
 /* styles/global.css or wherever you include your global CSS */
 .scrollbar-hide {
   scrollbar-width: none;
@@ -233,12 +227,10 @@ body {
   /* Chrome, Safari, Opera */
 }
 
-
 /* Custom scrollbar for better UX */
 ::-webkit-scrollbar {
   width: 0px;
 }
-
 
 .animate-shake-with-pause {
   animation: shakeWithPause 3s ease-in-out infinite;
@@ -310,4 +302,29 @@ body {
   .animate-shake-with-pause {
     animation: none;
   }
+}
+
+
+.cbg1 {
+  background: #c4b7ec;
+}
+
+.cbg2 {
+  background: #eeb0db;
+}
+
+.cbg3 {
+  background: #9d80f6;
+}
+
+.cbg4 {
+  background: #129d78;
+}
+
+.cbg5 {
+  background: #ff7300;
+}
+
+.cbg6 {
+  background: #f5fc35;
 }

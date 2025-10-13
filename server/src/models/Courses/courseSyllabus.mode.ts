@@ -1,41 +1,18 @@
 // src/models/courseSyllabus.model.ts
+import { ICourseSyllabus, ISection, ISubTopic, ITopic } from "@/types/models/courses/courseSyllabus";
 import mongoose, { Schema, Document, Model } from "mongoose";
 
-// ----------------------
-// Interfaces
-// ----------------------
-export interface ISubTopic {
-  title: string;
-  subTopics?: ISubTopic[]; // recursion support
-}
 
-export interface ITopic {
-  title: string;
-  subTopics?: ISubTopic[];
-}
-
-export interface ISection {
-  title: string; // e.g. "Web Development", "AI and Generative AI"
-  topics: ITopic[];
-}
-
-export interface ICourseSyllabus extends Document {
-  courseId: mongoose.Types.ObjectId;
-  syllabus: ISection[];
-}
-
-// ----------------------
-// Schemas
-// ----------------------
-
-// Recursive sub-topic schema
 const SubTopicSchema = new Schema<ISubTopic>(
   {
     title: { type: String, required: true, trim: true },
-    subTopics: { type: [Object], default: [] }, // recursive nesting
+    subTopics: { type: [Object], default: [] },
   },
   { _id: false }
 );
+
+
+
 
 const TopicSchema = new Schema<ITopic>(
   {
@@ -61,9 +38,6 @@ const CourseSyllabusSchema = new Schema<ICourseSyllabus>(
   { timestamps: true }
 );
 
-// ----------------------
-// Model
-// ----------------------
 const CourseSyllabus: Model<ICourseSyllabus> = mongoose.model<ICourseSyllabus>(
   "CourseSyllabus",
   CourseSyllabusSchema

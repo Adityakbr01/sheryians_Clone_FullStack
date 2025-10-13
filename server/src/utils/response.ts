@@ -28,4 +28,21 @@ export class ApiResponder {
     };
     return res.status(status).json(response);
   }
+
+  static error(
+    res: Response,
+    status = 400,
+    message = "Error occurred",
+    errors?: Record<string, unknown>
+  ): Response {
+    const response: ApiResponse = {
+      success: false,
+      message,
+      errors,
+      timestamp: new Date().toISOString(),
+      path: res.req.originalUrl,
+      statusCode: status
+    };
+    return res.status(status).json(response);
+  }
 }

@@ -55,6 +55,12 @@ export default function Navbar() {
     }
   };
 
+
+  //add if route starts with /admin than return null
+  if (typeof window !== "undefined" && window.location.pathname.startsWith("/admin")) {
+    return null;
+  }
+
   return (
     <>
       <nav

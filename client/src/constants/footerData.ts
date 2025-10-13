@@ -47,7 +47,7 @@ export const courses: Icourse[] = [
         offer: "Early Bird Discount",
         price: "₹ 5999",
         gst: "+ GST",
-        originalPrice: "₹ 11999",
+        originalPrice: "₹11999",
         discount: "50% OFF"
     },
     {
