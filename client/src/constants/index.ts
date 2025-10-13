@@ -1,4 +1,4 @@
-import { FileText, Home, Package, Percent, Settings, ShoppingCart, Tag, Users } from "lucide-react";
+import { FileText, Home, Package, Percent, Settings, Tag, Users } from "lucide-react";
 
 export const Routes = {
     rootRoute: "http://localhost:3000",

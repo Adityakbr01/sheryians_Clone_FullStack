@@ -1,6 +1,4 @@
 "use client";
-
-import { courses } from "@/constants/footerData";
 import { useLogout } from "@/hooks/TanStack/mutations/User/useLogout";
 import { useAuthStore } from "@/store/auth";
 import { useRouter } from "next/navigation";
@@ -42,7 +40,7 @@ export default function AccountCenterSection() {
                                 logoutMutation={logoutMutation}
                             />
                         ) : (
-                            <CoursesTab courses={courses} />
+                            <CoursesTab courses={user.enrolledCourses} />
                         )
                     ) : null}
                 </div>

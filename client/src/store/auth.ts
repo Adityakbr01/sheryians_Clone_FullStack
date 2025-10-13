@@ -1,4 +1,5 @@
 // store/auth.ts
+import { Course } from "@/types/course";
 import { create } from "zustand";
 
 export type Occupation =
@@ -19,7 +20,7 @@ export interface User {
   avatar: string;
   createdAt: string;
   updatedAt: string;
-  enrolledCourses: string[];
+  enrolledCourses: Course[];
   occupation: Occupation | ""; // "" for unselected state (optional)
 }
 

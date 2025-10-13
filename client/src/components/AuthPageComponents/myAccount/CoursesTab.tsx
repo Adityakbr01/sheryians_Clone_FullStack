@@ -1,15 +1,14 @@
 "use client";
-
-import { Icourse } from "@/components/pages/Section/Home/Section_3";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
+import { Course } from "@/types/course";
 import Image from "next/image";
 import Link from "next/link";
 
-function CoursesTab({ courses }: { courses: Icourse[] }) {
+function CoursesTab({ courses }: { courses: Course[] }) {
     return (
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 place-items-center">
-            {courses.map((course, idx) => (
+            {courses.map((course, idx: number) => (
                 <Card
                     key={idx}
                     className="flex flex-col items-center sm:items-start bg-[#2C2C2C] p-4 rounded-lg gap-4 border-none w-full max-w-xs sm:max-w-sm text-white"
@@ -17,7 +16,7 @@ function CoursesTab({ courses }: { courses: Icourse[] }) {
                     <div className="flex items-center gap-4">
                         <div className="relative w-16 h-16 rounded-full overflow-hidden">
                             <Image
-                                src={course.image}
+                                src={course.thumbnail}
                                 alt={course.title}
                                 fill
                                 className="object-cover"

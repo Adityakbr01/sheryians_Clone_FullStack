@@ -22,7 +22,7 @@ export function useUpdateCourse() {
 
     return useMutation<UpdateCourseResponse, Error, Course>({
         mutationFn: async (courseData) => {
-            const courseId = courseData.id;
+            const courseId = courseData._id;
             if (!courseId) {
                 throw new Error('Course ID is required for updating a course');
             }
@@ -38,7 +38,7 @@ export function useUpdateCourse() {
 
             // Also invalidate the individual course query
             queryClient.invalidateQueries({
-                queryKey: ['course', data.data.course.id],
+                queryKey: ['course', data.data.course._id],
             });
 
             // Show success message

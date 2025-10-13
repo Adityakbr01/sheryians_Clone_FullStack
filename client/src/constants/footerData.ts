@@ -1,6 +1,19 @@
-import { Icourse } from "@/components/pages/Section/Home/Section_3";
 import { Instagram, Linkedin, Disc2, Youtube, Twitter } from "lucide-react";
 
+export interface Icourse {
+    title: string;
+    link: string;
+    subTag: string;
+    image: string;
+    language: string;
+    type: string;
+    offer?: string;
+    price: string;
+    gst?: string;
+    originalPrice: string;
+    discount: string;
+    description?: string;
+}
 
 export const footerData = {
     socials: [
