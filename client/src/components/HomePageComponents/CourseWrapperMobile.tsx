@@ -54,15 +54,15 @@ function CourseWrapperMobile({ course, idx }: { course: Course, idx: number }) {
 
                         <div className="flex items-center gap-2 flex-wrap">
                             <span className="text-base sm:text-lg md:text-xl font-semibold font-HelveticaNow">
-                                {course.price} {course.gst || ""}
+                                {Math.floor(course.price)} {course.gst ? "(+GST)" : ""}
                             </span>
                             <span className="text-xs sm:text-sm text-gray-400 line-through">
                                 {course.originalPrice}
                             </span>
                             <span className="text-xs sm:text-sm text-[#24cfa6] font-medium">
                                 <Badge className="bg-white text-black">
-                                    {course.discountPercentage}%
-                                    </Badge>
+                                    {course.discountPercentage}% off
+                                </Badge>
                             </span>
                         </div>
                     </div>

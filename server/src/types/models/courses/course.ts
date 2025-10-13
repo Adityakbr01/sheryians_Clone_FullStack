@@ -1,7 +1,3 @@
-// =================================================================
-// ENUMS & INTERFACES (Your TypeScript Types)
-// =================================================================
-
 import mongoose from "mongoose";
 
 export enum CourseLanguage {

@@ -8,7 +8,7 @@ function DashboardLayout({
     children: React.ReactNode
 }) {
     return (
-        <div className="flex min-h-screen font-NeuMachina p-8 w-full">
+        <div className="flex min-h-screen font-NeuMachina p-4 w-full">
             <DashboardWithSidebar />
             <div className="flex-1">
                 {children}

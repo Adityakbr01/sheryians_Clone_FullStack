@@ -26,11 +26,3 @@ export interface Course {
     studentsEnrolled?: number;
     createdAt?: string;
 }
-
-export interface CourseFormData extends Omit<Course, 'id' | 'studentsEnrolled' | 'createdAt'> {
-    id?: string;
-    studentsEnrolled?: number;
-    createdAt?: string;
-}
-
-export type CourseFormErrors = Partial<Record<keyof CourseFormData, string>>;

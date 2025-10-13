@@ -1,11 +1,9 @@
-import { cloudinaryService } from "@/services/cloudinary.service";
 import courseService from "@/services/course.service";
 import { ApiError } from "@/utils/ApiError";
 import { ApiResponder } from "@/utils/response";
 import { wrapAsync } from "@/utils/wrapAsync";
 import { createCourseSchema } from "@/validators/course";
 import { Request, Response } from "express";
-import fs from "fs";
 
 
 const courseController = {
@@ -23,8 +21,7 @@ const courseController = {
     createCourse: wrapAsync(async (req: Request, res: Response) => {
         const parsed = createCourseSchema.parse(req.body);
         const course = await courseService.createCourse(parsed);
-
-        ApiResponder.success(res, 201, "Course created successfully", { data: course });
+        ApiResponder.success(res, 201, "Course created successfully", course);
     }),
     updateCourse: wrapAsync(async (req, res) => {
         const id = req.params.id;

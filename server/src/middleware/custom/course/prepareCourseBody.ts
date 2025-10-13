@@ -26,7 +26,6 @@ export const prepareCourseBody = async (req: Request, res: Response, next: NextF
                 body.tags = Array.isArray(body.tags) ? body.tags : [body.tags];
             }
         }
-
         // ✅ Thumbnail file upload to cloudinary
         if (req.file) {
             const result = await cloudinaryService.upload(req.file.path, "courses/thumbnails");
@@ -43,6 +42,7 @@ export const prepareCourseBody = async (req: Request, res: Response, next: NextF
 
         // Assign back to req.body
         req.body = body;
+        console.log("Prepared course body:", req.body);
 
         next();
     } catch (err) {

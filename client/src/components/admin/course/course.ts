@@ -1,5 +1,17 @@
-import { CourseLanguage, CourseType } from "@/types/models/courses/course";
-import { z } from "zod";
+import z from "zod";
+
+
+export enum CourseLanguage {
+    ENGLISH = "English",
+    HINDI = "Hindi",
+    HINGLISH = "Hinglish",
+}
+
+export enum CourseType {
+    LIVE = "Live Batch",
+    RECORDED = "Recorded",
+    HYBRID = "Hybrid",
+}
 
 export const CourseLanguageEnum = z.enum([
     CourseLanguage.ENGLISH,
@@ -15,13 +27,9 @@ export const CourseTypeEnum = z.enum([
 
 export const createCourseSchema = z.object({
     title: z.string().min(5).max(100),
-    slug: z.string().optional(), // generated from title in backend
     description: z.string().min(20).max(2000),
-    instructor: z.string().length(24), // Mongo ObjectId as string
-
     originalPrice: z.coerce.number().min(0),
     discountPercentage: z.coerce.number().min(0).max(100).default(0),
-
     gst: z.boolean().optional().default(true),
     category: z.string().min(3).max(50),
     tags: z.array(z.string().min(1).max(30)).max(10),
@@ -43,7 +51,6 @@ export const createCourseSchema = z.object({
     type: CourseTypeEnum.default(CourseType.LIVE),
     providesCertificate: z.boolean().optional().default(true),
 
-    schedule: z.string().optional(),
     totalContentHours: z.string().optional(),
     totalLectures: z.string().optional(),
     totalQuestions: z.string().optional(),
@@ -55,4 +62,13 @@ export const createCourseSchema = z.object({
         .nullable(),
 });
 
-export type CreateCourseInput = z.infer<typeof createCourseSchema>;
+
+export const categoryEnum = [
+    "Web Development",             // Frontend, Backend, Fullstack
+    "AI & Machine Learning",       // ML, Deep Learning, AI tools
+    "Data Science & Analytics",    // Python, Pandas, Visualization
+    "Cloud & DevOps",              // AWS, Azure, CI/CD
+    "Cybersecurity & IT",          // Web security, ethical hacking
+    "Productivity & Tools",        // Office tools, VSCode, Notion, etc.
+    "Personal Development"         // Soft skills, AI for personal productivity
+]

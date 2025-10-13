@@ -17,14 +17,13 @@ const courseService = {
         if (isAlreadyExist) {
             throw new ApiError(400, "Course with this title already exists");
         }
-
-        // 🧮 Calculate price after discount
         const discountAmount = (courseData.originalPrice * courseData.discountPercentage) / 100;
         const finalPrice = courseData.originalPrice - discountAmount;
-
+        console.log(`Final price calculated: ${finalPrice}`);
+        console.log(`Course data received:`, courseData);
         const course = new Course({
             ...courseData,
-            price: finalPrice, // 👈 final price store in DB
+            price: finalPrice,
         });
 
         return await course.save();

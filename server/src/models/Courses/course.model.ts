@@ -53,9 +53,9 @@ const courseSchema = new Schema<ICourse>(
     // --- Extra Fields ---
     providesCertificate: { type: Boolean, default: true },
     schedule: { type: String, trim: true },
-    totalContentHours: { type: String, trim: true },
-    totalLectures: { type: String, trim: true },
-    totalQuestions: { type: String, trim: true },
+    totalContentHours: { type: String, trim: true, required: false },
+    totalLectures: { type: String, trim: true, required: false },
+    totalQuestions: { type: String, trim: true, required: false },
     batchStartDate: { type: Date },
 
     // --- Relations ---
@@ -74,6 +74,8 @@ const courseSchema = new Schema<ICourse>(
   },
   { timestamps: true }
 );
+
+
 
 // 📝 Text Indexes
 courseSchema.index(
