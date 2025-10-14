@@ -1,5 +1,5 @@
 import api from '@/api/axios';
-import { useMutation } from '@tanstack/react-query';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 
 /**
  * API response type for course update
@@ -37,16 +37,26 @@ interface UpdateCourseResponse {
 /**
  * Hook for updating an existing course
  */
-export function useUpdateCourse() {
+function useUpdateCourse() {
+    const queryClient = useQueryClient(); // 👈 Get query client
+
     return useMutation<UpdateCourseResponse, Error, FormData>({
         mutationFn: async (courseData) => {
             const courseId = courseData.get('_id');
-            console.log("Updating course with ID:", courseData);
             if (!courseId) {
                 throw new Error('Course ID is required for updating a course');
             }
-            const { data } = await api.put<UpdateCourseResponse>(`/courses/${courseId}`, courseData);
+            const { data } = await api.put<UpdateCourseResponse>(
+                `/courses/${courseId}`,
+                courseData,
+                {
+                    headers: { 'Content-Type': 'multipart/form-data' },
+                }
+            );
             return data;
+        },
+        onSuccess: () => {
+            queryClient.invalidateQueries({ queryKey: ['courses'] }); // 🔥 Invalidate courses
         },
     });
 }

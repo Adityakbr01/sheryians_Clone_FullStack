@@ -14,7 +14,7 @@ export interface User {
   _id?: string;
   email: string;
   phone: string;
-  username: string;
+  name: string;
   role: string;
   city: string;
   avatar: string;

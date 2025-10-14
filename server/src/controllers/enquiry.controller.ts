@@ -4,10 +4,15 @@ import { ApiResponder } from "@/utils/response";
 import { ApiError } from "@/utils/ApiError";
 import enquiriesService from "@/services/enquiry.service";
 import { CreateEnquiryInput } from "@/validators/enquiry.validation";
+import { clearRouteCache } from "@/middleware/custom/cache.middleware";
 
 const EnquiryController = {
     createEnquiry: wrapAsync(async (req: Request, res: Response) => {
         const enquiry = await enquiriesService.createEnquiry(req.body as CreateEnquiryInput);
+
+        // Clear route caches when a new enquiry is created
+        await clearRouteCache(['/api/v1/enquiry', '/api/v1/enquiry/filter']);
+
         ApiResponder.success(res, 201, "Enquiry created successfully", enquiry)
     }),
     getAllEnquiries: wrapAsync(async (req: Request, res: Response) => {
@@ -23,6 +28,14 @@ const EnquiryController = {
         if (!enquiry) {
             throw new ApiError(404, "Enquiry not found");
         }
+
+        // Clear route caches when an enquiry is marked as checked
+        await clearRouteCache([
+            '/api/v1/enquiry',
+            '/api/v1/enquiry/filter',
+            `/api/v1/enquiry/${id}`
+        ]);
+
         ApiResponder.success(res, 200, "Enquiry marked as checked", enquiry)
     }),
     softDeleteEnquiry: wrapAsync(async (req: Request, res: Response) => {
@@ -35,6 +48,14 @@ const EnquiryController = {
         if (!enquiry) {
             throw new ApiError(404, "Enquiry not found");
         }
+
+        // Clear route caches when an enquiry is deleted
+        await clearRouteCache([
+            '/api/v1/enquiry',
+            '/api/v1/enquiry/filter',
+            `/api/v1/enquiry/${id}`
+        ]);
+
         ApiResponder.success(res, 200, "Enquiry deleted successfully", enquiry)
     }),
     filterEnquiries: wrapAsync(async (req: Request, res: Response) => {

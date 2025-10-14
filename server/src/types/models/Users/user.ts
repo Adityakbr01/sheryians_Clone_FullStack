@@ -42,8 +42,8 @@ export interface IUser extends Document {
 
   // instance methods
   comparePassword(candidatePassword: string): Promise<boolean>;
-  generateAccessToken(): string;
-  generateRefreshToken(): string;
+  generateAccessToken(sessionId?: string): string;
+  generateRefreshToken(sessionId?: string): string;
 }
 
 // If you want to add static methods:

@@ -1,59 +1,35 @@
 // routes/authRoutes.ts
 
-import { Router } from 'express';
 import authController from '@/controllers/auth.controller';
 import { protect } from '@/middleware/custom/user/protect';
 import { validateRequest } from '@/middleware/custom/validateSchema';
+import { cacheRoute } from '@/middleware/custom/cache.middleware';
+import { otpRateLimiter } from '@/utils/rateLimiter';
+import { REDIS_TTL } from '@/utils/redis/keys';
 import {
-    registerSchema,
+    loginSchema,
     otpSchema,
     personalInfoSchema,
-    loginSchema,
+    registerSchema,
     resendOtpSchema,
 } from '@/validators/auth';
-import { createRateLimiter, otpRateLimiter } from '@/utils/rateLimiter';
+import { Router } from 'express';
 
 const router = Router();
 
-
-
 // 🔓 Public Routes
-
-// @route   POST /register
-// @desc    Register new user
 router.post('/register', otpRateLimiter, validateRequest(registerSchema), authController.register);
-
-// @route   POST /register/verify-otp
-// @desc    Verify user OTP
 router.post('/register/verify-otp', validateRequest(otpSchema), authController.verifyOtp);
-
-// @route   POST /register/resend-otp
-// @desc    Resend OTP
 router.post('/register/resend-otp', otpRateLimiter, validateRequest(resendOtpSchema), authController.resendOtp);
-
-// @route   POST /register/personal
-// @desc    Complete personal info after OTP
 router.post('/register/personal', validateRequest(personalInfoSchema), authController.personalInfo);
-
-// @route   POST /login
-// @desc    Login user and set tokens
 router.post('/login', validateRequest(loginSchema), authController.login);
-
-
-// @route   POST /refresh-token
-// @desc    Refresh access token using refresh token
 router.post('/refresh-token', authController.refreshToken);
 
 
 // 🔐 Protected Routes
 router.use(protect);
 
-// @route   POST /logout
-// @desc    Logout user and clear cookies
 router.post('/logout', authController.logout);
-
-// @route   GET /profile
-// @desc    Get user profile
-router.get('/profile', authController.getProfile);
+router.get('/profile', cacheRoute(REDIS_TTL.SHORT), authController.getProfile);
 
 export default router;

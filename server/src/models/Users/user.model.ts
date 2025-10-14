@@ -153,17 +153,24 @@ userSchema.methods.comparePassword = async function (
   return bcrypt.compare(candidatePassword, this.password);
 };
 
-userSchema.methods.generateAccessToken = function (): string {
+userSchema.methods.generateAccessToken = function (sessionId?: string): string {
   return jwt.sign(
-    { id: this._id, role: this.role },
+    {
+      id: this._id,
+      role: this.role,
+      ...(sessionId ? { sid: sessionId } : {})
+    },
     _config.ENV.JWT_ACCESS_TOKEN_SECRET as string,
     { expiresIn: "15m" }
   );
 };
 
-userSchema.methods.generateRefreshToken = function (): string {
+userSchema.methods.generateRefreshToken = function (sessionId?: string): string {
   return jwt.sign(
-    { id: this._id },
+    {
+      id: this._id,
+      ...(sessionId ? { sid: sessionId } : {})
+    },
     _config.ENV.JWT_REFRESH_TOKEN_SECRET as string,
     { expiresIn: "7d" }
   );

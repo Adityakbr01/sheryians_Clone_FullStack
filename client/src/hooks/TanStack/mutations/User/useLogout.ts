@@ -16,7 +16,7 @@ export const useLogout = () => {
         onSuccess: () => {
             clearAuth();
             toast.success("Logged out successfully");
-            router.push("/login"); // 👈 Optional: redirect
+            router.push("/signin"); // 👈 Optional: redirect
         },
     });
 };

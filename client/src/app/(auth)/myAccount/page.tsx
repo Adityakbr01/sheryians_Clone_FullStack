@@ -15,6 +15,8 @@ export default function AccountCenterSection() {
     const setUser = useAuthStore((state) => state.setUser);
     const router = useRouter();
 
+    console.log("User in MyAccount page:", user);
+
     useEffect(() => {
         if (!user) {
             router.push("/signin");

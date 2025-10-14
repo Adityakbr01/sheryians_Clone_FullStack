@@ -7,7 +7,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useRouter } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 import { useForm } from "react-hook-form";
-import { z } from "zod";
+import { set, z } from "zod";
 import EmailStep from "./EmailStep";
 import OtpStep from "./OtpStep";
 import PersonalStep from "./PersonalStep";
@@ -73,6 +73,17 @@ function EmailSignUpForm() {
         }
     }, [step]);
 
+    // Cleanup on unmount
+    useEffect(() => {
+        return () => {
+            // Clean up OTP resend related data if user navigates away without completing
+            if (step !== 3) {
+                localStorage.removeItem("otpResendCount");
+                localStorage.removeItem("otpLastResendTime");
+            }
+        };
+    }, [step]);
+
     // Step 1: Email/Password Form
     const emailForm = useForm<EmailFormData>({
         resolver: zodResolver(emailSchema),
@@ -86,7 +97,11 @@ function EmailSignUpForm() {
                 setStep(2); // Go to OTP step
             },
             onError: (error: unknown) => {
+                console.log(error)
                 if (error instanceof AxiosError) {
+                    if (error.status === 409) {
+                        setStep(2); // If user already exists, go to OTP step
+                    }
                     emailForm.setError("root", {
                         message: error?.response?.data?.message || "Something went wrong",
                     });
@@ -133,6 +148,11 @@ function EmailSignUpForm() {
             {
                 onSuccess: (data) => {
                     setResendMessage(data.message || "OTP sent successfully");
+
+                    // Clear the resend message after 3 seconds
+                    setTimeout(() => {
+                        setResendMessage("");
+                    }, 3000);
                 },
                 onError: (err: unknown) => {
                     if (err instanceof AxiosError) {
@@ -143,7 +163,6 @@ function EmailSignUpForm() {
             }
         );
     };
-
 
     // Step 3: Personal Info Form
     const personalForm = useForm<PersonalFormData>({
@@ -165,6 +184,9 @@ function EmailSignUpForm() {
                     setStep(1);
                     localStorage.removeItem("authStep");
                     localStorage.removeItem("authEmail");
+                    // Clean up OTP resend related data
+                    localStorage.removeItem("otpResendCount");
+                    localStorage.removeItem("otpLastResendTime");
                     router.push("/signin");
                 },
                 onError: (err: unknown) => {

@@ -25,6 +25,8 @@ interface PersonalTabProps {
 
 function PersonalTab({ user, setUser, logoutMutation }: PersonalTabProps) {
 
+    console.log("Rendering PersonalTab with user:", user);
+
     return (
         <div className="space-y-8">
             {/* Profile Image */}
@@ -32,7 +34,7 @@ function PersonalTab({ user, setUser, logoutMutation }: PersonalTabProps) {
                 <div className="relative w-24 h-24 sm:w-28 sm:h-28 rounded-full overflow-hidden border border-gray-700">
                     <Image
                         src={user?.avatar || "https://cdn-icons-png.flaticon.com/128/1326/1326390.png"}
-                        alt={`${user.username} profile`}
+                        alt={`${user.name} profile`}
                         fill
                         className="object-cover"
                     />
@@ -46,7 +48,7 @@ function PersonalTab({ user, setUser, logoutMutation }: PersonalTabProps) {
                 </div>
 
                 <div className="text-center sm:text-left">
-                    <h2 className="text-lg sm:text-xl font-semibold">{user.username}</h2>
+                    <h2 className="text-lg sm:text-xl font-semibold">{user.name}</h2>
                     <p className="text-sm text-gray-400">{user.email}</p>
                 </div>
             </div>
@@ -57,8 +59,8 @@ function PersonalTab({ user, setUser, logoutMutation }: PersonalTabProps) {
                     <Label htmlFor="name">Full Name</Label>
                     <Input
                         id="name"
-                        value={user.username}
-                        onChange={(e) => setUser({ ...user, username: e.target.value })}
+                        value={user.name}
+                        onChange={(e) => setUser({ ...user, name: e.target.value })}
                         className="mt-1"
                     />
                 </div>
@@ -88,7 +90,7 @@ function PersonalTab({ user, setUser, logoutMutation }: PersonalTabProps) {
                 <div>
                     <Label htmlFor="occupation">Occupation</Label>
                     <Select
-                        value={user.occupation}
+                        value={user.occupation || "student"} // fallback default
                         onValueChange={(value) =>
                             setUser({ ...user, occupation: value as Occupation })
                         }

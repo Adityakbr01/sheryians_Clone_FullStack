@@ -6,7 +6,7 @@ import { useAuthStore } from "@/store/auth";
 
 interface AuthGuardProps {
     children: React.ReactNode;
-    allowedRoles?: string[]; // roles allowed to access this page
+    allowedRoles?: string[];
 }
 
 export default function AuthGuard({ children, allowedRoles }: AuthGuardProps) {
@@ -17,12 +17,10 @@ export default function AuthGuard({ children, allowedRoles }: AuthGuardProps) {
     useEffect(() => {
         const checkAuth = async () => {
             if (!user) {
-                // ❌ not logged in
                 router.replace("/signin");
                 return;
             }
 
-            // 🪄 Default role fallback
             if (!user.role) {
                 setUser({ ...user, role: "user" });
             }
@@ -42,7 +40,7 @@ export default function AuthGuard({ children, allowedRoles }: AuthGuardProps) {
 
     if (loading) {
         return (
-            <div className="flex items-center justify-center min-h-screen text-white">
+            <div className="flex items-center justify-center w-full min-h-screen text-white">
                 Checking authentication...
             </div>
         );
