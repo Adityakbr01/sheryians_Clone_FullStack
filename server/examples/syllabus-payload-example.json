@@ -1,0 +1,898 @@
+{
+    "syllabus": [
+        {
+            "title": "Web Development Fundamentals",
+            "topics": [
+                {
+                    "title": "HTML & CSS",
+                    "subTopics": [
+                        {
+                            "title": "HTML Basics",
+                            "subTopics": [
+                                {
+                                    "title": "HTML Document Structure"
+                                },
+                                {
+                                    "title": "Semantic HTML"
+                                },
+                                {
+                                    "title": "Forms and Input Elements"
+                                },
+                                {
+                                    "title": "Multimedia Elements (Images, Audio, Video)"
+                                }
+                            ]
+                        },
+                        {
+                            "title": "CSS Fundamentals",
+                            "subTopics": [
+                                {
+                                    "title": "Selectors and Specificity"
+                                },
+                                {
+                                    "title": "Box Model"
+                                },
+                                {
+                                    "title": "Responsive Design"
+                                },
+                                {
+                                    "title": "Flexbox and Grid Layouts"
+                                },
+                                {
+                                    "title": "CSS Animations and Transitions"
+                                },
+                                {
+                                    "title": "Preprocessors (Sass/SCSS Basics)"
+                                }
+                            ]
+                        },
+                        {
+                            "title": "Accessibility (a11y)",
+                            "subTopics": [
+                                {
+                                    "title": "ARIA Roles and Attributes"
+                                },
+                                {
+                                    "title": "Keyboard Navigation"
+                                },
+                                {
+                                    "title": "Color Contrast and Screen Readers"
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "title": "JavaScript",
+                    "subTopics": [
+                        {
+                            "title": "Core Concepts",
+                            "subTopics": [
+                                {
+                                    "title": "Variables and Data Types"
+                                },
+                                {
+                                    "title": "Functions and Scope"
+                                },
+                                {
+                                    "title": "Control Structures (Loops, Conditionals)"
+                                },
+                                {
+                                    "title": "Arrays and Objects"
+                                },
+                                {
+                                    "title": "Error Handling (Try-Catch)"
+                                }
+                            ]
+                        },
+                        {
+                            "title": "DOM Manipulation",
+                            "subTopics": [
+                                {
+                                    "title": "Selecting and Modifying Elements"
+                                },
+                                {
+                                    "title": "Event Handling"
+                                },
+                                {
+                                    "title": "Dynamic Content Creation"
+                                }
+                            ]
+                        },
+                        {
+                            "title": "ES6+ Features",
+                            "subTopics": [
+                                {
+                                    "title": "Arrow Functions and Destructuring"
+                                },
+                                {
+                                    "title": "Promises and Async/Await"
+                                },
+                                {
+                                    "title": "Modules (Import/Export)"
+                                }
+                            ]
+                        },
+                        {
+                            "title": "JavaScript Best Practices",
+                            "subTopics": [
+                                {
+                                    "title": "Code Organization and Modularity"
+                                },
+                                {
+                                    "title": "Performance Optimization"
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "title": "Version Control with Git",
+                    "subTopics": [
+                        {
+                            "title": "Basics",
+                            "subTopics": [
+                                {
+                                    "title": "Initialization and Cloning"
+                                },
+                                {
+                                    "title": "Commits, Branches, and Merges"
+                                },
+                                {
+                                    "title": "Git Ignore and Staging"
+                                },
+                                {
+                                    "title": "Rebasing and Cherry-Picking"
+                                }
+                            ]
+                        },
+                        {
+                            "title": "Collaboration",
+                            "subTopics": [
+                                {
+                                    "title": "Remote Repositories (GitHub/GitLab)"
+                                },
+                                {
+                                    "title": "Pull Requests and Code Reviews"
+                                },
+                                {
+                                    "title": "Conflict Resolution"
+                                },
+                                {
+                                    "title": "Git Hooks and Automation"
+                                }
+                            ]
+                        },
+                        {
+                            "title": "Advanced Git",
+                            "subTopics": [
+                                {
+                                    "title": "Submodules and Subtrees"
+                                },
+                                {
+                                    "title": "Git Workflows (GitFlow, Trunk-Based)"
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "title": "Data Structures and Algorithms with JavaScript",
+            "topics": [
+                {
+                    "title": "Fundamental Data Structures",
+                    "subTopics": [
+                        {
+                            "title": "Arrays and Linked Lists",
+                            "subTopics": [
+                                {
+                                    "title": "Implementation and Operations"
+                                },
+                                {
+                                    "title": "Time and Space Complexity"
+                                }
+                            ]
+                        },
+                        {
+                            "title": "Stacks and Queues",
+                            "subTopics": [
+                                {
+                                    "title": "Applications (Undo/Redo, BFS)"
+                                }
+                            ]
+                        },
+                        {
+                            "title": "Hash Tables and Sets"
+                        }
+                    ]
+                },
+                {
+                    "title": "Advanced Data Structures",
+                    "subTopics": [
+                        {
+                            "title": "Trees and Binary Search Trees",
+                            "subTopics": [
+                                {
+                                    "title": "Traversal Methods (Inorder, Preorder, Postorder)"
+                                },
+                                {
+                                    "title": "Balanced Trees (AVL)"
+                                }
+                            ]
+                        },
+                        {
+                            "title": "Graphs",
+                            "subTopics": [
+                                {
+                                    "title": "Representation (Adjacency List/Matrix)"
+                                },
+                                {
+                                    "title": "Traversal (DFS, BFS)"
+                                }
+                            ]
+                        },
+                        {
+                            "title": "Heaps and Priority Queues"
+                        }
+                    ]
+                },
+                {
+                    "title": "Algorithms",
+                    "subTopics": [
+                        {
+                            "title": "Sorting Algorithms",
+                            "subTopics": [
+                                {
+                                    "title": "Bubble, Selection, Insertion Sort"
+                                },
+                                {
+                                    "title": "Merge Sort and Quick Sort"
+                                }
+                            ]
+                        },
+                        {
+                            "title": "Searching Algorithms",
+                            "subTopics": [
+                                {
+                                    "title": "Linear and Binary Search"
+                                }
+                            ]
+                        },
+                        {
+                            "title": "Dynamic Programming",
+                            "subTopics": [
+                                {
+                                    "title": "Memoization and Tabulation"
+                                },
+                                {
+                                    "title": "Common Problems (Fibonacci, Knapsack)"
+                                }
+                            ]
+                        },
+                        {
+                            "title": "Graph Algorithms",
+                            "subTopics": [
+                                {
+                                    "title": "Shortest Path (Dijkstra, Bellman-Ford)"
+                                },
+                                {
+                                    "title": "Minimum Spanning Tree (Kruskal, Prim)"
+                                }
+                            ]
+                        },
+                        {
+                            "title": "Problem-Solving Strategies",
+                            "subTopics": [
+                                {
+                                    "title": "Two Pointers, Sliding Window"
+                                },
+                                {
+                                    "title": "Recursion and Backtracking"
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "title": "JavaScript Implementation",
+                    "subTopics": [
+                        {
+                            "title": "Big O Notation in JS"
+                        },
+                        {
+                            "title": "LeetCode/ HackerRank Practice"
+                        },
+                        {
+                            "title": "Testing DSA Code"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "title": "Advanced Frontend Development",
+            "topics": [
+                {
+                    "title": "Advanced React.js",
+                    "subTopics": [
+                        {
+                            "title": "Custom Hooks and Higher-Order Components"
+                        },
+                        {
+                            "title": "Server-Side Rendering with Next.js"
+                        },
+                        {
+                            "title": "Static Site Generation"
+                        },
+                        {
+                            "title": "Advanced State Management (Zustand, Recoil)"
+                        }
+                    ]
+                },
+                {
+                    "title": "TypeScript Integration",
+                    "subTopics": [
+                        {
+                            "title": "Type Basics and Interfaces"
+                        },
+                        {
+                            "title": "Generics and Utility Types"
+                        },
+                        {
+                            "title": "Typing React Components"
+                        }
+                    ]
+                },
+                {
+                    "title": "Performance and Optimization",
+                    "subTopics": [
+                        {
+                            "title": "Memoization (React.memo, useMemo)"
+                        },
+                        {
+                            "title": "Virtualization with React Window"
+                        },
+                        {
+                            "title": "Bundle Analysis and Tree Shaking"
+                        }
+                    ]
+                },
+                {
+                    "title": "Advanced UI/UX",
+                    "subTopics": [
+                        {
+                            "title": "Micro-Interactions and Animations (Framer Motion)"
+                        },
+                        {
+                            "title": "Design Systems (Storybook)"
+                        },
+                        {
+                            "title": "Progressive Enhancement"
+                        }
+                    ]
+                },
+                {
+                    "title": "Frontend Tooling",
+                    "subTopics": [
+                        {
+                            "title": "Webpack and Vite Configuration"
+                        },
+                        {
+                            "title": "ESLint and Prettier Setup"
+                        },
+                        {
+                            "title": "End-to-End Testing (Playwright)"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "title": "Backend Development",
+            "topics": [
+                {
+                    "title": "Node.js Fundamentals",
+                    "subTopics": [
+                        {
+                            "title": "Event Loop"
+                        },
+                        {
+                            "title": "Express.js Framework",
+                            "subTopics": [
+                                {
+                                    "title": "Routing and Middleware"
+                                },
+                                {
+                                    "title": "Error Handling"
+                                }
+                            ]
+                        },
+                        {
+                            "title": "Asynchronous Programming"
+                        },
+                        {
+                            "title": "File System and Streams"
+                        }
+                    ]
+                },
+                {
+                    "title": "Database Concepts",
+                    "subTopics": [
+                        {
+                            "title": "MongoDB Basics",
+                            "subTopics": [
+                                {
+                                    "title": "CRUD Operations"
+                                },
+                                {
+                                    "title": "Schema Design"
+                                }
+                            ]
+                        },
+                        {
+                            "title": "Mongoose ODM",
+                            "subTopics": [
+                                {
+                                    "title": "Models and Schemas"
+                                },
+                                {
+                                    "title": "Population and Queries"
+                                }
+                            ]
+                        },
+                        {
+                            "title": "SQL Databases (PostgreSQL Basics)",
+                            "subTopics": [
+                                {
+                                    "title": "Joins and Relationships"
+                                },
+                                {
+                                    "title": "ORM with Sequelize"
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "title": "APIs and Authentication",
+                    "subTopics": [
+                        {
+                            "title": "RESTful API Design"
+                        },
+                        {
+                            "title": "JWT and Session Management"
+                        },
+                        {
+                            "title": "OAuth Integration"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "title": "AI and Generative AI",
+            "topics": [
+                {
+                    "title": "Introduction to AI",
+                    "subTopics": [
+                        {
+                            "title": "AI Fundamentals",
+                            "subTopics": [
+                                {
+                                    "title": "Machine Learning vs. Deep Learning"
+                                },
+                                {
+                                    "title": "Supervised, Unsupervised, Reinforcement Learning"
+                                }
+                            ]
+                        },
+                        {
+                            "title": "Python for AI",
+                            "subTopics": [
+                                {
+                                    "title": "NumPy and Pandas Basics"
+                                },
+                                {
+                                    "title": "Data Visualization with Matplotlib/Seaborn"
+                                }
+                            ]
+                        },
+                        {
+                            "title": "Neural Networks Basics",
+                            "subTopics": [
+                                {
+                                    "title": "Perceptrons and Activation Functions"
+                                },
+                                {
+                                    "title": "Backpropagation"
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "title": "Machine Learning Essentials",
+                    "subTopics": [
+                        {
+                            "title": "Scikit-Learn",
+                            "subTopics": [
+                                {
+                                    "title": "Regression and Classification"
+                                },
+                                {
+                                    "title": "Clustering and Dimensionality Reduction"
+                                }
+                            ]
+                        },
+                        {
+                            "title": "Model Evaluation",
+                            "subTopics": [
+                                {
+                                    "title": "Metrics (Accuracy, Precision, Recall, F1)"
+                                },
+                                {
+                                    "title": "Cross-Validation and Overfitting"
+                                }
+                            ]
+                        },
+                        {
+                            "title": "Feature Engineering",
+                            "subTopics": [
+                                {
+                                    "title": "Scaling and Encoding"
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "title": "Deep Learning",
+                    "subTopics": [
+                        {
+                            "title": "TensorFlow/PyTorch Basics",
+                            "subTopics": [
+                                {
+                                    "title": "Building and Training Models"
+                                },
+                                {
+                                    "title": "CNNs for Image Processing"
+                                }
+                            ]
+                        },
+                        {
+                            "title": "RNNs and LSTMs for Sequences"
+                        },
+                        {
+                            "title": "Transfer Learning"
+                        }
+                    ]
+                },
+                {
+                    "title": "Generative AI",
+                    "subTopics": [
+                        {
+                            "title": "Generative Adversarial Networks (GANs)",
+                            "subTopics": [
+                                {
+                                    "title": "Generator and Discriminator"
+                                },
+                                {
+                                    "title": "Applications in Image Generation"
+                                }
+                            ]
+                        },
+                        {
+                            "title": "Variational Autoencoders (VAEs)"
+                        },
+                        {
+                            "title": "Large Language Models (LLMs)",
+                            "subTopics": [
+                                {
+                                    "title": "Transformers and Attention Mechanisms"
+                                },
+                                {
+                                    "title": "Fine-Tuning with Hugging Face"
+                                }
+                            ]
+                        },
+                        {
+                            "title": "Prompt Engineering and Ethical Considerations",
+                            "subTopics": [
+                                {
+                                    "title": "Bias and Fairness in AI"
+                                },
+                                {
+                                    "title": "Deployment of Generative Models"
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "title": "AI Integration in Web Development",
+                    "subTopics": [
+                        {
+                            "title": "API Calls to AI Services (OpenAI, Google AI)"
+                        },
+                        {
+                            "title": "Building AI-Powered Web Apps"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "title": "Full-Stack Integration and Deployment",
+            "topics": [
+                {
+                    "title": "Connecting Frontend and Backend",
+                    "subTopics": [
+                        {
+                            "title": "API Consumption with Fetch/Axios"
+                        },
+                        {
+                            "title": "CORS and Security Considerations"
+                        }
+                    ]
+                },
+                {
+                    "title": "Testing",
+                    "subTopics": [
+                        {
+                            "title": "Unit and Integration Testing"
+                        },
+                        {
+                            "title": "End-to-End Testing with Cypress"
+                        }
+                    ]
+                },
+                {
+                    "title": "Deployment and DevOps",
+                    "subTopics": [
+                        {
+                            "title": "Docker Basics"
+                        },
+                        {
+                            "title": "CI/CD Pipelines (GitHub Actions)"
+                        },
+                        {
+                            "title": "Hosting on Vercel/Heroku/AWS"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "title": "Aptitude and Reasoning",
+            "topics": [
+                {
+                    "title": "Quantitative Aptitude",
+                    "subTopics": [
+                        {
+                            "title": "Number Systems and Arithmetic",
+                            "subTopics": [
+                                {
+                                    "title": "Percentages, Ratios, Proportions"
+                                },
+                                {
+                                    "title": "Profit and Loss, Simple/Compound Interest"
+                                }
+                            ]
+                        },
+                        {
+                            "title": "Algebra and Geometry",
+                            "subTopics": [
+                                {
+                                    "title": "Equations and Inequalities"
+                                },
+                                {
+                                    "title": "Mensuration and Coordinate Geometry"
+                                }
+                            ]
+                        },
+                        {
+                            "title": "Data Interpretation",
+                            "subTopics": [
+                                {
+                                    "title": "Charts, Graphs, Tables"
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "title": "Logical Reasoning",
+                    "subTopics": [
+                        {
+                            "title": "Verbal Reasoning",
+                            "subTopics": [
+                                {
+                                    "title": "Analogies and Synonyms/Antonyms"
+                                },
+                                {
+                                    "title": "Reading Comprehension"
+                                }
+                            ]
+                        },
+                        {
+                            "title": "Non-Verbal Reasoning",
+                            "subTopics": [
+                                {
+                                    "title": "Series and Patterns"
+                                },
+                                {
+                                    "title": "Puzzles and Seating Arrangements"
+                                }
+                            ]
+                        },
+                        {
+                            "title": "Critical Thinking",
+                            "subTopics": [
+                                {
+                                    "title": "Syllogisms and Assumptions"
+                                },
+                                {
+                                    "title": "Arguments and Conclusions"
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "title": "Technical Aptitude",
+                    "subTopics": [
+                        {
+                            "title": "Coding Logic Puzzles"
+                        },
+                        {
+                            "title": "Debugging Scenarios"
+                        },
+                        {
+                            "title": "System Design Basics"
+                        }
+                    ]
+                },
+                {
+                    "title": "Practice and Mock Tests",
+                    "subTopics": [
+                        {
+                            "title": "Timed Quizzes"
+                        },
+                        {
+                            "title": "Interview Preparation Strategies"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "title": "Advanced Topics and Best Practices",
+            "topics": [
+                {
+                    "title": "Security",
+                    "subTopics": [
+                        {
+                            "title": "Common Vulnerabilities (XSS, CSRF)"
+                        },
+                        {
+                            "title": "Input Validation and Sanitization"
+                        }
+                    ]
+                },
+                {
+                    "title": "Performance and Optimization",
+                    "subTopics": [
+                        {
+                            "title": "Caching Strategies"
+                        },
+                        {
+                            "title": "Lazy Loading and Code Splitting"
+                        }
+                    ]
+                },
+                {
+                    "title": "Progressive Web Apps (PWAs)",
+                    "subTopics": [
+                        {
+                            "title": "Service Workers"
+                        },
+                        {
+                            "title": "Manifest Files"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "title": "Project Building",
+            "topics": [
+                {
+                    "title": "Project Planning and Design",
+                    "subTopics": [
+                        {
+                            "title": "Requirements Gathering"
+                        },
+                        {
+                            "title": "Wireframing and Prototyping (Figma)"
+                        },
+                        {
+                            "title": "Agile Methodologies (Scrum, Kanban)"
+                        }
+                    ]
+                },
+                {
+                    "title": "Mini Projects",
+                    "subTopics": [
+                        {
+                            "title": "Todo App with React and Local Storage"
+                        },
+                        {
+                            "title": "Weather App with API Integration"
+                        },
+                        {
+                            "title": "Chat Application with Socket.io"
+                        }
+                    ]
+                },
+                {
+                    "title": "Full-Stack Projects",
+                    "subTopics": [
+                        {
+                            "title": "E-Commerce Site (MERN Stack)"
+                        },
+                        {
+                            "title": "Social Media Dashboard"
+                        },
+                        {
+                            "title": "Blog Platform with Authentication"
+                        }
+                    ]
+                },
+                {
+                    "title": "AI-Integrated Projects",
+                    "subTopics": [
+                        {
+                            "title": "Image Recognition Web App"
+                        },
+                        {
+                            "title": "Chatbot with Generative AI"
+                        },
+                        {
+                            "title": "Recommendation System"
+                        }
+                    ]
+                },
+                {
+                    "title": "Capstone Project",
+                    "subTopics": [
+                        {
+                            "title": "End-to-End Application Development"
+                        },
+                        {
+                            "title": "Deployment and Presentation"
+                        },
+                        {
+                            "title": "Code Review and Portfolio Building"
+                        }
+                    ]
+                },
+                {
+                    "title": "Project Best Practices",
+                    "subTopics": [
+                        {
+                            "title": "Documentation and README"
+                        },
+                        {
+                            "title": "Version Control for Projects"
+                        },
+                        {
+                            "title": "Scalability Considerations"
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}

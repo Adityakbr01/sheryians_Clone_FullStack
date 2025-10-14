@@ -1,7 +1,6 @@
 import { CourseLanguage, CourseType, ICourse } from "@/types/models/courses/course";
 import mongoose, { Model, Schema } from "mongoose";
 import slugify from "slugify";
-import { trim } from "zod";
 
 const courseSchema = new Schema<ICourse>(
   {
@@ -69,7 +68,6 @@ const courseSchema = new Schema<ICourse>(
       required: false,
       default: null,
     },
-
     isDeleted: { type: Boolean, default: false },
   },
   { timestamps: true }

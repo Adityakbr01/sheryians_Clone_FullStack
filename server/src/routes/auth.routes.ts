@@ -2,7 +2,7 @@
 
 import authController from '@/controllers/auth.controller';
 import { protect } from '@/middleware/custom/user/protect';
-import { validateRequest } from '@/middleware/custom/validateSchema';
+import { validateSchema } from '@/middleware/custom/validateSchema';
 import { cacheRoute } from '@/middleware/custom/cache.middleware';
 import { otpRateLimiter } from '@/utils/rateLimiter';
 import { REDIS_TTL } from '@/utils/redis/keys';
@@ -18,11 +18,11 @@ import { Router } from 'express';
 const router = Router();
 
 // 🔓 Public Routes
-router.post('/register', otpRateLimiter, validateRequest(registerSchema), authController.register);
-router.post('/register/verify-otp', validateRequest(otpSchema), authController.verifyOtp);
-router.post('/register/resend-otp', otpRateLimiter, validateRequest(resendOtpSchema), authController.resendOtp);
-router.post('/register/personal', validateRequest(personalInfoSchema), authController.personalInfo);
-router.post('/login', validateRequest(loginSchema), authController.login);
+router.post('/register', otpRateLimiter, validateSchema(registerSchema), authController.register);
+router.post('/register/verify-otp', validateSchema(otpSchema), authController.verifyOtp);
+router.post('/register/resend-otp', otpRateLimiter, validateSchema(resendOtpSchema), authController.resendOtp);
+router.post('/register/personal', validateSchema(personalInfoSchema), authController.personalInfo);
+router.post('/login', validateSchema(loginSchema), authController.login);
 router.post('/refresh-token', authController.refreshToken);
 
 

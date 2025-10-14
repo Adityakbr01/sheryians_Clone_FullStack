@@ -33,32 +33,40 @@ export interface AuthState {
   clearAuth: () => void;
 }
 
-// ✅ Safe get from localStorage
+// Import secure local storage
+import { secureLocalStorage } from "@/utils/encryption";
+
+// ✅ Safe get from localStorage with encryption
 const getUserFromLocalStorage = (): User | null => {
   if (typeof window !== "undefined") {
-    try {
-      return JSON.parse(localStorage.getItem("user") || "null");
-    } catch {
-      return null;
-    }
+    return secureLocalStorage.getItem<User>("user");
+  }
+  return null;
+};
+
+// Get persisted access token if available
+const getPersistedToken = (): string | null => {
+  if (typeof window !== "undefined") {
+    return secureLocalStorage.getItem<string>("accessToken");
   }
   return null;
 };
 
 export const useAuthStore = create<AuthState>((set) => ({
-  accessToken: null,
+  accessToken: getPersistedToken(),
   user: getUserFromLocalStorage(),
   setAccessToken: (token) => set({ accessToken: token }),
   setUser: (user) => {
     set({ user });
     if (typeof window !== "undefined") {
-      localStorage.setItem("user", JSON.stringify(user));
+      secureLocalStorage.setItem("user", user);
     }
   },
   clearAuth: () => {
     set({ accessToken: null, user: null });
     if (typeof window !== "undefined") {
-      localStorage.removeItem("user");
+      secureLocalStorage.removeItem("user");
+      secureLocalStorage.removeItem("accessToken");
     }
   },
 }));

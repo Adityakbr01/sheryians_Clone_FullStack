@@ -11,9 +11,6 @@ const SubTopicSchema = new Schema<ISubTopic>(
   { _id: false }
 );
 
-
-
-
 const TopicSchema = new Schema<ITopic>(
   {
     title: { type: String, required: true, trim: true },

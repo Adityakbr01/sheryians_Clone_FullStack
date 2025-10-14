@@ -1,6 +1,7 @@
 import { useMutation } from "@tanstack/react-query";
 import api from "@/api/axios";
 import { useAuthStore, User } from "@/store/auth";
+import { secureLocalStorage } from "@/utils/encryption";
 
 type LoginInput = {
     email: string;
@@ -25,6 +26,10 @@ export const useLogin = () => {
         onSuccess: (data) => {
             setAccessToken(data.accessToken);
             setUser(data.user);
+
+            // Store the access token in secure storage
+            // This ensures the token persists across browser sessions when "Remember Me" is checked
+            secureLocalStorage.setItem("accessToken", data.accessToken);
         },
     });
 };

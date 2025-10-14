@@ -1,11 +1,13 @@
 "use client"
-import React, { useState } from "react"
+import React, { useState, useEffect } from "react"
 import { Label } from "@/components/ui/label"
 import { Eye, EyeOff, Loader2 } from "lucide-react"
 import { z } from "zod"
 import { Button } from "@/components/ui/button"
+import { Checkbox } from "@/components/ui/checkbox"
 import { useLogin } from "@/hooks/TanStack/mutations/User/useLogin"
 import { useRouter } from "next/navigation"
+import { secureLocalStorage } from "@/utils/encryption"
 
 // Zod schema
 const emailSchema = z.object({
@@ -17,8 +19,19 @@ function EmailSignInForm() {
   const [showPassword, setShowPassword] = useState(false)
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
+  const [rememberMe, setRememberMe] = useState(false)
   const [errors, setErrors] = useState<{ email?: string; password?: string }>({})
   const [loading, setLoading] = useState(false)
+
+  // Check for saved credentials on mount
+  useEffect(() => {
+    const savedCredentials = secureLocalStorage.getItem<{ email: string, password: string }>("rememberedCredentials");
+    if (savedCredentials) {
+      setEmail(savedCredentials.email);
+      setPassword(savedCredentials.password);
+      setRememberMe(true);
+    }
+  }, []);
 
   const loginMutation = useLogin();
   const router = useRouter();
@@ -39,6 +52,13 @@ function EmailSignInForm() {
     setLoading(true);
 
     try {
+      // Save credentials if "Remember Me" is checked
+      if (rememberMe) {
+        secureLocalStorage.setItem("rememberedCredentials", { email, password });
+      } else {
+        secureLocalStorage.removeItem("rememberedCredentials");
+      }
+
       await loginMutation.mutateAsync({ email, password });
       router.push("/"); // Or your post-login page
     } catch (error) {
@@ -95,6 +115,22 @@ function EmailSignInForm() {
           {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
         </button>
         {errors.password && <p className="text-xs text-red-500">{errors.password}</p>}
+      </div>
+
+      {/* Remember Me Checkbox */}
+      <div className="flex items-center space-x-2 mt-2">
+        <Checkbox
+          className="data-[state=checked]:bg-[var(--custom-primary)] data-[state=checked]:border-[var(--custom-primary)] border-[#3c3c3c] text-black focus-visible:ring-1 focus-visible:ring-offset-0 focus-visible:ring-[var(--custom-primary)] h-4 w-4 rounded-sm cursor-pointer"
+          id="remember-me"
+          checked={rememberMe}
+          onCheckedChange={(checked) => setRememberMe(checked as boolean)}
+        />
+        <label
+          htmlFor="remember-me"
+          className="text-[12px] text-[#a6a6a6] font-HelveticaNow font-medium cursor-pointer"
+        >
+          Remember me
+        </label>
       </div>
 
       {/* Continue Button */}
