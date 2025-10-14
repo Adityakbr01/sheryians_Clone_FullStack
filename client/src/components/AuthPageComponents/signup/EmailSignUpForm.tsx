@@ -4,14 +4,14 @@ import { useRegister } from "@/hooks/TanStack/mutations/User/useRegister";
 import { useResendOtp } from "@/hooks/TanStack/mutations/User/useResendOtp";
 import { useVerifyOtp } from "@/hooks/TanStack/mutations/User/useVerifyOtp";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { AxiosError } from "axios";
 import { useRouter } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 import { useForm } from "react-hook-form";
-import { set, z } from "zod";
+import { z } from "zod";
 import EmailStep from "./EmailStep";
 import OtpStep from "./OtpStep";
 import PersonalStep from "./PersonalStep";
-import { AxiosError } from "axios";
 
 // Zod schemas
 const emailSchema = z.object({
