@@ -22,18 +22,21 @@ const courseService = {
     },
     getCourseById: async (id: string) => {
         const cacheKey = courseKeys.detail(id);
-        const cachedCourse = await RedisCache.get(cacheKey);
 
-        if (cachedCourse) {
-            logger.debug(`Course ${id} retrieved from cache`);
-            return cachedCourse;
-        }
+        // Skip cache for populated fields and always fetch fresh data
+        // This ensures we always get the properly populated syllabus
+        const course = await Course.findById(id)
+            .populate({
+                path: "CourseSyllabusSchema",
+                model: "CourseSyllabus"
+            });
 
-        const course = await Course.findById(id).populate("CourseSyllabus");
-
+        // Only cache if we found a course
         if (course) {
-            await RedisCache.set(cacheKey, course, REDIS_TTL.MEDIUM);
+            // Convert to plain object before caching to maintain populated fields
+            await RedisCache.set(cacheKey, course.toObject(), REDIS_TTL.MEDIUM);
         }
+
         return course;
     },
     createCourse: async (courseData: CreateCourseInput) => {

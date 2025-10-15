@@ -5,7 +5,6 @@ import { ApiError } from "@/utils/ApiError";
 import { ApiResponder } from "@/utils/response";
 import { wrapAsync } from "@/utils/wrapAsync";
 import { Request, Response } from "express";
-
 const syllabusController = {
     getSyllabusByCourseId: wrapAsync(async (req: Request, res: Response) => {
         const courseId = req.params.courseId;
@@ -36,7 +35,9 @@ const syllabusController = {
         await clearRouteCache([
             `/api/v1/syllabus/course/${courseId}`,
             `/api/v1/courses/${courseId}`,
-            `/api/v1/courses/${courseId}/syllabus`
+            `/api/v1/courses/${courseId}/syllabus`,
+            '/api/v1/courses',
+            `/api/v1/courses/${courseId}`
         ]);
 
         ApiResponder.success(
@@ -61,7 +62,9 @@ const syllabusController = {
         await clearRouteCache([
             `/api/v1/syllabus/course/${courseId}`,
             `/api/v1/courses/${courseId}`,
-            `/api/v1/courses/${courseId}/syllabus`
+            `/api/v1/courses/${courseId}/syllabus`,
+            '/api/v1/courses',
+            `/api/v1/courses/${courseId}`
         ]);
 
         ApiResponder.success(
@@ -82,7 +85,9 @@ const syllabusController = {
         await clearRouteCache([
             `/api/v1/syllabus/course/${courseId}`,
             `/api/v1/courses/${courseId}`,
-            `/api/v1/courses/${courseId}/syllabus`
+            `/api/v1/courses/${courseId}/syllabus`,
+            '/api/v1/courses',
+            `/api/v1/courses/${courseId}`
         ]);
 
         ApiResponder.success(
@@ -106,7 +111,9 @@ const syllabusController = {
         const syllabus = await syllabusService.addSection(courseId, sectionData);
         await clearRouteCache([
             `/api/v1/syllabus/course/${courseId}`,
-            `/api/v1/courses/${courseId}/syllabus`
+            `/api/v1/courses/${courseId}/syllabus`,
+            '/api/v1/courses',
+            `/api/v1/courses/${courseId}`
         ]);
 
         ApiResponder.success(res, 201, "Section added successfully", syllabus);
@@ -119,19 +126,45 @@ const syllabusController = {
         }
 
         const sectionData = req.body as ISection;
-        if (!sectionData || !sectionData.title) {
+        if (!sectionData) {
             throw new ApiError(400, "Valid section data is required");
         }
+
+        console.log("Received section update request:");
+        console.log("Section index:", sectionIndex);
+        console.log("Section data from client:", JSON.stringify(sectionData, null, 2));
+
+        // Get existing section data to preserve structure
+        const existingSyllabus = await syllabusService.getSyllabusByCourseId(courseId);
+        const existingSection = existingSyllabus.syllabus[parseInt(sectionIndex)];
+
+        if (!existingSection) {
+            throw new ApiError(404, "Section not found");
+        }
+
+        console.log("Existing section:", JSON.stringify(existingSection, null, 2));
+
+        // Create updated section by merging existing data with new data
+        // This ensures we preserve all nested content
+        const updatedSection: ISection = {
+            ...existingSection,
+            title: sectionData.title || existingSection.title,
+            topics: sectionData.topics || existingSection.topics
+        };
+
+        console.log("Final section to save (after merge):", JSON.stringify(updatedSection, null, 2));
 
         const syllabus = await syllabusService.updateSection(
             courseId,
             parseInt(sectionIndex),
-            sectionData
+            updatedSection
         );
 
         await clearRouteCache([
             `/api/v1/syllabus/course/${courseId}`,
-            `/api/v1/courses/${courseId}/syllabus`
+            `/api/v1/courses/${courseId}/syllabus`,
+            '/api/v1/courses',
+            `/api/v1/courses/${courseId}`
         ]);
 
         ApiResponder.success(res, 200, "Section updated successfully", syllabus);
@@ -150,7 +183,9 @@ const syllabusController = {
 
         await clearRouteCache([
             `/api/v1/syllabus/course/${courseId}`,
-            `/api/v1/courses/${courseId}/syllabus`
+            `/api/v1/courses/${courseId}/syllabus`,
+            '/api/v1/courses',
+            `/api/v1/courses/${courseId}`
         ]);
 
         ApiResponder.success(res, 200, "Section deleted successfully", syllabus);
@@ -175,7 +210,9 @@ const syllabusController = {
 
         await clearRouteCache([
             `/api/v1/syllabus/course/${courseId}`,
-            `/api/v1/courses/${courseId}/syllabus`
+            `/api/v1/courses/${courseId}/syllabus`,
+            '/api/v1/courses',
+            `/api/v1/courses/${courseId}`
         ]);
 
         ApiResponder.success(res, 201, "Topic added successfully", syllabus);
@@ -188,20 +225,51 @@ const syllabusController = {
         }
 
         const topicData = req.body as ITopic;
-        if (!topicData || !topicData.title) {
+        if (!topicData) {
             throw new ApiError(400, "Valid topic data is required");
         }
 
+        // Get existing topic data to preserve structure
+        const existingSyllabus = await syllabusService.getSyllabusByCourseId(courseId);
+        const sectionIdx = parseInt(sectionIndex as string);
+        const topicIdx = parseInt(topicIndex as string);
+
+        if (!existingSyllabus.syllabus[sectionIdx]) {
+            throw new ApiError(404, "Section not found");
+        }
+
+        const existingTopic = existingSyllabus.syllabus[sectionIdx].topics[topicIdx];
+        if (!existingTopic) {
+            throw new ApiError(404, "Topic not found");
+        }
+
+        console.log("Received topic update request:");
+        console.log("Topic index:", topicIdx);
+        console.log("Topic data from client:", JSON.stringify(topicData, null, 2));
+        console.log("Existing topic:", JSON.stringify(existingTopic, null, 2));
+
+        // Create updated topic by merging existing data with new data
+        // This ensures we preserve all nested content (subtopics)
+        const updatedTopic: ITopic = {
+            ...existingTopic,
+            title: topicData.title || existingTopic.title,
+            subTopics: topicData.subTopics || existingTopic.subTopics
+        };
+
+        console.log("Final topic to save (after merge):", JSON.stringify(updatedTopic, null, 2));
+
         const syllabus = await syllabusService.updateTopic(
             courseId as string,
-            parseInt(sectionIndex as string),
-            parseInt(topicIndex as string),
-            topicData
+            sectionIdx,
+            topicIdx,
+            updatedTopic
         );
 
         await clearRouteCache([
             `/api/v1/syllabus/course/${courseId}`,
-            `/api/v1/courses/${courseId}/syllabus`
+            `/api/v1/courses/${courseId}/syllabus`,
+            '/api/v1/courses',
+            `/api/v1/courses/${courseId}`
         ]);
 
         ApiResponder.success(res, 200, "Topic updated successfully", syllabus);
@@ -239,7 +307,9 @@ const syllabusController = {
 
         await clearRouteCache([
             `/api/v1/syllabus/course/${courseId}`,
-            `/api/v1/courses/${courseId}/syllabus`
+            `/api/v1/courses/${courseId}/syllabus`,
+            '/api/v1/courses',
+            `/api/v1/courses/${courseId}`
         ]);
 
         ApiResponder.success(res, 201, "Subtopic added successfully", syllabus);
@@ -252,21 +322,60 @@ const syllabusController = {
         }
 
         const subtopicData = req.body as ISubTopic;
-        if (!subtopicData || !subtopicData.title) {
+        if (!subtopicData) {
             throw new ApiError(400, "Valid subtopic data is required");
         }
 
+        // Get existing subtopic data to preserve structure
+        const existingSyllabus = await syllabusService.getSyllabusByCourseId(courseId);
+        const sectionIdx = parseInt(sectionIndex as string);
+        const topicIdx = parseInt(topicIndex as string);
+        const subtopicIdx = parseInt(subtopicIndex as string);
+
+        if (!existingSyllabus.syllabus[sectionIdx]) {
+            throw new ApiError(404, "Section not found");
+        }
+
+        const existingSection = existingSyllabus.syllabus[sectionIdx];
+        if (!existingSection.topics[topicIdx]) {
+            throw new ApiError(404, "Topic not found");
+        }
+
+        const existingTopic = existingSection.topics[topicIdx];
+        if (!existingTopic.subTopics || !existingTopic.subTopics[subtopicIdx]) {
+            throw new ApiError(404, "Subtopic not found");
+        }
+
+        const existingSubtopic = existingTopic.subTopics[subtopicIdx];
+
+        console.log("Received subtopic update request:");
+        console.log("Subtopic index:", subtopicIdx);
+        console.log("Subtopic data from client:", JSON.stringify(subtopicData, null, 2));
+        console.log("Existing subtopic:", JSON.stringify(existingSubtopic, null, 2));
+
+        // Create updated subtopic by merging existing data with new data
+        // This ensures we preserve all nested content
+        const updatedSubtopic: ISubTopic = {
+            ...existingSubtopic,
+            title: subtopicData.title || existingSubtopic.title,
+            subTopics: subtopicData.subTopics || existingSubtopic.subTopics || []
+        };
+
+        console.log("Final subtopic to save (after merge):", JSON.stringify(updatedSubtopic, null, 2));
+
         const syllabus = await syllabusService.updateSubtopic(
             courseId as string,
-            parseInt(sectionIndex as string),
-            parseInt(topicIndex as string),
-            parseInt(subtopicIndex as string),
-            subtopicData
+            sectionIdx,
+            topicIdx,
+            subtopicIdx,
+            updatedSubtopic
         );
 
         await clearRouteCache([
             `/api/v1/syllabus/course/${courseId}`,
-            `/api/v1/courses/${courseId}/syllabus`
+            `/api/v1/courses/${courseId}/syllabus`,
+            '/api/v1/courses',
+            `/api/v1/courses/${courseId}`
         ]);
 
         ApiResponder.success(res, 200, "Subtopic updated successfully", syllabus);
@@ -287,7 +396,9 @@ const syllabusController = {
 
         await clearRouteCache([
             `/api/v1/syllabus/course/${courseId}`,
-            `/api/v1/courses/${courseId}/syllabus`
+            `/api/v1/courses/${courseId}/syllabus`,
+            '/api/v1/courses',
+            `/api/v1/courses/${courseId}`
         ]);
 
         ApiResponder.success(res, 200, "Subtopic deleted successfully", syllabus);

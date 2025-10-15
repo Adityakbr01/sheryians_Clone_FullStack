@@ -1,3 +1,22 @@
+// Syllabus interfaces
+export interface SubTopic {
+    _id: string;
+    title: string;
+    subTopics?: SubTopic[]; // For potential nested subtopics
+}
+
+export interface Topic {
+    _id: string;
+    title: string;
+    subTopics?: SubTopic[];
+}
+
+export interface Section {
+    _id: string;
+    title: string;
+    topics: Topic[];
+}
+
 export interface Course {
     _id: string;
     title: string;
@@ -25,4 +44,9 @@ export interface Course {
     totalQuestions?: string;
     studentsEnrolled?: number;
     createdAt?: string;
+
+    // Syllabus structure
+    CourseSyllabusSchema?: {
+        syllabus: Section[];
+    }
 }

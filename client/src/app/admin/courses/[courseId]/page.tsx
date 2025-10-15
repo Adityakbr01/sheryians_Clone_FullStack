@@ -1,35 +1,10 @@
 "use client";
 
 import React from "react";
-import CourseHeader from "./_components/CourseHeader";
-import CourseTabs from "./_components/CourseTabs";
 import { useGetCourseById } from "@/hooks/TanStack/courseHooks";
+import CourseHeader from "@/components/admin/course/CourseDetails/CourseHeader";
+import CourseTabs from "@/components/admin/course/CourseDetails/CourseTabs";
 
-
-const mockSyllabus = [
-    {
-        section: "Introduction",
-        topics: [
-            { title: "Course Overview" },
-            { title: "Tools Setup" },
-        ],
-    },
-    {
-        section: "Frontend",
-        topics: [
-            { title: "HTML & CSS" },
-            { title: "JavaScript Basics" },
-            { title: "React Fundamentals" },
-        ],
-    },
-    {
-        section: "Backend",
-        topics: [
-            { title: "Node.js & Express" },
-            { title: "MongoDB" },
-        ],
-    },
-];
 
 interface PageProps {
     params: { courseId: string };
@@ -37,12 +12,8 @@ interface PageProps {
 
 function CourseDetailsAdmin({ params }: PageProps) {
 
-    const { courseId } = params; // ✅ yahi tumhara [courseId] hai
-    console.log("Course ID:", courseId);
-
+    const { courseId } = params;
     const { data, isLoading, isError, error } = useGetCourseById(courseId);
-
-    console.log("Fetched Course Data:", data);
 
 
 
@@ -70,7 +41,7 @@ function CourseDetailsAdmin({ params }: PageProps) {
             <div className="mt-4">
                 <CourseTabs
                     course={data.data}
-                    syllabus={mockSyllabus}
+                    syllabus={data?.data?.CourseSyllabusSchema?.syllabus || []}
                 />
             </div>
         </div>

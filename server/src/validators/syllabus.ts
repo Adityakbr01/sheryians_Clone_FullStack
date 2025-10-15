@@ -43,12 +43,12 @@ export const syllabusValidation = {
     // Creation and update validation
     createSection: z.object({
         title: sectionSchema.shape.title,
-        description: sectionSchema.shape.description,
-        topics: z.optional(z.array(z.any()))
+        topics: z.optional(z.array(topicSchema))
     }),
 
     updateSection: z.object({
-        body: sectionSchema,
+        title: z.optional(sectionSchema.shape.title),
+        topics: z.optional(z.array(topicSchema)),
         params: z.object({
             sectionIndex: z.string().min(1, "Section index is required")
         })
@@ -56,24 +56,22 @@ export const syllabusValidation = {
 
     createTopic: z.object({
         title: topicSchema.shape.title,
-        description: topicSchema.shape.description,
-        subTopics: z.optional(z.array(z.any())),
+        subTopics: z.optional(z.array(subTopicSchema)),
     }),
 
     updateTopic: z.object({
-        title: topicSchema.shape.title,
-        description: topicSchema.shape.description,
-        subTopics: z.optional(z.array(z.any())),
+        title: z.optional(topicSchema.shape.title),
+        subTopics: z.optional(z.array(subTopicSchema)),
     }),
 
     createSubtopic: z.object({
-        title: topicSchema.shape.title,
-        description: topicSchema.shape.description,
+        title: subTopicSchema.shape.title,
+        subTopics: z.optional(z.array(subTopicSchema))
     }),
 
     updateSubtopic: z.object({
-        title: topicSchema.shape.title,
-        description: topicSchema.shape.description,
+        title: z.optional(subTopicSchema.shape.title),
+        subTopics: z.optional(z.array(subTopicSchema))
     })
 };
 

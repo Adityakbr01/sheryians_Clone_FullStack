@@ -120,6 +120,20 @@ const syllabusService = {
             throw new ApiError(400, "Invalid section index");
         }
 
+        console.log("Updating section at index:", sectionIndex);
+        console.log("New section data:", JSON.stringify(section, null, 2));
+
+        // Ensure section has all required properties
+        if (!section.title) {
+            throw new ApiError(400, "Section title is required");
+        }
+
+        // Ensure topics array exists, even if empty
+        if (!section.topics) {
+            section.topics = [];
+        }
+
+        // Update the section with full content
         syllabus.syllabus[sectionIndex] = section;
         await syllabus.save();
         return syllabus;
@@ -187,6 +201,19 @@ const syllabusService = {
 
         if (topicIndex < 0 || topicIndex >= section.topics.length) {
             throw new ApiError(400, "Invalid topic index");
+        }
+
+        console.log("Updating topic at indices:", sectionIndex, topicIndex);
+        console.log("New topic data:", JSON.stringify(topic, null, 2));
+
+        // Ensure topic has all required properties
+        if (!topic.title) {
+            throw new ApiError(400, "Topic title is required");
+        }
+
+        // Ensure subTopics array exists, even if empty
+        if (!topic.subTopics) {
+            topic.subTopics = [];
         }
 
         section.topics[topicIndex] = topic;
@@ -295,6 +322,14 @@ const syllabusService = {
 
         if (!topic.subTopics || subtopicIndex < 0 || subtopicIndex >= topic.subTopics.length) {
             throw new ApiError(400, "Invalid subtopic index");
+        }
+
+        console.log("Updating subtopic at indices:", sectionIndex, topicIndex, subtopicIndex);
+        console.log("New subtopic data:", JSON.stringify(subtopic, null, 2));
+
+        // Ensure subtopic has all required properties
+        if (!subtopic.title) {
+            throw new ApiError(400, "Subtopic title is required");
         }
 
         topic.subTopics[subtopicIndex] = subtopic;
