@@ -7,7 +7,9 @@ import { useMutation, useQueryClient } from '@tanstack/react-query';
 interface UpdateCourseResponse {
     success: boolean;
     message: string;
+    courseId?: string;
     data: {
+
         id: string;
         title: string;
         slug: string;
@@ -38,25 +40,28 @@ interface UpdateCourseResponse {
  * Hook for updating an existing course
  */
 function useUpdateCourse() {
-    const queryClient = useQueryClient(); // 👈 Get query client
+    const queryClient = useQueryClient();
 
     return useMutation<UpdateCourseResponse, Error, FormData>({
         mutationFn: async (courseData) => {
-            const courseId = courseData.get('_id');
+            const courseId = courseData.get('_id') as string;
             if (!courseId) {
                 throw new Error('Course ID is required for updating a course');
             }
+
             const { data } = await api.put<UpdateCourseResponse>(
                 `/courses/${courseId}`,
                 courseData,
-                {
-                    headers: { 'Content-Type': 'multipart/form-data' },
-                }
+                { headers: { 'Content-Type': 'multipart/form-data' } }
             );
-            return data;
+            console.log("UpdateCourse Response Data:", data);
+
+            // ✅ return both data and courseId so onSuccess can access it
+            return { ...data, courseId };
         },
-        onSuccess: () => {
-            queryClient.invalidateQueries({ queryKey: ['courses'] }); // 🔥 Invalidate courses
+        onSuccess: (data) => {
+            // now we can use data.courseId safely
+            queryClient.invalidateQueries({ queryKey: ['course', data.courseId] });
         },
     });
 }

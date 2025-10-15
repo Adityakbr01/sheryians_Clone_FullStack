@@ -3,7 +3,7 @@ export interface Course {
     title: string;
     slug: string;
     description: string;
-    instructor: string;
+    instructor?: string;
 
     price: number;
     originalPrice: number;

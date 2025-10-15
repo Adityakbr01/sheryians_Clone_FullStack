@@ -10,6 +10,7 @@ import 'swiper/css/pagination';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Skeleton } from '@/components/ui/skeleton';
 import Head from 'next/head';
+import CourseCardSkelton from '@/components/common/CourseCardSkelton';
 
 const skeletonCount = 8;
 
@@ -71,15 +72,7 @@ function Page() {
                     <div className="hidden sm:grid grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
                         {isLoading
                             ? Array.from({ length: skeletonCount }).map((_, idx) => (
-                                <div key={idx} className="px-3 mb-5">
-                                    <div className="w-full max-w-[400px] mx-auto space-y-2">
-                                        <Skeleton className="h-48 w-full rounded-t-md animate-pulse bg-[var(--custom-inputColor)]" />
-                                        <Skeleton className="h-6 w-3/4 animate-pulse bg-[var(--custom-inputColor)]" />
-                                        <Skeleton className="h-4 w-1/2 animate-pulse bg-[var(--custom-inputColor)]" />
-                                        <Skeleton className="h-6 w-full animate-pulse bg-[var(--custom-inputColor)]" />
-                                        <Skeleton className="h-8 w-full animate-pulse mt-4 bg-[var(--custom-inputColor)]" />
-                                    </div>
-                                </div>
+                                <CourseCardSkelton key={idx} idx={idx} />
                             ))
                             : courses.map((course, idx) => (
                                 <CourseWrapperDesk key={idx} course={course} idx={idx} />

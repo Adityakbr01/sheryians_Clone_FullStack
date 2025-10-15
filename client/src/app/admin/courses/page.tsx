@@ -1,13 +1,13 @@
 "use client";
 
 import CreateCourse from "@/components/admin/course/CreateCourse";
-import CourseCard from "../../../components/admin/course/CourseCard";
 import DeleteCourseDialog from "@/components/admin/course/DeleteCourseDialog";
-import { useGetCourses, useDeleteCourse } from "@/hooks/TanStack/courseHooks";
+import CourseCardSkelton from "@/components/common/CourseCardSkelton";
+import { useDeleteCourse, useGetCourses } from "@/hooks/TanStack/courseHooks";
 import { Course } from "@/types/course";
 import { useState } from "react";
-import { Skeleton } from "@/components/ui/skeleton";
 import toast from "react-hot-toast";
+import CourseCard from "../../../components/admin/course/CourseCard";
 
 export default function Page() {
     const [isAddingCourse, setIsAddingCourse] = useState(false);
@@ -60,10 +60,12 @@ export default function Page() {
                 </button>
             </div>
 
+
+
             {isLoading ? (
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
                     {Array.from({ length: skeletonCount }).map((_, idx) => (
-                        <Skeleton key={idx} className="h-[400px] rounded bg-[var(--custom-inputColor)]" />
+                        <CourseCardSkelton key={idx} idx={idx} />
                     ))}
                 </div>
             ) : (

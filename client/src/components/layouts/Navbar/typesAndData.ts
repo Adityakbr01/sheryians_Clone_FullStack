@@ -37,6 +37,11 @@ export const PROFILE_LINK: NavLink = {
     value: "Profile",
     isProfile: true,
 };
+export const ADMIN_LINK: NavLink = {
+    href: "/admin",
+    value: "Admin",
+
+};
 
 
 

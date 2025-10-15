@@ -1,7 +1,7 @@
 
+import CourseCardSkelton from '@/components/common/CourseCardSkelton';
 import CourseWrapperDesk from '@/components/HomePageComponents/CourseWrapperDesk';
 import CourseWrapperMobile from '@/components/HomePageComponents/CourseWrapperMobile';
-import { Skeleton } from '@/components/ui/skeleton';
 import { useGetCourses } from '@/hooks/TanStack/courseHooks';
 import { Course } from '@/types/course';
 import 'swiper/css';
@@ -45,15 +45,7 @@ function Section_3() {
                     {
                         isLoading
                             ? Array.from({ length: skeletonCount }).map((_, idx) => (
-                                <div key={idx} className="px-3 mb-5" >
-                                    <div className="w-full max-w-[400px] mx-auto" >
-                                        <Skeleton className="h-48 w-full rounded-t-md mb-3 bg-[var(--custom-inputColor)]" />
-                                        <Skeleton className="h-6 w-3/4 mb-2 bg-[var(--custom-inputColor)]" />
-                                        <Skeleton className="h-4 w-1/2 mb-2 bg-[var(--custom-inputColor)]" />
-                                        <Skeleton className="h-6 w-full bg-[var(--custom-inputColor)]" />
-                                        <Skeleton className="h-8 mt-6 w-full bg-[var(--custom-inputColor)]" />
-                                    </div>
-                                </div>
+                                <CourseCardSkelton key={idx} idx={idx} />
                             ))
                             : courses?.map((course: Course, idx: number) => (
                                 <CourseWrapperDesk key={idx} course={course} idx={idx} />

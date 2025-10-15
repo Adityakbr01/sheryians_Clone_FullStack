@@ -17,7 +17,7 @@ export const Routes = {
                 title: "Courses",
                 url: "/admin/courses",
                 icon: Package,
-                bgColor: "cbg4"
+                bgColor: "cbg4",
             },
             {
                 title: "Users",

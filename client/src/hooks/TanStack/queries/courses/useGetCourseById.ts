@@ -8,9 +8,7 @@ import { useQuery } from '@tanstack/react-query';
 interface GetCourseResponse {
     success: boolean;
     message: string;
-    data: {
-        course: Course;
-    };
+    data: Course;
 }
 
 /**

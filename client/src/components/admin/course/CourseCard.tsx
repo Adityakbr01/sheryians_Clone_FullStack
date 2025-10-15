@@ -1,10 +1,10 @@
 "use client";
 
 import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Course } from "@/types/course";
 import Image from "next/image";
+import Link from "next/link";
 
 interface CourseCardProps {
     course: Course;
@@ -102,9 +102,9 @@ export default function CourseCard({ course, onEdit, onDelete }: CourseCardProps
                     </button>
                 </div>
 
-                <Button className="mt-4 block w-full bg-[#24cfa6] text-black text-center font-HelveticaNow cursor-pointer font-medium py-2 rounded-md hover:bg-[#1bd1a6] transition-colors">
+                <Link href={`/admin/courses/${course._id}`} className="mt-4 block w-full bg-[#24cfa6] text-black text-center font-HelveticaNow cursor-pointer font-medium py-2 rounded-md hover:bg-[#1bd1a6] transition-colors">
                     View Details
-                </Button>
+                </Link>
             </div>
         </Card>
     );

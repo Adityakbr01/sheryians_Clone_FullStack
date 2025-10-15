@@ -122,6 +122,8 @@ export interface CreateCourseFormValues {
     batchStartDate?: string | null;
     batchDays?: string;
     batchTime?: string;
+    instructor?: string;
+    schedule?: string;
 }
 
 // Use this type for consistency between Zod schema and TypeScript interface

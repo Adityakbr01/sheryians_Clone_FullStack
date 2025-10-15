@@ -377,7 +377,7 @@ function CreateCourseForm({ onSubmit, handleSubmit, register, errors, control, h
                             id="providesCertificate"
                             checked={field.value}
                             onCheckedChange={field.onChange}
-                            className="border-[#3c3c3c] outline-none font-light placeholder:text-[12px]"
+                            className="data-[state=checked]:bg-[#1bd1a6] data-[state=checked]:border-[#1bd1a6]"
                         />
                     )}
                 />

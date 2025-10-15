@@ -29,7 +29,7 @@ const courseService = {
             return cachedCourse;
         }
 
-        const course = await Course.findById(id);
+        const course = await Course.findById(id).populate("CourseSyllabus");
 
         if (course) {
             await RedisCache.set(cacheKey, course, REDIS_TTL.MEDIUM);
