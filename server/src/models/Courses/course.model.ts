@@ -1,4 +1,4 @@
-import { CourseLanguage, CourseType, ICourse } from "@/types/models/courses/course";
+import { CourseLanguage, CourseStatus, CourseType, ICourse } from "@/types/models/courses/course";
 import mongoose, { Model, Schema } from "mongoose";
 import slugify from "slugify";
 
@@ -6,7 +6,7 @@ const courseSchema = new Schema<ICourse>(
   {
     // --- Core Course Details ---
     title: { type: String, required: true, trim: true },
-    slug: { type: String, unique: true, lowercase: true, trim: true }, // auto-generated
+    slug: { type: String, unique: true, lowercase: true, trim: true },
     description: { type: String, required: true },
     instructor: {
       type: Schema.Types.ObjectId,
@@ -15,8 +15,8 @@ const courseSchema = new Schema<ICourse>(
     },
 
     // --- Pricing Information ---
-    price: { type: Number, required: true, min: 0 }, // final price after discount
-    originalPrice: { type: Number, required: true }, // before discount
+    price: { type: Number, required: true, min: 0 },
+    originalPrice: { type: Number, required: true },
     gst: { type: Boolean, default: true },
     discountPercentage: {
       type: Number,
@@ -49,12 +49,15 @@ const courseSchema = new Schema<ICourse>(
       default: CourseType.LIVE,
     },
 
+    CourseStatus: {
+      type: String,
+      enum: Object.values(CourseStatus),
+      default: CourseStatus.UPCOMING,
+    },
+
     // --- Extra Fields ---
     providesCertificate: { type: Boolean, default: true },
     schedule: { type: String, trim: true },
-    totalContentHours: { type: String, trim: true, required: false },
-    totalLectures: { type: String, trim: true, required: false },
-    totalQuestions: { type: String, trim: true, required: false },
     batchStartDate: { type: Date },
 
     // --- Relations ---
@@ -62,20 +65,11 @@ const courseSchema = new Schema<ICourse>(
       type: [{ type: Schema.Types.ObjectId, ref: "Module" }],
       default: [],
     },
-    CourseSyllabusSchema: {
-      type: Schema.Types.ObjectId,
-      ref: "CourseSyllabus",
-      required: false,
-      default: null,
-    },
     isDeleted: { type: Boolean, default: false },
   },
   { timestamps: true }
 );
 
-
-
-// 📝 Text Indexes
 courseSchema.index(
   {
     title: "text",
@@ -83,9 +77,7 @@ courseSchema.index(
     category: "text",
   }
 );
-courseSchema.index({ slug: 1 });
 
-// 🧠 Slug Generation + Price Calculation on Save
 courseSchema.pre("save", function (next) {
   // Slug auto-generate
   if (this.isModified("title")) {
@@ -103,7 +95,6 @@ courseSchema.pre("save", function (next) {
   next();
 });
 
-
 courseSchema.pre("save", function (next) {
   if (this.isModified("title") && this.title) {
     this.slug = slugify(this.title, { lower: true, strict: true });
@@ -117,8 +108,6 @@ courseSchema.pre("save", function (next) {
   next();
 });
 
-
-// 🧠 Price Re-calculation on Update
 courseSchema.pre(["findOneAndUpdate", "updateOne"], function (next) {
   const update = this.getUpdate() as any;
 
@@ -138,7 +127,6 @@ courseSchema.pre(["findOneAndUpdate", "updateOne"], function (next) {
   next();
 });
 
-// 🧮 Virtual: Auto calculate discount percentage (if not explicitly set)
 courseSchema.virtual("calculatedDiscountPercentage").get(function (this: ICourse) {
   if (this.originalPrice && this.price) {
     return Math.round(
@@ -147,8 +135,6 @@ courseSchema.virtual("calculatedDiscountPercentage").get(function (this: ICourse
   }
   return 0;
 });
-
-
 
 
 const Course: Model<ICourse> = mongoose.model<ICourse>("Course", courseSchema);

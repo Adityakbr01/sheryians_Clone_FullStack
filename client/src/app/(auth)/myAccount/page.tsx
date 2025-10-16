@@ -3,7 +3,7 @@ import { useLogout } from "@/hooks/TanStack/mutations/User/useLogout";
 import { useAuthStore } from "@/store/auth";
 import { useRouter } from "next/navigation";
 import { useState, useEffect } from "react";
-import CoursesTab from "../../../components/AuthPageComponents/myAccount/CoursesTab";
+import CoursesTabProfile from "../../../components/AuthPageComponents/myAccount/CoursesTabProfile";
 import MyAccountSidebar from "../../../components/AuthPageComponents/myAccount/MyAccountSidebar";
 import PersonalTab from "../../../components/AuthPageComponents/myAccount/PersonalTab";
 import AuthGuard from "@/Guards/AuthGuard";
@@ -42,7 +42,7 @@ export default function AccountCenterSection() {
                                 logoutMutation={logoutMutation}
                             />
                         ) : (
-                            <CoursesTab courses={user.enrolledCourses} />
+                            <CoursesTabProfile courses={user.enrolledCourses} />
                         )
                     ) : null}
                 </div>

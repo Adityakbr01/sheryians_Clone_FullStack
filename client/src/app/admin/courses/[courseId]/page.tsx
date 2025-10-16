@@ -41,7 +41,7 @@ function CourseDetailsAdmin({ params }: PageProps) {
             <div className="mt-4">
                 <CourseTabs
                     course={data.data}
-                    syllabus={data?.data?.CourseSyllabusSchema?.syllabus || []}
+                    Sections={data?.data?.CourseSyllabusSchema?.Sections || []}
                 />
             </div>
         </div>

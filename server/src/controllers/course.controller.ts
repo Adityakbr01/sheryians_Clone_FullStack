@@ -20,8 +20,7 @@ const courseController = {
         ApiResponder.success(res, 200, "Course fetched successfully", course);
     }),
     createCourse: wrapAsync(async (req: Request, res: Response) => {
-        const parsed = createCourseSchema.parse(req.body);
-        const course = await courseService.createCourse(parsed);
+        const course = await courseService.createCourse(req.body);
         await clearRouteCache(['/api/v1/courses']);
         ApiResponder.success(res, 201, "Course created successfully", course);
     }),
@@ -30,8 +29,7 @@ const courseController = {
         if (!id) {
             throw new ApiError(400, "Course id Required")
         }
-        const parsed = createCourseSchema.parse(req.body);
-        const course = await courseService.updateCourse(id, parsed);
+        const course = await courseService.updateCourse(id, req.body);
 
         // Ensure we clear all related route caches after updating with the correct API path
         await clearRouteCache([

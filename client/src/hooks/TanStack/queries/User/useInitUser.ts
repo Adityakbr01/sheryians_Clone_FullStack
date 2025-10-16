@@ -16,6 +16,7 @@ export const useInitUser = () => {
             } catch (err: unknown) {
                 if (err instanceof Error) {
                     console.log(err.message);
+                    clearAuth();
                 }
             }
         };

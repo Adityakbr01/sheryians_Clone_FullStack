@@ -2,7 +2,7 @@
 export interface SubTopic {
     _id: string;
     title: string;
-    subTopics?: SubTopic[]; // For potential nested subtopics
+    subTopics?: SubTopic[];
 }
 
 export interface Topic {
@@ -32,7 +32,7 @@ export interface Course {
     tags: string[];
     subTag: string
     offer: string
-    type: 'Live Batch' | 'Recorded' | 'Hybrid';
+    type: string;
     thumbnail: string;
     providesCertificate?: boolean;
     gst: boolean;
@@ -45,8 +45,17 @@ export interface Course {
     studentsEnrolled?: number;
     createdAt?: string;
 
+    //Course status
+    CourseStatus: string; // Using string type to be compatible with CourseStatusEnum values
+
     // Syllabus structure
-    CourseSyllabusSchema?: {
-        syllabus: Section[];
+    CourseSyllabusSchema: {
+        _id: string;
+        courseId: string;
+        createdAt: string;
+        updatedAt: string;
+        Sections: Section[];
     }
 }
+
+

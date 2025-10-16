@@ -5,7 +5,6 @@ import { cloudinaryService, extractCloudinaryPublicId } from "./cloudinary.servi
 import logger from "@/utils/logger";
 import { RedisCache } from "@/utils/redis/cache";
 import { REDIS_TTL, courseKeys } from "@/utils/redis/keys";
-
 const courseService = {
     getAllCourses: async () => {
         const cacheKey = courseKeys.list();
@@ -23,13 +22,7 @@ const courseService = {
     getCourseById: async (id: string) => {
         const cacheKey = courseKeys.detail(id);
 
-        // Skip cache for populated fields and always fetch fresh data
-        // This ensures we always get the properly populated syllabus
         const course = await Course.findById(id)
-            .populate({
-                path: "CourseSyllabusSchema",
-                model: "CourseSyllabus"
-            });
 
         // Only cache if we found a course
         if (course) {
@@ -40,22 +33,25 @@ const courseService = {
         return course;
     },
     createCourse: async (courseData: CreateCourseInput) => {
+        // 🛡️ Check if course already exists
         const isAlreadyExist = await Course.findOne({ title: courseData.title }).exec();
         if (isAlreadyExist) {
             throw new ApiError(400, "Course with this title already exists");
         }
+
+        // 💰 Calculate final price
         const discountAmount = (courseData.originalPrice * courseData.discountPercentage) / 100;
         const finalPrice = courseData.originalPrice - discountAmount;
 
+        // 📝 Create course
         const course = new Course({
             ...courseData,
             price: finalPrice,
         });
-
         const savedCourse = await course.save();
 
+        // 🧹 Clear cache
         await RedisCache.del(courseKeys.list());
-
         return savedCourse;
     },
     updateCourse: async (id: string, courseData: any) => {
@@ -70,6 +66,8 @@ const courseService = {
                 logger.error("Failed to delete old thumbnail:", err);
             }
         }
+
+        console.log("Updating course with data:", courseData);
 
         Object.assign(course, courseData);
         const updatedCourse = await course.save();

@@ -1,6 +1,7 @@
-import { useMutation, useQueryClient } from '@tanstack/react-query';
 import api from '@/api/axios';
 import { Section } from '@/types/course';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { AxiosError } from 'axios';
 import toast from 'react-hot-toast';
 
 interface UpdateSyllabusParams {
@@ -29,9 +30,12 @@ export const useUpdateSyllabus = () => {
             toast.success('Syllabus updated successfully');
         },
 
-        onError: (error: any) => {
+        onError: (error: unknown) => {
             console.error('Error updating syllabus:', error);
-            toast.error(error?.response?.data?.message || 'Failed to update syllabus');
+            const message = error instanceof AxiosError && error.response?.data?.message
+                ? error.response.data.message
+                : 'Failed to update syllabus. Please try again.';
+            toast.error(message);
         },
     });
 };

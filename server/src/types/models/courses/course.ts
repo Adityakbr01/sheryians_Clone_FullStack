@@ -12,6 +12,12 @@ export enum CourseType {
     HYBRID = "Hybrid",
 }
 
+export enum CourseStatus {
+    UPCOMING = "upcoming",
+    ONGOING = "ongoing",
+    COMPLETED = "completed",
+}
+
 export interface ICourse extends Document {
     title: string;
     slug: string;
@@ -31,14 +37,13 @@ export interface ICourse extends Document {
     // --- Fields from your previous schema that are good to have in the interface ---
     providesCertificate?: boolean;
     schedule?: string;
-    totalContentHours?: string;
-    totalLectures?: string;
-    totalQuestions?: string;
     batchStartDate?: Date;
     modules?: {
         title: string;
         lessons: { title: string }[];
     }[];
     isDeleted?: boolean;
-    CourseSyllabusSchema?: mongoose.Types.ObjectId; // Ref to CourseSyllabus
+    CourseStatus?: CourseStatus;
+    createdAt?: Date;
+    updatedAt?: Date;
 }

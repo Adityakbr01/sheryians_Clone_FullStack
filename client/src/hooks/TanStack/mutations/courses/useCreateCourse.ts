@@ -31,6 +31,7 @@ export interface CreateCourseResponse {
         createdAt: string;
         updatedAt: string;
         discountPercentage: number;
+        CourseStatus: 'upcoming' | 'ongoing' | 'completed';
     };
 }
 

@@ -5,7 +5,7 @@ import { Course } from "@/types/course";
 import Image from "next/image";
 import Link from "next/link";
 
-function CoursesTab({ courses }: { courses: Course[] }) {
+function CoursesTabProfile({ courses }: { courses: Course[] }) {
     return (
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 place-items-center">
             {courses.map((course, idx: number) => (
@@ -52,4 +52,4 @@ function CoursesTab({ courses }: { courses: Course[] }) {
     )
 }
 
-export default CoursesTab
+export default CoursesTabProfile

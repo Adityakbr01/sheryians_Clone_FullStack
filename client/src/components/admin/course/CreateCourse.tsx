@@ -7,7 +7,8 @@ import { CircleX } from 'lucide-react';
 import { useEffect, useState } from 'react';
 import { Control, FieldErrors, useForm, UseFormHandleSubmit, UseFormRegister } from 'react-hook-form';
 import toast from 'react-hot-toast';
-import { categoryEnum, CourseLanguage, CourseType, CreateCourseFormValues, CreateCourseProps, createCourseSchema } from './course';
+import { categoryEnum, CourseLanguage, CourseStatusEnum, CourseType, CreateCourseFormValues, CreateCourseProps, createCourseSchema } from './course';
+// Remove the direct import from types/course.ts to avoid duplicate enum definitions
 import CreateCourseForm from './CreateCourseForm';
 
 
@@ -37,6 +38,7 @@ function CreateCourse({ isOpen, onOpenChange, editData }: CreateCourseProps) {
             tags: [],
             discountPercentage: 0,
             thumbnail: null,
+            CourseStatus: CourseStatusEnum.UPCOMING, // Changed from courseStatus to CourseStatus to match server model
         },
     }) as {
         control: Control<CreateCourseFormValues>;
@@ -74,7 +76,8 @@ function CreateCourse({ isOpen, onOpenChange, editData }: CreateCourseProps) {
                 CourseLanguage: courseLanguage,
                 type: courseType,
                 providesCertificate: editData.providesCertificate ?? true, // Default to true if undefined
-                thumbnail: null // Add the missing property
+                thumbnail: null, // Add the missing property
+                CourseStatus: (editData.CourseStatus as unknown as CourseStatusEnum) || CourseStatusEnum.UPCOMING
             });
             setPreview(editData.thumbnail || null);
 
@@ -83,6 +86,8 @@ function CreateCourse({ isOpen, onOpenChange, editData }: CreateCourseProps) {
                 setValue('category', normalizedCategory);
                 setValue('CourseLanguage', courseLanguage); // Explicitly set CourseLanguage
                 setValue('type', courseType);
+                // Explicitly set CourseStatus to ensure it's visible in the form
+                setValue('CourseStatus', (editData.CourseStatus as unknown as CourseStatusEnum) || CourseStatusEnum.UPCOMING);
             }, 0);
         }
     }, [editData, reset, setValue, isOpen]);
@@ -125,6 +130,7 @@ function CreateCourse({ isOpen, onOpenChange, editData }: CreateCourseProps) {
         formData.append('discountPercentage', data.discountPercentage.toString());
         formData.append('CourseLanguage', data.CourseLanguage);
         formData.append('type', data.type);
+        formData.append('CourseStatus', data.CourseStatus); // Using the correct field name to match server model
 
         // 🔥 Always send tags as JSON string
         formData.append('tags', JSON.stringify(data.tags || []));
@@ -147,7 +153,22 @@ function CreateCourse({ isOpen, onOpenChange, editData }: CreateCourseProps) {
 
         // Reset form and preview
         onOpenChange(false);
-        reset();
+        reset({
+            title: "",
+            description: "",
+            originalPrice: 0,
+            category: "",
+            subTag: "",
+            offer: "",
+            gst: true,
+            providesCertificate: true,
+            CourseLanguage: CourseLanguage.HINGLISH,
+            type: CourseType.LIVE,
+            tags: [],
+            discountPercentage: 0,
+            thumbnail: null,
+            CourseStatus: CourseStatusEnum.UPCOMING, // Ensure default is set
+        });
         setPreview(null);
         setThumbnailFile(null);
     };

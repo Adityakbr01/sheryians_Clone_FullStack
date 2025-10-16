@@ -1,0 +1,1553 @@
+[
+    {
+        "_id": "course1",
+        "title": "Full-Stack Web Development Mastery",
+        "slug": "full-stack-web-development-mastery",
+        "description": "Dive deep into modern web development with HTML, CSS, JavaScript, React, Node.js, and more. Build responsive, scalable applications from scratch.",
+        "instructor": "John Doe",
+        "price": 199,
+        "originalPrice": 299,
+        "discountPercentage": 33,
+        "category": "Web Development",
+        "tags": [
+            "React",
+            "Node.js",
+            "JavaScript",
+            "Full-Stack"
+        ],
+        "subTag": "Beginner to Advanced",
+        "offer": "Limited time offer",
+        "type": "Recorded",
+        "thumbnail": "/images/cohort-2.webp",
+        "providesCertificate": true,
+        "gst": true,
+        "CourseLanguage": "English",
+        "totalContentHours": "40 hours",
+        "totalLectures": "150",
+        "totalQuestions": "500",
+        "studentsEnrolled": 1200,
+        "createdAt": "2025-01-15T10:00:00Z",
+        "CourseSyllabusSchema": {
+            "_id": "syllabus1",
+            "courseId": "course1",
+            "createdAt": "2025-01-15T10:00:00Z",
+            "updatedAt": "2025-10-16T10:00:00Z",
+            "Sections": [
+                {
+                    "_id": "sec1",
+                    "title": "Web Development Fundamentals",
+                    "topics": [
+                        {
+                            "_id": "topic1",
+                            "title": "HTML & CSS",
+                            "subTopics": [
+                                {
+                                    "_id": "sub1",
+                                    "title": "HTML Basics",
+                                    "subTopics": [
+                                        {
+                                            "_id": "subsub1",
+                                            "title": "HTML Document Structure"
+                                        },
+                                        {
+                                            "_id": "subsub2",
+                                            "title": "Semantic HTML"
+                                        },
+                                        {
+                                            "_id": "subsub3",
+                                            "title": "Forms and Input Elements"
+                                        },
+                                        {
+                                            "_id": "subsub4",
+                                            "title": "Multimedia Elements (Images, Audio, Video)"
+                                        }
+                                    ]
+                                },
+                                {
+                                    "_id": "sub2",
+                                    "title": "CSS Fundamentals",
+                                    "subTopics": [
+                                        {
+                                            "_id": "subsub5",
+                                            "title": "Selectors and Specificity"
+                                        },
+                                        {
+                                            "_id": "subsub6",
+                                            "title": "Box Model"
+                                        },
+                                        {
+                                            "_id": "subsub7",
+                                            "title": "Responsive Design"
+                                        },
+                                        {
+                                            "_id": "subsub8",
+                                            "title": "Flexbox and Grid Layouts"
+                                        },
+                                        {
+                                            "_id": "subsub9",
+                                            "title": "CSS Animations and Transitions"
+                                        },
+                                        {
+                                            "_id": "subsub10",
+                                            "title": "Preprocessors (Sass/SCSS Basics)"
+                                        }
+                                    ]
+                                },
+                                {
+                                    "_id": "sub3",
+                                    "title": "Accessibility (a11y)",
+                                    "subTopics": [
+                                        {
+                                            "_id": "subsub11",
+                                            "title": "ARIA Roles and Attributes"
+                                        },
+                                        {
+                                            "_id": "subsub12",
+                                            "title": "Keyboard Navigation"
+                                        },
+                                        {
+                                            "_id": "subsub13",
+                                            "title": "Color Contrast and Screen Readers"
+                                        }
+                                    ]
+                                }
+                            ]
+                        },
+                        {
+                            "_id": "topic2",
+                            "title": "JavaScript",
+                            "subTopics": [
+                                {
+                                    "_id": "sub4",
+                                    "title": "Core Concepts",
+                                    "subTopics": [
+                                        {
+                                            "_id": "subsub14",
+                                            "title": "Variables and Data Types"
+                                        },
+                                        {
+                                            "_id": "subsub15",
+                                            "title": "Functions and Scope"
+                                        },
+                                        {
+                                            "_id": "subsub16",
+                                            "title": "Control Structures (Loops, Conditionals)"
+                                        },
+                                        {
+                                            "_id": "subsub17",
+                                            "title": "Arrays and Objects"
+                                        },
+                                        {
+                                            "_id": "subsub18",
+                                            "title": "Error Handling (Try-Catch)"
+                                        }
+                                    ]
+                                },
+                                {
+                                    "_id": "sub5",
+                                    "title": "DOM Manipulation",
+                                    "subTopics": [
+                                        {
+                                            "_id": "subsub19",
+                                            "title": "Selecting and Modifying Elements"
+                                        },
+                                        {
+                                            "_id": "subsub20",
+                                            "title": "Event Handling"
+                                        },
+                                        {
+                                            "_id": "subsub21",
+                                            "title": "Dynamic Content Creation"
+                                        }
+                                    ]
+                                },
+                                {
+                                    "_id": "sub6",
+                                    "title": "ES6+ Features",
+                                    "subTopics": [
+                                        {
+                                            "_id": "subsub22",
+                                            "title": "Arrow Functions and Destructuring"
+                                        },
+                                        {
+                                            "_id": "subsub23",
+                                            "title": "Promises and Async/Await"
+                                        },
+                                        {
+                                            "_id": "subsub24",
+                                            "title": "Modules (Import/Export)"
+                                        }
+                                    ]
+                                },
+                                {
+                                    "_id": "sub7",
+                                    "title": "JavaScript Best Practices",
+                                    "subTopics": [
+                                        {
+                                            "_id": "subsub25",
+                                            "title": "Code Organization and Modularity"
+                                        },
+                                        {
+                                            "_id": "subsub26",
+                                            "title": "Performance Optimization"
+                                        }
+                                    ]
+                                }
+                            ]
+                        },
+                        {
+                            "_id": "topic3",
+                            "title": "Version Control with Git",
+                            "subTopics": [
+                                {
+                                    "_id": "sub8",
+                                    "title": "Basics",
+                                    "subTopics": [
+                                        {
+                                            "_id": "subsub27",
+                                            "title": "Initialization and Cloning"
+                                        },
+                                        {
+                                            "_id": "subsub28",
+                                            "title": "Commits, Branches, and Merges"
+                                        },
+                                        {
+                                            "_id": "subsub29",
+                                            "title": "Git Ignore and Staging"
+                                        },
+                                        {
+                                            "_id": "subsub30",
+                                            "title": "Rebasing and Cherry-Picking"
+                                        }
+                                    ]
+                                },
+                                {
+                                    "_id": "sub9",
+                                    "title": "Collaboration",
+                                    "subTopics": [
+                                        {
+                                            "_id": "subsub31",
+                                            "title": "Remote Repositories (GitHub/GitLab)"
+                                        },
+                                        {
+                                            "_id": "subsub32",
+                                            "title": "Pull Requests and Code Reviews"
+                                        },
+                                        {
+                                            "_id": "subsub33",
+                                            "title": "Conflict Resolution"
+                                        },
+                                        {
+                                            "_id": "subsub34",
+                                            "title": "Git Hooks and Automation"
+                                        }
+                                    ]
+                                },
+                                {
+                                    "_id": "sub10",
+                                    "title": "Advanced Git",
+                                    "subTopics": [
+                                        {
+                                            "_id": "subsub35",
+                                            "title": "Submodules and Subtrees"
+                                        },
+                                        {
+                                            "_id": "subsub36",
+                                            "title": "Git Workflows (GitFlow, Trunk-Based)"
+                                        }
+                                    ]
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "_id": "sec2",
+                    "title": "Data Structures and Algorithms with JavaScript",
+                    "topics": [
+                        {
+                            "_id": "topic4",
+                            "title": "Fundamental Data Structures",
+                            "subTopics": [
+                                {
+                                    "_id": "sub11",
+                                    "title": "Arrays and Linked Lists",
+                                    "subTopics": [
+                                        {
+                                            "_id": "subsub37",
+                                            "title": "Implementation and Operations"
+                                        },
+                                        {
+                                            "_id": "subsub38",
+                                            "title": "Time and Space Complexity"
+                                        }
+                                    ]
+                                },
+                                {
+                                    "_id": "sub12",
+                                    "title": "Stacks and Queues",
+                                    "subTopics": [
+                                        {
+                                            "_id": "subsub39",
+                                            "title": "Applications (Undo/Redo, BFS)"
+                                        }
+                                    ]
+                                },
+                                {
+                                    "_id": "sub13",
+                                    "title": "Hash Tables and Sets"
+                                }
+                            ]
+                        },
+                        {
+                            "_id": "topic5",
+                            "title": "Advanced Data Structures",
+                            "subTopics": [
+                                {
+                                    "_id": "sub14",
+                                    "title": "Trees and Binary Search Trees",
+                                    "subTopics": [
+                                        {
+                                            "_id": "subsub40",
+                                            "title": "Traversal Methods (Inorder, Preorder, Postorder)"
+                                        },
+                                        {
+                                            "_id": "subsub41",
+                                            "title": "Balanced Trees (AVL)"
+                                        }
+                                    ]
+                                },
+                                {
+                                    "_id": "sub15",
+                                    "title": "Graphs",
+                                    "subTopics": [
+                                        {
+                                            "_id": "subsub42",
+                                            "title": "Representation (Adjacency List/Matrix)"
+                                        },
+                                        {
+                                            "_id": "subsub43",
+                                            "title": "Traversal (DFS, BFS)"
+                                        }
+                                    ]
+                                },
+                                {
+                                    "_id": "sub16",
+                                    "title": "Heaps and Priority Queues"
+                                }
+                            ]
+                        },
+                        {
+                            "_id": "topic6",
+                            "title": "Algorithms",
+                            "subTopics": [
+                                {
+                                    "_id": "sub17",
+                                    "title": "Sorting Algorithms",
+                                    "subTopics": [
+                                        {
+                                            "_id": "subsub44",
+                                            "title": "Bubble, Selection, Insertion Sort"
+                                        },
+                                        {
+                                            "_id": "subsub45",
+                                            "title": "Merge Sort and Quick Sort"
+                                        }
+                                    ]
+                                },
+                                {
+                                    "_id": "sub18",
+                                    "title": "Searching Algorithms",
+                                    "subTopics": [
+                                        {
+                                            "_id": "subsub46",
+                                            "title": "Linear and Binary Search"
+                                        }
+                                    ]
+                                },
+                                {
+                                    "_id": "sub19",
+                                    "title": "Dynamic Programming",
+                                    "subTopics": [
+                                        {
+                                            "_id": "subsub47",
+                                            "title": "Memoization and Tabulation"
+                                        },
+                                        {
+                                            "_id": "subsub48",
+                                            "title": "Common Problems (Fibonacci, Knapsack)"
+                                        }
+                                    ]
+                                },
+                                {
+                                    "_id": "sub20",
+                                    "title": "Graph Algorithms",
+                                    "subTopics": [
+                                        {
+                                            "_id": "subsub49",
+                                            "title": "Shortest Path (Dijkstra, Bellman-Ford)"
+                                        },
+                                        {
+                                            "_id": "subsub50",
+                                            "title": "Minimum Spanning Tree (Kruskal, Prim)"
+                                        }
+                                    ]
+                                },
+                                {
+                                    "_id": "sub21",
+                                    "title": "Problem-Solving Strategies",
+                                    "subTopics": [
+                                        {
+                                            "_id": "subsub51",
+                                            "title": "Two Pointers, Sliding Window"
+                                        },
+                                        {
+                                            "_id": "subsub52",
+                                            "title": "Recursion and Backtracking"
+                                        }
+                                    ]
+                                }
+                            ]
+                        },
+                        {
+                            "_id": "topic7",
+                            "title": "JavaScript Implementation",
+                            "subTopics": [
+                                {
+                                    "_id": "sub22",
+                                    "title": "Big O Notation in JS"
+                                },
+                                {
+                                    "_id": "sub23",
+                                    "title": "LeetCode/ HackerRank Practice"
+                                },
+                                {
+                                    "_id": "sub24",
+                                    "title": "Testing DSA Code"
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        }
+    },
+    {
+        "_id": "course2",
+        "title": "Advanced Frontend and Backend Engineering",
+        "slug": "advanced-frontend-backend-engineering",
+        "description": "Master advanced React, TypeScript, Node.js, databases, and API design to build robust full-stack applications.",
+        "instructor": "Jane Smith",
+        "price": 249,
+        "originalPrice": 399,
+        "discountPercentage": 38,
+        "category": "Full-Stack Development",
+        "tags": [
+            "React",
+            "TypeScript",
+            "Node.js",
+            "Express",
+            "MongoDB"
+        ],
+        "subTag": "Intermediate",
+        "offer": "Early bird discount available!",
+        "type": "Live Batch",
+        "thumbnail": "/images/Front-Front_End_Domination.webp",
+        "providesCertificate": true,
+        "gst": true,
+        "CourseLanguage": "English",
+        "schedule": "Weekends, 2 hours/session",
+        "batchStartDate": "2025-11-01T09:00:00Z",
+        "totalContentHours": "35 hours",
+        "totalLectures": "120",
+        "totalQuestions": "400",
+        "studentsEnrolled": 850,
+        "createdAt": "2025-02-20T12:00:00Z",
+        "CourseSyllabusSchema": {
+            "_id": "syllabus2",
+            "courseId": "course2",
+            "createdAt": "2025-02-20T12:00:00Z",
+            "updatedAt": "2025-10-16T12:00:00Z",
+            "Sections": [
+                {
+                    "_id": "sec3",
+                    "title": "Advanced Frontend Development",
+                    "topics": [
+                        {
+                            "_id": "topic8",
+                            "title": "Advanced React.js",
+                            "subTopics": [
+                                {
+                                    "_id": "sub25",
+                                    "title": "Custom Hooks and Higher-Order Components"
+                                },
+                                {
+                                    "_id": "sub26",
+                                    "title": "Server-Side Rendering with Next.js"
+                                },
+                                {
+                                    "_id": "sub27",
+                                    "title": "Static Site Generation"
+                                },
+                                {
+                                    "_id": "sub28",
+                                    "title": "Advanced State Management (Zustand, Recoil)"
+                                }
+                            ]
+                        },
+                        {
+                            "_id": "topic9",
+                            "title": "TypeScript Integration",
+                            "subTopics": [
+                                {
+                                    "_id": "sub29",
+                                    "title": "Type Basics and Interfaces"
+                                },
+                                {
+                                    "_id": "sub30",
+                                    "title": "Generics and Utility Types"
+                                },
+                                {
+                                    "_id": "sub31",
+                                    "title": "Typing React Components"
+                                }
+                            ]
+                        },
+                        {
+                            "_id": "topic10",
+                            "title": "Performance and Optimization",
+                            "subTopics": [
+                                {
+                                    "_id": "sub32",
+                                    "title": "Memoization (React.memo, useMemo)"
+                                },
+                                {
+                                    "_id": "sub33",
+                                    "title": "Virtualization with React Window"
+                                },
+                                {
+                                    "_id": "sub34",
+                                    "title": "Bundle Analysis and Tree Shaking"
+                                }
+                            ]
+                        },
+                        {
+                            "_id": "topic11",
+                            "title": "Advanced UI/UX",
+                            "subTopics": [
+                                {
+                                    "_id": "sub35",
+                                    "title": "Micro-Interactions and Animations (Framer Motion)"
+                                },
+                                {
+                                    "_id": "sub36",
+                                    "title": "Design Systems (Storybook)"
+                                },
+                                {
+                                    "_id": "sub37",
+                                    "title": "Progressive Enhancement"
+                                }
+                            ]
+                        },
+                        {
+                            "_id": "topic12",
+                            "title": "Frontend Tooling",
+                            "subTopics": [
+                                {
+                                    "_id": "sub38",
+                                    "title": "Webpack and Vite Configuration"
+                                },
+                                {
+                                    "_id": "sub39",
+                                    "title": "ESLint and Prettier Setup"
+                                },
+                                {
+                                    "_id": "sub40",
+                                    "title": "End-to-End Testing (Playwright)"
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "_id": "sec4",
+                    "title": "Backend Development",
+                    "topics": [
+                        {
+                            "_id": "topic13",
+                            "title": "Node.js Fundamentals",
+                            "subTopics": [
+                                {
+                                    "_id": "sub41",
+                                    "title": "Event Loop"
+                                },
+                                {
+                                    "_id": "sub42",
+                                    "title": "Express.js Framework",
+                                    "subTopics": [
+                                        {
+                                            "_id": "subsub53",
+                                            "title": "Routing and Middleware"
+                                        },
+                                        {
+                                            "_id": "subsub54",
+                                            "title": "Error Handling"
+                                        }
+                                    ]
+                                },
+                                {
+                                    "_id": "sub43",
+                                    "title": "Asynchronous Programming"
+                                },
+                                {
+                                    "_id": "sub44",
+                                    "title": "File System and Streams"
+                                }
+                            ]
+                        },
+                        {
+                            "_id": "topic14",
+                            "title": "Database Concepts",
+                            "subTopics": [
+                                {
+                                    "_id": "sub45",
+                                    "title": "MongoDB Basics",
+                                    "subTopics": [
+                                        {
+                                            "_id": "subsub55",
+                                            "title": "CRUD Operations"
+                                        },
+                                        {
+                                            "_id": "subsub56",
+                                            "title": "Schema Design"
+                                        }
+                                    ]
+                                },
+                                {
+                                    "_id": "sub46",
+                                    "title": "Mongoose ODM",
+                                    "subTopics": [
+                                        {
+                                            "_id": "subsub57",
+                                            "title": "Models and Schemas"
+                                        },
+                                        {
+                                            "_id": "subsub58",
+                                            "title": "Population and Queries"
+                                        }
+                                    ]
+                                },
+                                {
+                                    "_id": "sub47",
+                                    "title": "SQL Databases (PostgreSQL Basics)",
+                                    "subTopics": [
+                                        {
+                                            "_id": "subsub59",
+                                            "title": "Joins and Relationships"
+                                        },
+                                        {
+                                            "_id": "subsub60",
+                                            "title": "ORM with Sequelize"
+                                        }
+                                    ]
+                                }
+                            ]
+                        },
+                        {
+                            "_id": "topic15",
+                            "title": "APIs and Authentication",
+                            "subTopics": [
+                                {
+                                    "_id": "sub48",
+                                    "title": "RESTful API Design"
+                                },
+                                {
+                                    "_id": "sub49",
+                                    "title": "JWT and Session Management"
+                                },
+                                {
+                                    "_id": "sub50",
+                                    "title": "OAuth Integration"
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        }
+    },
+    {
+        "_id": "course3",
+        "title": "AI-Powered Web Applications",
+        "slug": "ai-powered-web-applications",
+        "description": "Integrate AI and Generative AI into your web projects. Learn ML basics, LLMs, and build intelligent full-stack apps with deployment strategies.",
+        "instructor": "Alex Johnson",
+        "price": 299,
+        "originalPrice": 499,
+        "discountPercentage": 40,
+        "category": "Artificial Intelligence",
+        "tags": [
+            "AI",
+            "Machine Learning",
+            "Generative AI",
+            "Python",
+            "Web Integration"
+        ],
+        "subTag": "Advanced",
+        "offer": "Limited time offer",
+        "type": "Hybrid",
+        "thumbnail": "/images/three_js.webp",
+        "providesCertificate": true,
+        "gst": true,
+        "CourseLanguage": "English",
+        "schedule": "Monthly live sessions",
+        "batchStartDate": "2025-12-05T14:00:00Z",
+        "totalContentHours": "50 hours",
+        "totalLectures": "200",
+        "totalQuestions": "600",
+        "studentsEnrolled": 650,
+        "createdAt": "2025-03-10T15:00:00Z",
+        "CourseSyllabusSchema": {
+            "_id": "syllabus3",
+            "courseId": "course3",
+            "createdAt": "2025-03-10T15:00:00Z",
+            "updatedAt": "2025-10-16T15:00:00Z",
+            "Sections": [
+                {
+                    "_id": "sec5",
+                    "title": "AI and Generative AI",
+                    "topics": [
+                        {
+                            "_id": "topic16",
+                            "title": "Introduction to AI",
+                            "subTopics": [
+                                {
+                                    "_id": "sub51",
+                                    "title": "AI Fundamentals",
+                                    "subTopics": [
+                                        {
+                                            "_id": "subsub61",
+                                            "title": "Machine Learning vs. Deep Learning"
+                                        },
+                                        {
+                                            "_id": "subsub62",
+                                            "title": "Supervised, Unsupervised, Reinforcement Learning"
+                                        }
+                                    ]
+                                },
+                                {
+                                    "_id": "sub52",
+                                    "title": "Python for AI",
+                                    "subTopics": [
+                                        {
+                                            "_id": "subsub63",
+                                            "title": "NumPy and Pandas Basics"
+                                        },
+                                        {
+                                            "_id": "subsub64",
+                                            "title": "Data Visualization with Matplotlib/Seaborn"
+                                        }
+                                    ]
+                                },
+                                {
+                                    "_id": "sub53",
+                                    "title": "Neural Networks Basics",
+                                    "subTopics": [
+                                        {
+                                            "_id": "subsub65",
+                                            "title": "Perceptrons and Activation Functions"
+                                        },
+                                        {
+                                            "_id": "subsub66",
+                                            "title": "Backpropagation"
+                                        }
+                                    ]
+                                }
+                            ]
+                        },
+                        {
+                            "_id": "topic17",
+                            "title": "Machine Learning Essentials",
+                            "subTopics": [
+                                {
+                                    "_id": "sub54",
+                                    "title": "Scikit-Learn",
+                                    "subTopics": [
+                                        {
+                                            "_id": "subsub67",
+                                            "title": "Regression and Classification"
+                                        },
+                                        {
+                                            "_id": "subsub68",
+                                            "title": "Clustering and Dimensionality Reduction"
+                                        }
+                                    ]
+                                },
+                                {
+                                    "_id": "sub55",
+                                    "title": "Model Evaluation",
+                                    "subTopics": [
+                                        {
+                                            "_id": "subsub69",
+                                            "title": "Metrics (Accuracy, Precision, Recall, F1)"
+                                        },
+                                        {
+                                            "_id": "subsub70",
+                                            "title": "Cross-Validation and Overfitting"
+                                        }
+                                    ]
+                                },
+                                {
+                                    "_id": "sub56",
+                                    "title": "Feature Engineering",
+                                    "subTopics": [
+                                        {
+                                            "_id": "subsub71",
+                                            "title": "Scaling and Encoding"
+                                        }
+                                    ]
+                                }
+                            ]
+                        },
+                        {
+                            "_id": "topic18",
+                            "title": "Deep Learning",
+                            "subTopics": [
+                                {
+                                    "_id": "sub57",
+                                    "title": "TensorFlow/PyTorch Basics",
+                                    "subTopics": [
+                                        {
+                                            "_id": "subsub72",
+                                            "title": "Building and Training Models"
+                                        },
+                                        {
+                                            "_id": "subsub73",
+                                            "title": "CNNs for Image Processing"
+                                        }
+                                    ]
+                                },
+                                {
+                                    "_id": "sub58",
+                                    "title": "RNNs and LSTMs for Sequences"
+                                },
+                                {
+                                    "_id": "sub59",
+                                    "title": "Transfer Learning"
+                                }
+                            ]
+                        },
+                        {
+                            "_id": "topic19",
+                            "title": "Generative AI",
+                            "subTopics": [
+                                {
+                                    "_id": "sub60",
+                                    "title": "Generative Adversarial Networks (GANs)",
+                                    "subTopics": [
+                                        {
+                                            "_id": "subsub74",
+                                            "title": "Generator and Discriminator"
+                                        },
+                                        {
+                                            "_id": "subsub75",
+                                            "title": "Applications in Image Generation"
+                                        }
+                                    ]
+                                },
+                                {
+                                    "_id": "sub61",
+                                    "title": "Variational Autoencoders (VAEs)"
+                                },
+                                {
+                                    "_id": "sub62",
+                                    "title": "Large Language Models (LLMs)",
+                                    "subTopics": [
+                                        {
+                                            "_id": "subsub76",
+                                            "title": "Transformers and Attention Mechanisms"
+                                        },
+                                        {
+                                            "_id": "subsub77",
+                                            "title": "Fine-Tuning with Hugging Face"
+                                        }
+                                    ]
+                                },
+                                {
+                                    "_id": "sub63",
+                                    "title": "Prompt Engineering and Ethical Considerations",
+                                    "subTopics": [
+                                        {
+                                            "_id": "subsub78",
+                                            "title": "Bias and Fairness in AI"
+                                        },
+                                        {
+                                            "_id": "subsub79",
+                                            "title": "Deployment of Generative Models"
+                                        }
+                                    ]
+                                }
+                            ]
+                        },
+                        {
+                            "_id": "topic20",
+                            "title": "AI Integration in Web Development",
+                            "subTopics": [
+                                {
+                                    "_id": "sub64",
+                                    "title": "API Calls to AI Services (OpenAI, Google AI)"
+                                },
+                                {
+                                    "_id": "sub65",
+                                    "title": "Building AI-Powered Web Apps"
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "_id": "sec6",
+                    "title": "Full-Stack Integration and Deployment",
+                    "topics": [
+                        {
+                            "_id": "topic21",
+                            "title": "Connecting Frontend and Backend",
+                            "subTopics": [
+                                {
+                                    "_id": "sub66",
+                                    "title": "API Consumption with Fetch/Axios"
+                                },
+                                {
+                                    "_id": "sub67",
+                                    "title": "CORS and Security Considerations"
+                                }
+                            ]
+                        },
+                        {
+                            "_id": "topic22",
+                            "title": "Testing",
+                            "subTopics": [
+                                {
+                                    "_id": "sub68",
+                                    "title": "Unit and Integration Testing"
+                                },
+                                {
+                                    "_id": "sub69",
+                                    "title": "End-to-End Testing with Cypress"
+                                }
+                            ]
+                        },
+                        {
+                            "_id": "topic23",
+                            "title": "Deployment and DevOps",
+                            "subTopics": [
+                                {
+                                    "_id": "sub70",
+                                    "title": "Docker Basics"
+                                },
+                                {
+                                    "_id": "sub71",
+                                    "title": "CI/CD Pipelines (GitHub Actions)"
+                                },
+                                {
+                                    "_id": "sub72",
+                                    "title": "Hosting on Vercel/Heroku/AWS"
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "_id": "sec9",
+                    "title": "Project Building",
+                    "topics": [
+                        {
+                            "_id": "topic24",
+                            "title": "Project Planning and Design",
+                            "subTopics": [
+                                {
+                                    "_id": "sub73",
+                                    "title": "Requirements Gathering"
+                                },
+                                {
+                                    "_id": "sub74",
+                                    "title": "Wireframing and Prototyping (Figma)"
+                                },
+                                {
+                                    "_id": "sub75",
+                                    "title": "Agile Methodologies (Scrum, Kanban)"
+                                }
+                            ]
+                        },
+                        {
+                            "_id": "topic25",
+                            "title": "Mini Projects",
+                            "subTopics": [
+                                {
+                                    "_id": "sub76",
+                                    "title": "Todo App with React and Local Storage"
+                                },
+                                {
+                                    "_id": "sub77",
+                                    "title": "Weather App with API Integration"
+                                },
+                                {
+                                    "_id": "sub78",
+                                    "title": "Chat Application with Socket.io"
+                                }
+                            ]
+                        },
+                        {
+                            "_id": "topic26",
+                            "title": "Full-Stack Projects",
+                            "subTopics": [
+                                {
+                                    "_id": "sub79",
+                                    "title": "E-Commerce Site (MERN Stack)"
+                                },
+                                {
+                                    "_id": "sub80",
+                                    "title": "Social Media Dashboard"
+                                },
+                                {
+                                    "_id": "sub81",
+                                    "title": "Blog Platform with Authentication"
+                                }
+                            ]
+                        },
+                        {
+                            "_id": "topic27",
+                            "title": "AI-Integrated Projects",
+                            "subTopics": [
+                                {
+                                    "_id": "sub82",
+                                    "title": "Image Recognition Web App"
+                                },
+                                {
+                                    "_id": "sub83",
+                                    "title": "Chatbot with Generative AI"
+                                },
+                                {
+                                    "_id": "sub84",
+                                    "title": "Recommendation System"
+                                }
+                            ]
+                        },
+                        {
+                            "_id": "topic28",
+                            "title": "Capstone Project",
+                            "subTopics": [
+                                {
+                                    "_id": "sub85",
+                                    "title": "End-to-End Application Development"
+                                },
+                                {
+                                    "_id": "sub86",
+                                    "title": "Deployment and Presentation"
+                                },
+                                {
+                                    "_id": "sub87",
+                                    "title": "Code Review and Portfolio Building"
+                                }
+                            ]
+                        },
+                        {
+                            "_id": "topic29",
+                            "title": "Project Best Practices",
+                            "subTopics": [
+                                {
+                                    "_id": "sub88",
+                                    "title": "Documentation and README"
+                                },
+                                {
+                                    "_id": "sub89",
+                                    "title": "Version Control for Projects"
+                                },
+                                {
+                                    "_id": "sub90",
+                                    "title": "Scalability Considerations"
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        }
+    },
+    {
+        "_id": "course4",
+        "title": "Mastering Data Structures & Algorithms in JavaScript",
+        "slug": "mastering-dsa-javascript",
+        "description": "Build a strong foundation in DSA using JavaScript. Cover arrays, trees, graphs, sorting, and problem-solving for coding interviews.",
+        "instructor": "Mike Chen",
+        "price": 149,
+        "originalPrice": 249,
+        "discountPercentage": 40,
+        "category": "Programming",
+        "tags": [
+            "DSA",
+            "JavaScript",
+            "Algorithms",
+            "LeetCode"
+        ],
+        "subTag": "Beginner to Intermediate",
+        "offer": "Limited time offer",
+        "type": "Recorded",
+        "thumbnail": "/images/maxresdefault.jpg",
+        "providesCertificate": true,
+        "gst": true,
+        "CourseLanguage": "English",
+        "totalContentHours": "25 hours",
+        "totalLectures": "100",
+        "totalQuestions": "300",
+        "studentsEnrolled": 950,
+        "createdAt": "2025-04-05T11:00:00Z",
+        "CourseSyllabusSchema": {
+            "_id": "syllabus4",
+            "courseId": "course4",
+            "createdAt": "2025-04-05T11:00:00Z",
+            "updatedAt": "2025-10-16T11:00:00Z",
+            "Sections": [
+                {
+                    "_id": "sec7",
+                    "title": "Fundamental Data Structures",
+                    "topics": [
+                        {
+                            "_id": "topic30",
+                            "title": "Arrays, Linked Lists & Stacks",
+                            "subTopics": [
+                                {
+                                    "_id": "sub91",
+                                    "title": "Implementation & Operations"
+                                },
+                                {
+                                    "_id": "sub92",
+                                    "title": "Time/Space Complexity"
+                                }
+                            ]
+                        },
+                        {
+                            "_id": "topic31",
+                            "title": "Queues & Hash Tables",
+                            "subTopics": [
+                                {
+                                    "_id": "sub93",
+                                    "title": "Applications (BFS, Undo/Redo)"
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "_id": "sec8",
+                    "title": "Advanced Data Structures",
+                    "topics": [
+                        {
+                            "_id": "topic32",
+                            "title": "Trees & Graphs",
+                            "subTopics": [
+                                {
+                                    "_id": "sub94",
+                                    "title": "Traversals (Inorder, DFS, BFS)"
+                                },
+                                {
+                                    "_id": "sub95",
+                                    "title": "BST & AVL Trees"
+                                }
+                            ]
+                        },
+                        {
+                            "_id": "topic33",
+                            "title": "Heaps & Priority Queues",
+                            "subTopics": [
+                                {
+                                    "_id": "sub96",
+                                    "title": "Basic Operations"
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "_id": "sec9",
+                    "title": "Key Algorithms",
+                    "topics": [
+                        {
+                            "_id": "topic34",
+                            "title": "Sorting & Searching",
+                            "subTopics": [
+                                {
+                                    "_id": "sub97",
+                                    "title": "Bubble/Quick/Merge Sort"
+                                },
+                                {
+                                    "_id": "sub98",
+                                    "title": "Linear/Binary Search"
+                                }
+                            ]
+                        },
+                        {
+                            "_id": "topic35",
+                            "title": "Dynamic Programming & Graphs",
+                            "subTopics": [
+                                {
+                                    "_id": "sub99",
+                                    "title": "Memoization & Fibonacci"
+                                },
+                                {
+                                    "_id": "sub100",
+                                    "title": "Dijkstra & MST"
+                                }
+                            ]
+                        },
+                        {
+                            "_id": "topic36",
+                            "title": "Problem-Solving",
+                            "subTopics": [
+                                {
+                                    "_id": "sub101",
+                                    "title": "Two Pointers & Recursion"
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "_id": "sec10",
+                    "title": "JS Implementation & Practice",
+                    "topics": [
+                        {
+                            "_id": "topic37",
+                            "title": "Big O & Testing",
+                            "subTopics": [
+                                {
+                                    "_id": "sub102",
+                                    "title": "Notation Analysis"
+                                },
+                                {
+                                    "_id": "sub103",
+                                    "title": "LeetCode Practice"
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        }
+    },
+    {
+        "_id": "course5",
+        "title": "Aptitude & Reasoning for Tech Interviews",
+        "slug": "aptitude-reasoning-tech-interviews",
+        "description": "Sharpen your quantitative, logical, and technical aptitude skills. Prepare for FAANG-level interviews with timed mocks and strategies.",
+        "instructor": "Sarah Lee",
+        "price": 99,
+        "originalPrice": 199,
+        "discountPercentage": 50,
+        "category": "Career Development",
+        "tags": [
+            "Aptitude",
+            "Reasoning",
+            "Interviews",
+            "Quantitative"
+        ],
+        "subTag": "Beginner",
+        "offer": "Limited time offer",
+        "type": "Live Batch",
+        "thumbnail": "/images/apti_reasoning.webp",
+        "providesCertificate": true,
+        "gst": true,
+        "CourseLanguage": "English",
+        "schedule": "Evenings, 1.5 hours/session",
+        "batchStartDate": "2025-11-10T18:00:00Z",
+        "totalContentHours": "20 hours",
+        "totalLectures": "80",
+        "totalQuestions": "1000",
+        "studentsEnrolled": 750,
+        "createdAt": "2025-05-12T13:00:00Z",
+        "CourseSyllabusSchema": {
+            "_id": "syllabus5",
+            "courseId": "course5",
+            "createdAt": "2025-05-12T13:00:00Z",
+            "updatedAt": "2025-10-16T13:00:00Z",
+            "Sections": [
+                {
+                    "_id": "sec11",
+                    "title": "Quantitative Aptitude",
+                    "topics": [
+                        {
+                            "_id": "topic38",
+                            "title": "Numbers & Arithmetic",
+                            "subTopics": [
+                                {
+                                    "_id": "sub104",
+                                    "title": "Percentages, Ratios & Profit/Loss"
+                                },
+                                {
+                                    "_id": "sub105",
+                                    "title": "Interest Calculations"
+                                }
+                            ]
+                        },
+                        {
+                            "_id": "topic39",
+                            "title": "Algebra & Geometry",
+                            "subTopics": [
+                                {
+                                    "_id": "sub106",
+                                    "title": "Equations & Mensuration"
+                                },
+                                {
+                                    "_id": "sub107",
+                                    "title": "Coordinate Geometry"
+                                }
+                            ]
+                        },
+                        {
+                            "_id": "topic40",
+                            "title": "Data Interpretation",
+                            "subTopics": [
+                                {
+                                    "_id": "sub108",
+                                    "title": "Charts, Graphs & Tables"
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "_id": "sec12",
+                    "title": "Logical Reasoning",
+                    "topics": [
+                        {
+                            "_id": "topic41",
+                            "title": "Verbal & Non-Verbal",
+                            "subTopics": [
+                                {
+                                    "_id": "sub109",
+                                    "title": "Analogies, Series & Puzzles"
+                                },
+                                {
+                                    "_id": "sub110",
+                                    "title": "Reading Comprehension"
+                                }
+                            ]
+                        },
+                        {
+                            "_id": "topic42",
+                            "title": "Critical Thinking",
+                            "subTopics": [
+                                {
+                                    "_id": "sub111",
+                                    "title": "Syllogisms & Arguments"
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "_id": "sec13",
+                    "title": "Technical Aptitude",
+                    "topics": [
+                        {
+                            "_id": "topic43",
+                            "title": "Coding & System Basics",
+                            "subTopics": [
+                                {
+                                    "_id": "sub112",
+                                    "title": "Logic Puzzles & Debugging"
+                                },
+                                {
+                                    "_id": "sub113",
+                                    "title": "System Design Intro"
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "_id": "sec14",
+                    "title": "Practice & Prep",
+                    "topics": [
+                        {
+                            "_id": "topic44",
+                            "title": "Mocks & Strategies",
+                            "subTopics": [
+                                {
+                                    "_id": "sub114",
+                                    "title": "Timed Quizzes"
+                                },
+                                {
+                                    "_id": "sub115",
+                                    "title": "Interview Tips"
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        }
+    },
+    {
+        "_id": "course6",
+        "title": "Advanced Git, AI & ML for Developers",
+        "slug": "advanced-git-ai-ml-developers",
+        "description": "Combine Git workflows, AI fundamentals, and ML integration. Build collaborative, intelligent apps with Python and web tech.",
+        "instructor": "Raj Patel",
+        "price": 179,
+        "originalPrice": 279,
+        "discountPercentage": 36,
+        "category": "DevOps & AI",
+        "tags": [
+            "Git",
+            "AI",
+            "ML",
+            "Python",
+            "Collaboration"
+        ],
+        "subTag": "Intermediate to Advanced",
+        "offer": "Limited time offer",
+        "type": "Hybrid",
+        "thumbnail": "/images/java_lang.webp",
+        "providesCertificate": true,
+        "gst": true,
+        "CourseLanguage": "English",
+        "schedule": "Bi-weekly live Q&A",
+        "batchStartDate": "2025-12-15T16:00:00Z",
+        "totalContentHours": "30 hours",
+        "totalLectures": "110",
+        "totalQuestions": "450",
+        "studentsEnrolled": 600,
+        "createdAt": "2025-06-18T14:00:00Z",
+        "CourseSyllabusSchema": {
+            "_id": "syllabus6",
+            "courseId": "course6",
+            "createdAt": "2025-06-18T14:00:00Z",
+            "updatedAt": "2025-10-16T14:00:00Z",
+            "Sections": [
+                {
+                    "_id": "sec15",
+                    "title": "Advanced Git & Collaboration",
+                    "topics": [
+                        {
+                            "_id": "topic45",
+                            "title": "Git Basics to Advanced",
+                            "subTopics": [
+                                {
+                                    "_id": "sub116",
+                                    "title": "Commits, Branches & Merges"
+                                },
+                                {
+                                    "_id": "sub117",
+                                    "title": "Rebasing & Cherry-Picking"
+                                }
+                            ]
+                        },
+                        {
+                            "_id": "topic46",
+                            "title": "Team Workflows",
+                            "subTopics": [
+                                {
+                                    "_id": "sub118",
+                                    "title": "PRs, Reviews & Conflicts"
+                                },
+                                {
+                                    "_id": "sub119",
+                                    "title": "Submodules & GitFlow"
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "_id": "sec16",
+                    "title": "AI & ML Fundamentals",
+                    "topics": [
+                        {
+                            "_id": "topic47",
+                            "title": "Intro to AI/ML",
+                            "subTopics": [
+                                {
+                                    "_id": "sub120",
+                                    "title": "ML Types & Python Basics (NumPy/Pandas)"
+                                },
+                                {
+                                    "_id": "sub121",
+                                    "title": "Neural Nets & Backpropagation"
+                                }
+                            ]
+                        },
+                        {
+                            "_id": "topic48",
+                            "title": "ML Essentials",
+                            "subTopics": [
+                                {
+                                    "_id": "sub122",
+                                    "title": "Scikit-Learn: Regression/Classification"
+                                },
+                                {
+                                    "_id": "sub123",
+                                    "title": "Evaluation & Feature Engineering"
+                                }
+                            ]
+                        },
+                        {
+                            "_id": "topic49",
+                            "title": "Deep Learning & Generative AI",
+                            "subTopics": [
+                                {
+                                    "_id": "sub124",
+                                    "title": "TensorFlow/PyTorch & CNNs"
+                                },
+                                {
+                                    "_id": "sub125",
+                                    "title": "GANs, LLMs & Prompt Engineering"
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "_id": "sec17",
+                    "title": "Integration & Projects",
+                    "topics": [
+                        {
+                            "_id": "topic50",
+                            "title": "AI in Web Dev",
+                            "subTopics": [
+                                {
+                                    "_id": "sub126",
+                                    "title": "API Calls (OpenAI) & AI Apps"
+                                }
+                            ]
+                        },
+                        {
+                            "_id": "topic51",
+                            "title": "Git for AI Projects",
+                            "subTopics": [
+                                {
+                                    "_id": "sub127",
+                                    "title": "Versioning Models & Code"
+                                },
+                                {
+                                    "_id": "sub128",
+                                    "title": "Collaborative ML Workflows"
+                                }
+                            ]
+                        },
+                        {
+                            "_id": "topic52",
+                            "title": "Capstone: AI-Enhanced App",
+                            "subTopics": [
+                                {
+                                    "_id": "sub129",
+                                    "title": "Build & Deploy with Git"
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        }
+    }
+]

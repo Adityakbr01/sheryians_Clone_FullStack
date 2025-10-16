@@ -1,53 +1,18 @@
-// app/admin/courses/[courseId]/_components/CourseTabs.tsx
 "use client";
 
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Course, Section } from "@/types/course";
 import { useState } from "react";
 import CourseDetailsEditor from "./CourseDetailTab/CourseDetailsEditor";
-import SyllabusEditorNestedFixed from "./SyllabusTab/SyllabusEditorNestedFixed";
-import api from "@/api/axios";
-import toast from "react-hot-toast";
 
 
 interface CourseTabsProps {
     course: Course;
-    syllabus: Section[]; // API structure
+    Sections: Section[]; // API structure
 }
 
-export default function CourseTabs({ course, syllabus }: CourseTabsProps) {
+export default function CourseTabs({ course }: CourseTabsProps) {
     const [selectedTab, setSelectedTab] = useState("details");
-    const [saving, setSaving] = useState(false);
-
-    // Real API save handler
-    const handleSaveSyllabus = async (updatedSyllabus: Section[]) => {
-        try {
-            setSaving(true);
-            console.log("Preparing to save syllabus:", updatedSyllabus);
-
-            if (!course || !course._id) {
-                throw new Error("Course ID is required to save syllabus");
-            }
-
-            // Create the payload that matches the backend expectation
-            const payload = {
-                courseId: course._id,
-                syllabus: updatedSyllabus
-            };
-
-            // Send to API
-            const response = await api.put(`/courses/syllabus/${course._id}`, payload);
-
-            console.log("Syllabus save response:", response.data);
-            toast.success("Syllabus updated successfully!");
-        } catch (error) {
-            console.error("Failed to save syllabus:", error);
-            toast.error("Failed to update syllabus. Please try again.");
-        } finally {
-            setSaving(false);
-        }
-    };
-
 
 
     return (
@@ -66,12 +31,7 @@ export default function CourseTabs({ course, syllabus }: CourseTabsProps) {
 
             <TabsContent value="syllabus" className="bg-transparent">
                 <div className="mt-5 p-4 rounded-lg">
-                    <SyllabusEditorNestedFixed
-                        syllabusData={syllabus}
-                        courseId={course._id}
-                        onSave={(updatedSyllabus) => handleSaveSyllabus(updatedSyllabus as Section[])}
-                        saving={saving}
-                    />
+                    Hello Sir
                 </div>
             </TabsContent>
 

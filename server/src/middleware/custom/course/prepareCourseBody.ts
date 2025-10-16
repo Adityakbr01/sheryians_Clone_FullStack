@@ -1,4 +1,5 @@
 import { cloudinaryService } from "@/services/cloudinary.service";
+import { createCourseSchema } from "@/validators/course";
 import { Request, Response, NextFunction } from "express";
 import fs from "fs";
 
@@ -42,7 +43,8 @@ export const prepareCourseBody = async (req: Request, res: Response, next: NextF
 
         // Assign back to req.body
         req.body = body;
-        console.log("Prepared course body:", req.body);
+        const parsed = createCourseSchema.parse(req.body);
+        req.body = parsed;
 
         next();
     } catch (err) {

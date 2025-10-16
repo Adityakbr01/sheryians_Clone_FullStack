@@ -1,4 +1,4 @@
-import { CourseLanguage, CourseType } from "@/types/models/courses/course";
+import { CourseLanguage, CourseStatus, CourseType } from "@/types/models/courses/course";
 import { z } from "zod";
 
 export const CourseLanguageEnum = z.enum([
@@ -11,6 +11,12 @@ export const CourseTypeEnum = z.enum([
     CourseType.LIVE,
     CourseType.RECORDED,
     CourseType.HYBRID,
+]);
+
+export const CourseStatusEnum = z.enum([
+    CourseStatus.UPCOMING,
+    CourseStatus.ONGOING,
+    CourseStatus.COMPLETED,
 ]);
 
 export const createCourseSchema = z.object({
@@ -53,6 +59,8 @@ export const createCourseSchema = z.object({
         .datetime({ offset: true })
         .optional()
         .nullable(),
+
+    CourseStatus: CourseStatusEnum.default(CourseStatus.UPCOMING),
 });
 
 export type CreateCourseInput = z.infer<typeof createCourseSchema>;

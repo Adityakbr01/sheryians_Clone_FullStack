@@ -34,7 +34,7 @@ function Section_2() {
 
       {/* Button */}
       <div className="button">
-        <Button className="bg-[var(--custom-primary)] text-black font-HelveticaNow px-6 py-3 md:px-8 md:py-4 rounded-md text-sm md:text-lg">
+        <Button className="bg-[var(--custom-primary)] hover:bg-[var(--custom-primary)] cursor-pointery text-black font-HelveticaNow px-6 py-3 md:px-8 md:py-4 rounded-md text-sm md:text-lg">
           Explore Free Learning
         </Button>
       </div>

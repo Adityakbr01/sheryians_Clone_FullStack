@@ -16,6 +16,12 @@ export enum CourseType {
     HYBRID = "Hybrid",
 }
 
+export enum CourseStatusEnum {
+    UPCOMING = "upcoming",
+    ONGOING = "ongoing",
+    COMPLETED = "completed",
+}
+
 export const CourseLanguageEnum = z.enum([
     CourseLanguage.ENGLISH,
     CourseLanguage.HINDI,
@@ -56,6 +62,7 @@ export const createCourseSchema = z.object({
     CourseLanguage: CourseLanguageEnum.default(CourseLanguage.HINGLISH),
     type: CourseTypeEnum.default(CourseType.LIVE),
     providesCertificate: z.boolean().default(true),
+    CourseStatus: z.nativeEnum(CourseStatusEnum).default(CourseStatusEnum.UPCOMING),
 
     totalContentHours: z.string().optional(),
     totalLectures: z.string().optional(),
@@ -79,7 +86,6 @@ export const categoryEnum = [
     "Productivity & Tools",        // Office tools, VSCode, Notion, etc.
     "Personal Development"         // Soft skills, AI for personal productivity
 ]
-
 
 export interface CreateCourseProps {
     isOpen: boolean;
@@ -124,7 +130,5 @@ export interface CreateCourseFormValues {
     batchTime?: string;
     instructor?: string;
     schedule?: string;
+    CourseStatus: CourseStatusEnum; // Changed from courseStatus to CourseStatus to match server model
 }
-
-// Use this type for consistency between Zod schema and TypeScript interface
-// export type CreateCourseFormValues = z.infer<typeof createCourseSchema>;

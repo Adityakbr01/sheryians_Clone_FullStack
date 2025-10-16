@@ -15,7 +15,6 @@ export const REDIS_KEY_PREFIXES = {
     SETTINGS: 'settings',
     ENQUIRY: 'enquiry',
     ENQUIRY_LIST: 'enquiries',
-    SYLLABUS: 'syllabus',
 };
 
 export const REDIS_TTL = {
@@ -56,9 +55,4 @@ export const authKeys = {
     userProfilePattern: () => `${REDIS_KEY_PREFIXES.USER_PROFILE}:*`,
 
     otpPattern: () => `${REDIS_KEY_PREFIXES.OTP}:*`,
-};
-
-export const syllabusKeys = {
-    detail: (courseId: string) => `${REDIS_KEY_PREFIXES.SYLLABUS}:${courseId}`,
-    pattern: () => `${REDIS_KEY_PREFIXES.SYLLABUS}:*`,
 };

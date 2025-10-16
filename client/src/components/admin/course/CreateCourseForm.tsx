@@ -5,7 +5,7 @@ import { Switch } from '@/components/ui/switch';
 import { Loader2 } from 'lucide-react';
 import Image from 'next/image';
 import { Controller } from 'react-hook-form';
-import { categoryEnum, CourseLanguage, CourseType, CreateCourseFormProps } from './course';
+import { categoryEnum, CourseLanguage, CourseStatusEnum, CourseType, CreateCourseFormProps } from './course';
 import { useState, useEffect } from 'react';
 
 
@@ -178,27 +178,63 @@ function CreateCourseForm({ onSubmit, handleSubmit, register, errors, control, h
                 <Controller
                     name="category"
                     control={control}
-                    render={({ field }) => (
-                        <Select
-                            {...field} // 👈 Spread for full RHF sync
-                            value={field.value || ""}
-                            onValueChange={field.onChange}
-                        >
-                            <SelectTrigger className="border-b py-[0.30rem] w-full rounded-sm border-none outline-none bg-[#1e1e1e] px-4 font-light text-[12px]">
-                                <SelectValue placeholder="Select a category" />
-                            </SelectTrigger>
+                    render={({ field }) => {
+                        return (
+                            <Select
+                                {...field} // 👈 Spread for full RHF sync
+                                value={field.value || ""}
+                                onValueChange={field.onChange}
+                            >
+                                <SelectTrigger className="border-b py-[0.30rem] w-full rounded-sm border-none outline-none bg-[#1e1e1e] px-4 font-light text-[12px]">
+                                    <SelectValue placeholder="Select a category" />
+                                </SelectTrigger>
 
-                            <SelectContent position="popper" className="z-[10000]">
-                                {categoryEnum.map((category, index) => (
-                                    <SelectItem key={index} value={category}> {/* 👈 Always use category as value */}
-                                        {category}
-                                    </SelectItem>
-                                ))}
-                            </SelectContent>
-                        </Select>
-                    )}
+                                <SelectContent position="popper" className="z-[10000]">
+                                    {categoryEnum.map((category, index) => (
+                                        <SelectItem key={index} value={category}> {/* 👈 Always use category as value */}
+                                            {category}
+                                        </SelectItem>
+                                    ))}
+                                </SelectContent>
+                            </Select>
+                        );
+                    }}
                 />
+                <Label
+                    htmlFor="CourseStatus"
+                    className="text-[#a6a6a6] text-[12px] font-HelveticaNow font-medium mt-4 block"
+                >
+                    Course Status
+                </Label>
+                <Controller
+                    name="CourseStatus"
+                    control={control}
+                    render={({ field }) => {
+                        // Ensure we always have a valid value, defaulting to UPCOMING if empty
+                        const currentValue = field.value || CourseStatusEnum.UPCOMING;
 
+                        return (
+                            <Select
+                                {...field}
+                                value={currentValue}
+                                onValueChange={field.onChange}
+                            >
+                                <SelectTrigger className="border-b py-[0.30rem] w-full rounded-sm border-none outline-none bg-[#1e1e1e] px-4 font-light text-[12px]">
+                                    <SelectValue placeholder="Select course status" />
+                                </SelectTrigger>
+
+                                <SelectContent position="popper" className="z-[10000]">
+                                    {Object.values(CourseStatusEnum).map((status, index) => (
+                                        <SelectItem key={index} value={status}>
+                                            {status.charAt(0).toUpperCase() + status.slice(1)}
+                                        </SelectItem>
+                                    ))}
+                                </SelectContent>
+                            </Select>
+                        );
+                    }}
+                />
+                {errors.CourseStatus && <p className="text-xs text-red-500">{errors.CourseStatus.message}</p>}
                 {errors.category && <p className="text-xs text-red-500">{errors.category.message}</p>}
             </div>
             <div className="space-y-1">
@@ -307,25 +343,30 @@ function CreateCourseForm({ onSubmit, handleSubmit, register, errors, control, h
                 <Controller
                     name="CourseLanguage"
                     control={control}
-                    render={({ field }) => (
-                        <Select
-                            {...field} // 👈 Spread for sync
-                            value={field.value}
-                            onValueChange={field.onChange}
-                        >
-                            <SelectTrigger className="border-b py-[0.30rem] w-full rounded-sm border-none outline-none bg-[#1e1e1e] px-4 font-light text-[12px]">
-                                <SelectValue placeholder="Select a Course Language" />
-                            </SelectTrigger>
+                    render={({ field }) => {
+                        // Ensure we always have a valid value
+                        const currentValue = field.value || CourseLanguage.HINGLISH;
 
-                            <SelectContent position="popper" className="z-[10000]">
-                                {Object.values(CourseLanguage).map((lang, index) => (
-                                    <SelectItem key={index} value={lang}>
-                                        {lang}
-                                    </SelectItem>
-                                ))}
-                            </SelectContent>
-                        </Select>
-                    )}
+                        return (
+                            <Select
+                                {...field} // 👈 Spread for sync
+                                value={currentValue}
+                                onValueChange={field.onChange}
+                            >
+                                <SelectTrigger className="border-b py-[0.30rem] w-full rounded-sm border-none outline-none bg-[#1e1e1e] px-4 font-light text-[12px]">
+                                    <SelectValue placeholder="Select a Course Language" />
+                                </SelectTrigger>
+
+                                <SelectContent position="popper" className="z-[10000]">
+                                    {Object.values(CourseLanguage).map((lang, index) => (
+                                        <SelectItem key={index} value={lang}>
+                                            {lang}
+                                        </SelectItem>
+                                    ))}
+                                </SelectContent>
+                            </Select>
+                        );
+                    }}
                 />
                 {errors.CourseLanguage && <p className="text-xs text-red-500">{errors.CourseLanguage.message}</p>}
             </div>
@@ -340,25 +381,30 @@ function CreateCourseForm({ onSubmit, handleSubmit, register, errors, control, h
                 <Controller
                     name="type"
                     control={control}
-                    render={({ field }) => (
-                        <Select
-                            {...field} // 👈 Spread for sync
-                            value={field.value}
-                            onValueChange={field.onChange}
-                        >
-                            <SelectTrigger className="border-b py-[0.30rem] w-full rounded-sm border-none outline-none bg-[#1e1e1e] px-4 font-light text-[12px]">
-                                <SelectValue placeholder="Select a Course Type" />
-                            </SelectTrigger>
+                    render={({ field }) => {
+                        // Ensure we always have a valid value
+                        const currentValue = field.value || CourseType.LIVE;
 
-                            <SelectContent position="popper" className="z-[10000]">
-                                {Object.values(CourseType).map((type, index) => (
-                                    <SelectItem key={index} value={type}> {/* 👈 Fixed: Always use type as value, no override */}
-                                        {type}
-                                    </SelectItem>
-                                ))}
-                            </SelectContent>
-                        </Select>
-                    )}
+                        return (
+                            <Select
+                                {...field} // 👈 Spread for sync
+                                value={currentValue}
+                                onValueChange={field.onChange}
+                            >
+                                <SelectTrigger className="border-b py-[0.30rem] w-full rounded-sm border-none outline-none bg-[#1e1e1e] px-4 font-light text-[12px]">
+                                    <SelectValue placeholder="Select a Course Type" />
+                                </SelectTrigger>
+
+                                <SelectContent position="popper" className="z-[10000]">
+                                    {Object.values(CourseType).map((type, index) => (
+                                        <SelectItem key={index} value={type}> {/* 👈 Fixed: Always use type as value, no override */}
+                                            {type}
+                                        </SelectItem>
+                                    ))}
+                                </SelectContent>
+                            </Select>
+                        );
+                    }}
                 />
                 {errors.type && <p className="text-xs text-red-500">{errors.type.message}</p>}
             </div>
