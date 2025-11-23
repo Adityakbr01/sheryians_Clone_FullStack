@@ -11,6 +11,7 @@ import "@/bull";
 
 async function startServer(): Promise<void> {
   try {
+    console.log("Server start on this Environment:", process.env.NODE_ENV);
     logger.info("🚀 Starting server...");
 
     // Connect to MongoDB
