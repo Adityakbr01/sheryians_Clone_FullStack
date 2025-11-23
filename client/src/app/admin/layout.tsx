@@ -9,7 +9,8 @@ function DashboardLayout({
     children: React.ReactNode
 }) {
     return (
-        <AuthGuard allowedRoles={['admin']}>
+        //Only For Development
+        <AuthGuard allowedRoles={['admin', 'student', 'instructor']}>
             <div className="flex min-h-screen font-NeuMachina p-4 w-full">
                 <DashboardWithSidebar />
                 <div className="flex-1">

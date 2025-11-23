@@ -9,7 +9,7 @@ const envSchema = z.object({
         .string()
         .transform((val) => parseInt(val, 10))
         .refine((val) => !isNaN(val), { message: "PORT must be a number" }),
-    MONGO_URI: z.string().min(1, "MONGO_URI is required"),
+    MONGO_URI_CLOUD: z.string().min(1, "MONGO_URI is required"),
     CLIENT_URL: z.string().url("CLIENT_URL must be a valid URL"),
     // Cloudinary
     CLOUDINARY_CLOUD_NAME: z.string().min(1, "CLOUDINARY_CLOUD_NAME is required"),
@@ -60,7 +60,7 @@ const HOST =
 const _config = {
     ENV: {
         PORT: parsedEnv.data.PORT,
-        MONGO_URI: parsedEnv.data.MONGO_URI,
+        MONGO_URI: parsedEnv.data.MONGO_URI_CLOUD,
         CLIENT_URL: parsedEnv.data.CLIENT_URL,
         // JWT 
         JWT_REFRESH_TOKEN_SECRET: parsedEnv.data.JWT_REFRESH_TOKEN_SECRET,
