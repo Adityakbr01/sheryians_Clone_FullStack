@@ -1,21 +1,20 @@
+import { CookieOptions } from "express";
 import _config from ".";
 
 const isProduction = process.env.NODE_ENV === "production";
 
-// Access Token Cookie Config
-export const accessTokenCookieOptions = {
+export const accessTokenCookieOptions: CookieOptions = {
     httpOnly: true,
     secure: isProduction,
-    sameSite: "strict" as const,
-    maxAge: Number(_config.ENV.ACCESS_Token_Expiry) * 1000, // 15 minutes
-    path: "/", // ensure it’s available on all routes
+    sameSite: isProduction ? "none" : "lax",
+    maxAge: Number(_config.ENV.ACCESS_Token_Expiry) * 1000,
+    path: "/",
 };
 
-// Refresh Token Cookie Config
-export const refreshTokenCookieOptions = {
+export const refreshTokenCookieOptions: CookieOptions = {
     httpOnly: true,
     secure: isProduction,
-    sameSite: "strict" as const,
-    maxAge: Number(_config.ENV.REFRESH_Token_Expiry) * 1000, // 7 days
+    sameSite: isProduction ? "none" : "lax",
+    maxAge: Number(_config.ENV.REFRESH_Token_Expiry) * 1000,
     path: "/",
 };

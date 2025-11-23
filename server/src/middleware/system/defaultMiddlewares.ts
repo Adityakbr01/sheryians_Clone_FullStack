@@ -23,11 +23,25 @@ export const requestLogger = expressWinston.logger({
 // Security & Parsing Middlewares
 // ----------------------
 export const defaultMiddlewares = (app: express.Application) => {
+  const allowedOrigins = [
+    process.env.CLIENT_URL,
+    "http://localhost:3000",     // dev
+  ].filter(Boolean);
+
+  app.set("trust proxy", 1); // ⭐ REQUIRED for Render/Vercel (enables secure cookies)
+
   // Security headers
   app.use(helmet());
 
-  // Enable CORS
-  app.use(cors({ origin: process.env.CLIENT_URL, credentials: true }));
+  // ⭐ CORS FIX (production safe)
+  app.use(
+    cors({
+      origin: allowedOrigins[0] || "*",
+      credentials: true,
+      methods: ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],
+      allowedHeaders: ["Content-Type", "Authorization"],
+    })
+  );
 
   // Body parsing
   app.use(express.json());
