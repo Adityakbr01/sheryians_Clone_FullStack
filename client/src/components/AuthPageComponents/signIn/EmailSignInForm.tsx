@@ -17,8 +17,8 @@ const emailSchema = z.object({
 
 function EmailSignInForm() {
   const [showPassword, setShowPassword] = useState(false)
-  const [email, setEmail] = useState("")
-  const [password, setPassword] = useState("")
+  const [email, setEmail] = useState("adityasdevdojo@gmail.com")
+  const [password, setPassword] = useState("adityasdevdojo@gmail.com")
   const [rememberMe, setRememberMe] = useState(false)
   const [errors, setErrors] = useState<{ email?: string; password?: string }>({})
   const [loading, setLoading] = useState(false)
